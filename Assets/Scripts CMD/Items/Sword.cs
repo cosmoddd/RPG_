@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour, IWeapon {
 
+
+    private Animator animator;
+
     public List<BaseStat> Stats { get; set; }
     
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void PerformAttack()
     {
-        Debug.Log("strike, cut!");
+        animator.SetTrigger("Base_Attack");
+    }
+
+    public void PerformSpecialAttack()
+    {
+
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        Debug.Log("You hit an " + col.name);
     }
 }
