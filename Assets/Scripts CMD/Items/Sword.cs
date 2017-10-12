@@ -26,6 +26,9 @@ public class Sword : MonoBehaviour, IWeapon {
 
     public void OnTriggerEnter(Collider col)
     {
-        Debug.Log("You hit an " + col.name);
+        if (col.tag == "Enemy")
+        {
+            col.GetComponent<IEnemy>().TakeDamage(Stats[0].GetCalculatedStatValue());
+        }
     }
 }
