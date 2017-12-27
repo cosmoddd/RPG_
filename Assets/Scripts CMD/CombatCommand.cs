@@ -5,32 +5,41 @@ using UnityEngine;
 public class CombatCommand : MonoBehaviour {
 
 
-	public string commandString;
+	string commandString;
 	public int slots;
 	public CombatTimer timer;
 
-	void Start()
+	public virtual void Start()
 	{
 	
 	}
 
-	void AddToList()
+	public void AddToList()
 	{
-		for (int i = 0; i < slots; i++)
+		int i = NullString();
+		int j = i+slots;
+		for (i =NullString(); i < j; i++)
 		{
-			
+			if (i < (timer.CommandList.Count) && (i > -1))
+			{
+			timer.CommandList[i] = this.ToString();
+			}
 		}
 	}
 
-	void Update()
+
+	public virtual void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.A) && (NullString()!=-1))
         {
 			AddToList();
         }
 
 	}
 
-
+	int NullString()
+	{
+		return timer.CommandList.IndexOf("");
+	}
 
 }
