@@ -6,36 +6,37 @@ public class CombatCommandMove : CombatCommand {
 
 	NavPointCreator nav;
 	public bool moving;
-	public List<Vector3> navPoints;	
+	public List<Vector3> navPoint;	
+
 
 	public override void Start()
 	{
+
 		nav = (NavPointCreator)gameObject.AddComponent<NavPointCreator>();
 		nav.DistanceSet += RoundDistance; 
 	}
 
 
 	
-public void	MoveToWaypoint(){}
-	/*
+ IEnumerator MoveToWaypoint(){
 
-		move to next waypoint
-		when reached, get next waypoint
-		keep moving until last waypoint reached
-
-		animate figure while doing it
-
-//  when not moving, stop and save position
+	 	Transform parent;
+		parent = this.transform.parent; 
+		print("Moving to waypoint");
+			parent.position =  Vector3.MoveTowards(parent.position, navPoint[0], (3* Time.deltaTime));
+			yield return new WaitForSeconds(3);
+}
 
 
 
-	*/
+
 
 	public override void Update()
 	{
 			if (Input.GetMouseButtonDown(0))// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
 			{
 				nav.SetNav();
+				navPoint.Add(nav.point1);
 				return;
 			}	
 
@@ -44,12 +45,16 @@ public void	MoveToWaypoint(){}
 				//get current position
 				MoveToWaypoint();
 			}
+
+			if (Input.GetKeyDown(KeyCode.G))
+			{
+				StartCoroutine("MoveToWaypoint");
+			}
 	}
 
 	void RoundDistance(float d, Vector3 p)
 	{
 		slots = Mathf.RoundToInt(d);
-		navPoints.Add(p);
 		print("Distance Rounded= " + slots);	
 		AddToList();
 		return;

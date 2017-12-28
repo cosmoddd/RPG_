@@ -8,7 +8,7 @@ public class NavPointCreator : MonoBehaviour {
 	public event GetDistance DistanceSet;
 
 	float pointDistance;
-	Vector3 point1, point2;
+	public Vector3 point1, point2;
 	bool startingPoint;
 
 	// Use this for initialization

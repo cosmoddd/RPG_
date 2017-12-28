@@ -189,8 +189,9 @@ GameObject:
   - component: {fileID: 928113594}
   - component: {fileID: 928113593}
   - component: {fileID: 928113592}
+  - component: {fileID: 928113596}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Commandant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,6 +263,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &928113596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 928113591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommandList: []
+  thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
+    type: 2}
+  isPaused: 0
+  timerRunning: 0
+  listLength: 10
 --- !u!1 &1540151629
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1540151630
 Transform:
   m_ObjectHideFlags: 0
@@ -316,6 +334,8 @@ MonoBehaviour:
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0
+  timerRunning: 0
+  listLength: 10
 --- !u!1 &1818889056
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  point1: {x: 0, y: 0, z: 0}
+  point2: {x: 0, y: 0, z: 0}
 --- !u!1 &2054680949
 GameObject:
   m_ObjectHideFlags: 0

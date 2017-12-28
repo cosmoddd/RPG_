@@ -11,10 +11,14 @@ public class CombatTimer : MonoBehaviour
     public GameObject thisCommand;
     public bool isPaused = false;
     public bool timerRunning = false;
+    public int listLength = 10;
     // Use this for initialization
     void Start()
     {
-
+        for (int i = 0; i < listLength; i++)
+            {        
+                CommandList.Add(null);
+            }
     }
 
     // Update is called once per frame
