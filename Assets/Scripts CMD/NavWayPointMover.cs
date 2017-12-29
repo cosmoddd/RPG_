@@ -13,8 +13,7 @@ public class NavWayPointMover : MonoBehaviour {
 
         for (int i = 0; i < navPoint.Count; i++)
         {
-            Vector3 targetPosition = new Vector3(navPoint[i].x,gameObject.transform.parent.position.y,navPoint[i].z);  // this could be different depending on if we have a target selected
-
+            Vector3 targetPosition = new Vector3(navPoint[i].x,gameObject.transform.parent.position.y,navPoint[i].z);
             Vector3 _direction = (targetPosition - gameObject.transform.parent.position).normalized; //find the vector pointing from our position to the target    
             Quaternion _lookRotation = Quaternion.LookRotation(_direction);  //create the rotation we need to be in to look at the target
 
@@ -39,6 +38,7 @@ public class NavWayPointMover : MonoBehaviour {
                 {
                     yield return null;
                 }
+
                 yield return null;
             }
             yield return null;
