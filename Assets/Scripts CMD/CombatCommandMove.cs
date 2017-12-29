@@ -8,44 +8,13 @@ public class CombatCommandMove : CombatCommand
     NavPointCreator nav;
     public List<Vector3> navPoint;
 
-    public bool isPaused = false;
-    public bool moving = false;
+/*     public bool isPaused = false;
+    public bool moving = false; */
 
     public override void Start()
     {
         nav = (NavPointCreator)gameObject.AddComponent<NavPointCreator>();
         nav.DistanceSet += RoundDistance;
-    }
-
-    IEnumerator MoveToWaypoint()
-    {
-        for (int i = 0; i < navPoint.Count; i++)
-        {
-            Vector3 targetPosition = new Vector3(
-                                        navPoint[i].x,
-                                        gameObject.transform.parent.position.y,
-                                        navPoint[i].z
-                                        );
-            while ((gameObject.transform.parent.position != targetPosition))
-            {
-                moving = true;
-                gameObject.transform.parent.position = Vector3.MoveTowards(gameObject.transform.parent.position,
-                                                                            targetPosition,
-                                                                            (5 * Time.deltaTime));
-
-                while (isPaused)
-                {
-                    moving = false;
-                    yield return null;
-                }
-
-                yield return null;
-            }
-            yield return null;
-        }
-
-        moving = false;
-        print("done moving");
     }
 
     public override void Update()
@@ -57,14 +26,9 @@ public class CombatCommandMove : CombatCommand
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && (isPaused == false) && (moving == false))
+        if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWayPointMover>() == null)) // check if it's not already attached
         {
-            StartCoroutine("MoveToWaypoint");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            isPaused = !isPaused;
+                WayPointMover(navPoint);  // move the parent along the waypoints
         }
     }
 
@@ -79,6 +43,13 @@ public class CombatCommandMove : CombatCommand
     public void UnSubscribe()
     {
         nav.DistanceSet -= RoundDistance;
+    }
+
+    void WayPointMover(List<Vector3> navPoint)
+    {
+			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();
+            n.navPoint = navPoint;
+            n.StartCoroutine("MoveToWaypoint");
     }
 
 }
