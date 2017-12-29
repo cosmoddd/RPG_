@@ -8,7 +8,7 @@ public class NavPointCreator : MonoBehaviour {
 	public event GetDistance DistanceSet;
 
 	float pointDistance;
-	Vector3 point1, point2;
+	public Vector3 point1, point2;
 	bool startingPoint;
 
 	// Use this for initialization
@@ -28,17 +28,13 @@ public class NavPointCreator : MonoBehaviour {
 			if (startingPoint == true)
 			{
 				point1 = interactionInfo.point;
-				print("Point 1 = " + point1);	
 				startingPoint = false;
 				return;
 			}
 			if (startingPoint == false) 
 			{
-				print ("Point 1 = "+ point1);
 				point2 = interactionInfo.point;
-				print("Point 2 = " + point2);
 				pointDistance = Vector3.Distance(point1, point2);
-				print("Distance = " + pointDistance);
 				DistanceSet(pointDistance, point2);  // event for calling distance and setting it
 				point1 = point2;
 				return;
