@@ -6,7 +6,11 @@ using UnityEngine;
 public class CombatCommandMove : CombatCommand
 {
     NavPointCreator nav;
+
+    // NavLineVisualizer lineViz;
+
     public List<Vector3> navPoint;
+    public List<GameObject> navPointObject;
 
 /*     public bool isPaused = false;
     public bool moving = false; */
