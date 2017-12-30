@@ -7,17 +7,13 @@ public class CombatCommandMove : CombatCommand
 {
     NavPointCreator nav;
 
-    // NavLineVisualizer lineViz;
-
     public List<Vector3> navPoint;
     public List<GameObject> navPointObject;
 
-/*     public bool isPaused = false;
-    public bool moving = false; */
-
     public override void Start()
     {
-        nav = (NavPointCreator)gameObject.AddComponent<NavPointCreator>();
+        transform.localPosition = new Vector3(0,0,0);
+        nav = (NavPointCreator)gameObject.GetComponent<NavPointCreator>();
         nav.DistanceSet += RoundDistance;
     }
 
@@ -52,8 +48,10 @@ public class CombatCommandMove : CombatCommand
     void WayPointMover(List<Vector3> navPoint)
     {
 			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();
-            n.navPoint = navPoint;
+            n.navPoint = navPoint;     
             n.StartCoroutine("MoveToWaypoint");
+
+            nav.NavPointsDestroy();  
     }
 
 }

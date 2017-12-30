@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PathRenderer : MonoBehaviour {
+public class NavWayPathRenderer : MonoBehaviour {
 
 
 // need to merge path / line renderer with navigation thing.
@@ -32,7 +32,7 @@ public void Start(){
 
 //    getPath();
 }
-
+/* 
 void Update(){
 
 
@@ -79,6 +79,6 @@ void DrawPath(NavMeshPath path){
             i++;
         }
         return lengthSoFar;
-    }
+    } */
 
 }

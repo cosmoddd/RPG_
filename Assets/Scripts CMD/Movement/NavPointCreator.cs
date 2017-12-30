@@ -7,11 +7,13 @@ public class NavPointCreator : MonoBehaviour {
 	public delegate void GetDistance(float d, Vector3 p);
 	public event GetDistance DistanceSet;
 
+	public GameObject NavPoint;
+	public List<GameObject> NavPointPool;
+
 	float pointDistance;
 	public Vector3 point1, point2;
 	bool startingPoint;
 
-	// Use this for initialization
 	void Start () {
 		
 		startingPoint = true;
@@ -29,6 +31,7 @@ public class NavPointCreator : MonoBehaviour {
 			{
 				point1 = interactionInfo.point;
 				startingPoint = false;
+				NavPointPlace(interactionInfo.point);
 				return;
 			}
 			if (startingPoint == false) 
@@ -37,10 +40,40 @@ public class NavPointCreator : MonoBehaviour {
 				pointDistance = Vector3.Distance(point1, point2);
 				DistanceSet(pointDistance, point2);  // event for calling distance and setting it
 				point1 = point2;
+				NavPointPlace(interactionInfo.point);
 				return;
 			}
 
 		}
+
+	
+	public void NavPointPlace(Vector3 point)
+	{
+
+		GameObject o = Object.Instantiate(NavPoint, new Vector3(point.x, (point.y+1), point.z), Quaternion.identity);
+
+		NavWayPathRenderer navRender = o.GetComponent<NavWayPathRenderer>();
+
+		if (NavPointPool.Count != 0)
+		{
+			navRender.target = NavPointPool[(NavPointPool.Count-1)].transform;  		// tell object to point to last waypoint
+		}
+
+		NavPointPool.Add(o);
+
+		return;
+	}
+
+	public void NavPointsDestroy()
+	{
+		for (int i = 0; i < NavPointPool.Count; i++)
+		{
+			GameObject.Destroy(NavPointPool[i]);
+		}
+		NavPointPool.Clear();
+	}
+	
+
 
 }
 

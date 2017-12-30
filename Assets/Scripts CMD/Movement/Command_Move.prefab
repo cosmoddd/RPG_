@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4794790919112098}
   - component: {fileID: 114659425257439532}
+  - component: {fileID: 114544442410104308}
   m_Layer: 0
   m_Name: Command_Move
   m_TagString: Untagged
@@ -40,6 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114544442410104308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavPoint: {fileID: 1213992271057444, guid: 9f41913030d64d54687b8e15ae765e11, type: 2}
+  NavPointPool: []
+  point1: {x: 0, y: 0, z: 0}
+  point2: {x: 0, y: 0, z: 0}
 --- !u!114 &114659425257439532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bc1333aa7b01942a2e59e3aa714e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandString: Move
   slots: 0
   timer: {fileID: 0}
-  nav: {fileID: 0}
+  navPoint: []
+  navPointObject: []

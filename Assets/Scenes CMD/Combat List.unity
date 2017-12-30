@@ -360,7 +360,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928113591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.28, y: 2.4, z: -40.31}
+  m_LocalPosition: {x: 6.5, y: 2.4, z: -46.01}
   m_LocalScale: {x: 1, y: 2.9076364, z: 1}
   m_Children:
   - {fileID: 1580317695}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928113591}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
   m_Name: 
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928113591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d4ef9c57d48214d8fb2a13aad056a6, type: 3}
   m_Name: 
@@ -824,6 +824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NavPoint: {fileID: 0}
+  NavPointPool: []
   point1: {x: 0, y: 0, z: 0}
   point2: {x: 0, y: 0, z: 0}
 --- !u!1 &2054680949
