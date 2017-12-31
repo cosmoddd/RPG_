@@ -4,30 +4,34 @@ using UnityEngine;
 
 public class CombatCommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
-    NavPointCreator nav;
 
+    public delegate void CombatCommandMoveDelegate ();
+    public static event CombatCommandMoveDelegate MovingEvent;
+
+    NavPointCreator navPointCreator;
     public List<Vector3> navPoint;
     public List<GameObject> navPointObject;
 
     public override void Start()
     {
         transform.localPosition = new Vector3(0,0,0);
-        nav = (NavPointCreator)gameObject.GetComponent<NavPointCreator>();
-        nav.DistanceSet += RoundDistance;
+        navPointCreator = (NavPointCreator)gameObject.GetComponent<NavPointCreator>();
+        navPointCreator.DistanceSet += RoundDistance;
     }
 
     public override void Update()
     {
         if (Input.GetMouseButtonDown(0))// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
-            nav.SetNav();
-            navPoint.Add(nav.point1);
+            navPointCreator.SetNav();
+            navPoint.Add(navPointCreator.point1);
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWayPointMover>() == null)) // check if it's not already attached
         {
-                WayPointMover(navPoint);  // move the parent along the waypoints
+                MovingEvent();
+        //        WayPointMover(navPoint);  // move the parent along the waypoints
         }
     }
 
@@ -41,16 +45,16 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
 
     public void UnSubscribe()
     {
-        nav.DistanceSet -= RoundDistance;
+        navPointCreator.DistanceSet -= RoundDistance;
     }
 
     void WayPointMover(List<Vector3> navPoint)
     {
+/* 
 			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();
             n.navPoint = navPoint;
             n.StartCoroutine("MoveToWaypoint");
-
-            nav.NavPointsDestroy();  
+ */
     }
 
 }

@@ -18,6 +18,7 @@ public class NavPointCreator : MonoBehaviour {
 		
 		startingPoint = true;
 
+
 	}
 	
 
@@ -52,7 +53,7 @@ public class NavPointCreator : MonoBehaviour {
 
 		GameObject o = Object.Instantiate(NavPoint, new Vector3(point.x, (point.y+1), point.z), Quaternion.identity);
 
-		NavWayPointRenderer navRender = o.GetComponent<NavWayPointRenderer>();
+		NavWaypointRenderer navRender = o.GetComponent<NavWaypointRenderer>();
 
 		if (NavPointPool.Count != 0)
 		{
@@ -64,13 +65,12 @@ public class NavPointCreator : MonoBehaviour {
 		return;
 	}
 
-	public void NavPointsDestroy()
+	void NavPointsDestroy()
 	{
 		for (int i = 0; i < NavPointPool.Count; i++)
 		{
 			GameObject.Destroy(NavPointPool[i]);
 		}
-		NavPointPool.Clear();
 	}
 	
 
