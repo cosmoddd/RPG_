@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 257204988}
   - component: {fileID: 257204992}
   m_Layer: 0
-  m_Name: Cube Target
+  m_Name: Enemy Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +257,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 257204987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.59, y: -0.2, z: -9.13}
+  m_LocalPosition: {x: -9.2, y: -0.2, z: -10.1}
   m_LocalScale: {x: 3.7617369, y: 7.626681, z: 3.7617364}
   m_Children: []
   m_Father: {fileID: 0}
@@ -376,7 +376,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommandList: []
+  CommandList:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0
@@ -720,8 +735,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NavPoint: {fileID: 0}
-  NavPointPool: []
+  navPointPrefab: {fileID: 0}
+  navPointObjects: []
+  navPoints: []
   point1: {x: 0, y: 0, z: 0}
   point2: {x: 0, y: 0, z: 0}
 --- !u!1 &2054680949

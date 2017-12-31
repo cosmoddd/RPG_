@@ -6,54 +6,38 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
 {
 
     public delegate void CombatCommandMoveDelegate ();
-    public static event CombatCommandMoveDelegate MovingEvent;
+    public event CombatCommandMoveDelegate Clicked;
+    public static event CombatCommandMoveDelegate Move;
 
-
-    NavPointCreator navPointCreator;
-    public List<Vector3> navPoint;
     public List<GameObject> navPointObject;
+
+    //NavWaypointCreator navWaypointCreator;
 
     public override void Start()
     {
         transform.localPosition = new Vector3(0,0,0);
-        navPointCreator = (NavPointCreator)gameObject.GetComponent<NavPointCreator>();
-        navPointCreator.DistanceSet += RoundDistance;
     }
 
     public override void Update()
     {
         if (Input.GetMouseButtonDown(0))// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
-            navPointCreator.SetNav();
-            navPoint.Add(navPointCreator.point1);
+           Clicked();
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWayPointMover>() == null)) // check if it's not already attached
+        if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
         {
-           WayPointMove(navPoint);  // move the parent along the waypoints
+           this.gameObject.AddComponent<NavWaypointMover>();
+           Move();  // execute the move event
         }
     }
 
-    void RoundDistance(float d, Vector3 p)
-    {
-        slots = Mathf.RoundToInt(d);
-        print("Distance Rounded= " + slots);
-        AddToList();
-        return;
-    }
 
     public void UnSubscribe()
     {
-        navPointCreator.DistanceSet -= RoundDistance;
+    //    navWaypointCreator.DistanceSet -= RoundDistance;
     }
 
-    void WayPointMove(List<Vector3> navPoint)
-    {
-            MovingEvent();
-			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();          
-            n.navPoint = navPoint;
-            n.StartCoroutine("MoveToWaypoint"); 
-    }
 
 }

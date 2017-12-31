@@ -14,16 +14,14 @@ public float lengthSoFar;
 public Vector3[] pathway;
 
 public float lineOffset = 1;
-float lineOffsetInit;
 
 public void Start(){
 
-    CombatCommandMove.MovingEvent += DisableNavMesh;
+    CombatCommandMove.Move += DisableNavMesh;
 
     line = GetComponent<LineRenderer>(); //get the line renderer
     agent = GetComponent<NavMeshAgent>(); //get the agent
 	line.useWorldSpace = true;
-	lineOffsetInit = lineOffset;
     agent.isStopped = true;//add this if you don't want to move the agent
     StartCoroutine ("DrawPath");
 }
@@ -46,11 +44,12 @@ IEnumerator DrawPath()
 
 void DestroySelf()
 {
-      CombatCommandMove.MovingEvent -= DisableNavMesh;
+      CombatCommandMove.Move -= DisableNavMesh;
 }
 
 void DisableNavMesh()
 {
+    CombatCommandMove.Move -= DisableNavMesh;
     agent.enabled = false;
 }
 

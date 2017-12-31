@@ -4,21 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWayPointMover : MonoBehaviour {
+public class NavWaypointMover : MonoBehaviour {
 
     public delegate void NavWayDelegate ();
     public static event NavWayDelegate MoveComplete;
 
-    public List<Vector3> navPoint;
+
+    public List<Vector3> navPointz;
     public bool isPaused = false;
+
+    CombatCommandMove combatCommandMove;
+    NavWaypointCreator navWaypointCreator;
+    
     public NavMeshAgent daAgent;
 
-    void Start()
+    public void OnEnable()
     {
-
-
-
-
+        combatCommandMove = GetComponent<CombatCommandMove>();
+        navWaypointCreator = GetComponent<NavWaypointCreator>();
+        daAgent = GetComponentInParent<NavMeshAgent>();
+        CombatCommandMove.Move += Initialize;
+        navPointz = navWaypointCreator.navPoints;
+        print("Mover init");
     }
 
     void Initialize()
@@ -28,10 +35,10 @@ public class NavWayPointMover : MonoBehaviour {
 
     IEnumerator MoveToWaypoint()
     {
-        daAgent = GetComponentInParent<NavMeshAgent>();
-        for (int i = 0; i < navPoint.Count; i++)
+
+        for (int i = 0; i < navPointz.Count; i++)
         {
-            Vector3 destination = new Vector3(navPoint[i].x,gameObject.transform.parent.position.y,navPoint[i].z);
+            Vector3 destination = new Vector3(navPointz[i].x,gameObject.transform.parent.position.y,navPointz[i].z);
             print("go");
             while ((gameObject.transform.parent.position != destination))
             {
@@ -54,6 +61,11 @@ public class NavWayPointMover : MonoBehaviour {
         {
                 isPaused = !isPaused;        
         }
+    }
+
+    void OnDisable()
+    {
+        CombatCommandMove.Move -= Initialize;
     }
 
 
