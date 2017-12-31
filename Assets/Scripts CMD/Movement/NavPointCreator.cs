@@ -52,7 +52,7 @@ public class NavPointCreator : MonoBehaviour {
 
 		GameObject o = Object.Instantiate(NavPoint, new Vector3(point.x, (point.y+1), point.z), Quaternion.identity);
 
-		NavWayPathRenderer navRender = o.GetComponent<NavWayPathRenderer>();
+		NavWayPointRenderer navRender = o.GetComponent<NavWayPointRenderer>();
 
 		if (NavPointPool.Count != 0)
 		{

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class CombatCommandMove : CombatCommand
+public class CombatCommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
     NavPointCreator nav;
 
@@ -48,7 +47,7 @@ public class CombatCommandMove : CombatCommand
     void WayPointMover(List<Vector3> navPoint)
     {
 			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();
-            n.navPoint = navPoint;     
+            n.navPoint = navPoint;
             n.StartCoroutine("MoveToWaypoint");
 
             nav.NavPointsDestroy();  
