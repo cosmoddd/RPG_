@@ -6,14 +6,19 @@ using UnityEngine.AI;
 
 public class NavWayPointMover : MonoBehaviour {
 
+    public delegate void NavWayDelegate ();
+    public static event NavWayDelegate MoveComplete;
+
     public List<Vector3> navPoint;
     public bool isPaused = false;
-    
     public NavMeshAgent daAgent;
 
     void Start()
     {
-        CombatCommandMove.MovingEvent += Initialize;
+
+
+
+
     }
 
     void Initialize()
@@ -27,9 +32,6 @@ public class NavWayPointMover : MonoBehaviour {
         for (int i = 0; i < navPoint.Count; i++)
         {
             Vector3 destination = new Vector3(navPoint[i].x,gameObject.transform.parent.position.y,navPoint[i].z);
-        //    Vector3 _direction = (targetPosition - gameObject.transform.parent.position).normalized; //find the vector pointing from our position to the target    
-        //    Quaternion _lookRotation = Quaternion.LookRotation(_direction);  //create the rotation we need to be in to look at the target
-
             print("go");
             while ((gameObject.transform.parent.position != destination))
             {
@@ -39,9 +41,11 @@ public class NavWayPointMover : MonoBehaviour {
             yield return null;
         }
         print("done moving");
+        MoveComplete();
         yield return null;
+
         Destroy(this);
-		//delete script
+
     }
 	
     void Update()

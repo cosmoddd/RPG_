@@ -8,6 +8,7 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
     public delegate void CombatCommandMoveDelegate ();
     public static event CombatCommandMoveDelegate MovingEvent;
 
+
     NavPointCreator navPointCreator;
     public List<Vector3> navPoint;
     public List<GameObject> navPointObject;
@@ -30,8 +31,7 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
 
         if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWayPointMover>() == null)) // check if it's not already attached
         {
-                MovingEvent();
-        //        WayPointMover(navPoint);  // move the parent along the waypoints
+           WayPointMove(navPoint);  // move the parent along the waypoints
         }
     }
 
@@ -48,13 +48,12 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
         navPointCreator.DistanceSet -= RoundDistance;
     }
 
-    void WayPointMover(List<Vector3> navPoint)
+    void WayPointMove(List<Vector3> navPoint)
     {
-/* 
-			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();
+            MovingEvent();
+			NavWayPointMover n = this.gameObject.AddComponent<NavWayPointMover>();          
             n.navPoint = navPoint;
-            n.StartCoroutine("MoveToWaypoint");
- */
+            n.StartCoroutine("MoveToWaypoint"); 
     }
 
 }

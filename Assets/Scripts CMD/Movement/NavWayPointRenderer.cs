@@ -18,6 +18,8 @@ float lineOffsetInit;
 
 public void Start(){
 
+    CombatCommandMove.MovingEvent += DisableNavMesh;
+
     line = GetComponent<LineRenderer>(); //get the line renderer
     agent = GetComponent<NavMeshAgent>(); //get the agent
 	line.useWorldSpace = true;
@@ -41,5 +43,16 @@ IEnumerator DrawPath()
     }
     yield return null;
 }
+
+void DestroySelf()
+{
+      CombatCommandMove.MovingEvent -= DisableNavMesh;
+}
+
+void DisableNavMesh()
+{
+    agent.enabled = false;
+}
+
 
 }

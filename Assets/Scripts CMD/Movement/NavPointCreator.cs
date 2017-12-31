@@ -17,10 +17,9 @@ public class NavPointCreator : MonoBehaviour {
 	void Start () {
 		
 		startingPoint = true;
-
+		NavWayPointMover.MoveComplete += NavPointsDestroy;
 
 	}
-	
 
 	public void SetNav()
 		{	
@@ -71,6 +70,7 @@ public class NavPointCreator : MonoBehaviour {
 		{
 			GameObject.Destroy(NavPointPool[i]);
 		}
+		NavPointPool.Clear();
 	}
 	
 
