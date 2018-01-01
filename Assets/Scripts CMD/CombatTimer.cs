@@ -47,6 +47,24 @@ public class CombatTimer : MonoBehaviour
             isPaused = !isPaused;
         }
         
+
+    }
+
+    void OnMouseDown()
+    {       
+        Invoke("SpawnMoveCommand", .01f);
+ }
+
+    void SpawnMoveCommand()
+    {
+            GameObject m;
+            if (this.GetComponentInChildren<CombatCommandMove>()==null)
+            {           
+                m = Instantiate(thisCommand, this.transform);
+                m.GetComponent<CombatCommandMove>().timer = this;
+            }
+            else{ print ("already attached!");}
+            return;
     }
 
     IEnumerator TimerExecute()

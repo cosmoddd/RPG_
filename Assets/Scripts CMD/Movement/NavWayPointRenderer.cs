@@ -19,6 +19,8 @@ public void Start(){
 
     CombatCommandMove.Move += DisableNavMesh;
 
+    NavWaypointMover.MoveComplete += DestroySelf;
+
     line = GetComponent<LineRenderer>(); //get the line renderer
     agent = GetComponent<NavMeshAgent>(); //get the agent
 	line.useWorldSpace = true;
@@ -42,16 +44,16 @@ IEnumerator DrawPath()
     yield return null;
 }
 
-void DestroySelf()
-{
-      CombatCommandMove.Move -= DisableNavMesh;
-}
-
 void DisableNavMesh()
 {
     CombatCommandMove.Move -= DisableNavMesh;
     agent.enabled = false;
 }
 
-
+void DestroySelf()
+{
+      NavWaypointMover.MoveComplete -= DestroySelf;
+      CombatCommandMove.Move -= DisableNavMesh;
+      Destroy(gameObject);
+}
 }

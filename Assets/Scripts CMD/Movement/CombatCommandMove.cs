@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class CombatCommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
-
     public delegate void CombatCommandMoveDelegate ();
     public event CombatCommandMoveDelegate Clicked;
     public static event CombatCommandMoveDelegate Move;
 
     public List<GameObject> navPointObject;
-
-    //NavWaypointCreator navWaypointCreator;
 
     public override void Start()
     {
@@ -32,12 +29,4 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
            Move();  // execute the move event
         }
     }
-
-
-    public void UnSubscribe()
-    {
-    //    navWaypointCreator.DistanceSet -= RoundDistance;
-    }
-
-
 }

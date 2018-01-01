@@ -14,17 +14,17 @@ public class NavWaypointMover : MonoBehaviour {
     public bool isPaused = false;
 
     CombatCommandMove combatCommandMove;
-    NavWaypointCreator navWaypointCreator;
+    NavWaypointChooser navWaypointChooser;
     
     public NavMeshAgent daAgent;
 
     public void OnEnable()
     {
         combatCommandMove = GetComponent<CombatCommandMove>();
-        navWaypointCreator = GetComponent<NavWaypointCreator>();
+        navWaypointChooser = GetComponent<NavWaypointChooser>();
         daAgent = GetComponentInParent<NavMeshAgent>();
         CombatCommandMove.Move += Initialize;
-        navPointz = navWaypointCreator.navPoints;
+        navPointz = navWaypointChooser.navPoints;
         print("Mover init");
     }
 

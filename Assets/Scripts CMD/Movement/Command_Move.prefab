@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4794790919112098}
   - component: {fileID: 114659425257439532}
   - component: {fileID: 114356564805011282}
+  - component: {fileID: 114429532274339306}
   m_Layer: 0
   m_Name: Command_Move
   m_TagString: Untagged
@@ -52,12 +53,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navPoints: []
+--- !u!114 &114429532274339306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f06f395bc61cd4b96cf4840e16a5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   navPointPrefab: {fileID: 1213992271057444, guid: 9f41913030d64d54687b8e15ae765e11,
     type: 2}
   navPointObjects: []
-  navPoints: []
-  point1: {x: 0, y: 0, z: 0}
-  point2: {x: 0, y: 0, z: 0}
 --- !u!114 &114659425257439532
 MonoBehaviour:
   m_ObjectHideFlags: 1
