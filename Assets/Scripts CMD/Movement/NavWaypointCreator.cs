@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypointRenderer : MonoBehaviour {
+public class NavWaypointCreator : MonoBehaviour {
 
 LineRenderer line; //to hold the line Renderer
 public Transform target; //to hold the transform of the target
 NavMeshAgent agent; //to hold the agent of this gameObject
 
 public float lengthSoFar;
-
 public Vector3[] pathway;
-
 public float lineOffset = 1;
 
 public void Start(){
 
     CombatCommandMove.Move += DisableNavMesh;
-
     NavWaypointMover.MoveComplete += DestroySelf;
 
     line = GetComponent<LineRenderer>(); //get the line renderer
@@ -40,9 +37,12 @@ IEnumerator DrawPath()
 
     for(int i = 0; i < pathway.Length; i++){
 		line.SetPosition(i, new Vector3(pathway[i].x,((pathway[i].y)+(lineOffset)),pathway[i].z));
-    }
+        print(agent.path.corners[i]);
+     }
+
     yield return null;
 }
+
 
 void DisableNavMesh()
 {

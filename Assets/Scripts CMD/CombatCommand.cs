@@ -20,9 +20,9 @@ public class CombatCommand : MonoBehaviour {
 		int j = i+slots;
 		for (i =NullString(); i < j; i++)
 		{
-			if (i < (timer.CommandList.Count) && (i > -1))
+			if (i < (timer.CommandQueue.Count) && (i > -1))
 			{
-			timer.CommandList[i] = this.ToString();
+			timer.CommandQueue[i] = this.ToString();
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class CombatCommand : MonoBehaviour {
 
 	int NullString()
 	{
-		return timer.CommandList.IndexOf("");
+		return timer.CommandQueue.IndexOf("");
 	}
 
 }

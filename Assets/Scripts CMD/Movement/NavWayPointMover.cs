@@ -9,22 +9,21 @@ public class NavWaypointMover : MonoBehaviour {
     public delegate void NavWayDelegate ();
     public static event NavWayDelegate MoveComplete;
 
-
     public List<Vector3> navPointz;
     public bool isPaused = false;
 
     CombatCommandMove combatCommandMove;
-    NavWaypointChooser navWaypointChooser;
+    NavWaypoints navWaypoints;
     
-    public NavMeshAgent daAgent;
+    public NavMeshAgent navMeshAgent;
 
     public void OnEnable()
     {
         combatCommandMove = GetComponent<CombatCommandMove>();
-        navWaypointChooser = GetComponent<NavWaypointChooser>();
-        daAgent = GetComponentInParent<NavMeshAgent>();
+        navWaypoints = GetComponent<NavWaypoints>();
+        navMeshAgent = GetComponentInParent<NavMeshAgent>();
         CombatCommandMove.Move += Initialize;
-        navPointz = navWaypointChooser.navPoints;
+        navPointz = navWaypoints.navPoints;
         print("Mover init");
     }
 
@@ -42,7 +41,7 @@ public class NavWaypointMover : MonoBehaviour {
             print("go");
             while ((gameObject.transform.parent.position != destination))
             {
-                daAgent.destination = destination;
+                navMeshAgent.destination = destination;
                 yield return null;
             }
             yield return null;
@@ -53,14 +52,6 @@ public class NavWaypointMover : MonoBehaviour {
 
         Destroy(this);
 
-    }
-	
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-                isPaused = !isPaused;        
-        }
     }
 
     void OnDisable()

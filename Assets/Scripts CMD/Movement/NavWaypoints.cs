@@ -1,24 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class NavWaypointChooser : MonoBehaviour
+public class NavWaypoints : MonoBehaviour
 {
-
-    public delegate void GetDistance(float d, Vector3 p);
-    public event GetDistance DistanceSet;
-
     public delegate void VectorPick(Vector3 v);
     public event VectorPick Place;
-
     public List<Vector3> navPoints;
-
     CombatCommandMove combatCommandMove;
-
     float pointDistance;
-
     Vector3 point;
 
+#region Events
     public void OnEnable()
     {
         combatCommandMove = transform.GetComponent<CombatCommandMove>();
@@ -27,6 +21,7 @@ public class NavWaypointChooser : MonoBehaviour
             combatCommandMove.Clicked += SetNav;
             print("CombatCommandMove.Clicked subscribed");
         }
+        NavWaypointMover.MoveComplete += ClearNavPoints;
     }
 
     void OnDisable()
@@ -36,24 +31,22 @@ public class NavWaypointChooser : MonoBehaviour
             combatCommandMove.Clicked -= SetNav;
         }
         print("CombatCommandMove.Clicked unsub");
+        NavWaypointMover.MoveComplete -= ClearNavPoints;
     }
 
+#endregion
 
-    public void SetNav()
-
+    public void SetNav(Vector3 p)
     {
-        Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit interactionInfo;
-
-        if (Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
-            {
-                point = interactionInfo.point;
-                navPoints.Add(point);
-                Place(interactionInfo.point);
+                navPoints.Add(p);
+                Place(p);
                 return;
             }
+
+
+    public void ClearNavPoints()
+    {
+        navPoints.Clear();
     }
-
-
 }
 

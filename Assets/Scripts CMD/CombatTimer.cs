@@ -7,7 +7,7 @@ using UnityEngine;
 public class CombatTimer : MonoBehaviour
 {
 
-    public List<string> CommandList;
+    public List<string> CommandQueue;
     public GameObject thisCommand;
     public bool isPaused = false;
     public bool timerRunning = false;
@@ -17,7 +17,7 @@ public class CombatTimer : MonoBehaviour
     {
         for (int i = 0; i < listLength; i++)
             {        
-                CommandList.Add(null);
+                CommandQueue.Add(null);
             }
     }
 
@@ -77,10 +77,10 @@ public class CombatTimer : MonoBehaviour
         {
               while(isPaused) {yield return null;}
 
-			if (CommandList[i] != null && CommandList[i] != null)
+			if (CommandQueue[i] != null && CommandQueue[i] != null)
 			{
                 c.CommandSwitch();
-           		print(CommandList[i]);
+           		print(CommandQueue[i]);
 			}
               while(isPaused) {yield return null;}
 

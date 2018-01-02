@@ -5,36 +5,42 @@ using UnityEngine;
 public class NavWaypointSpawner : MonoBehaviour {
 
 	public GameObject navPointPrefab;
-	NavWaypointChooser navWaypointChooser;
+	NavWaypoints navWaypoints;
     public List<GameObject> navPointObjects;
 
-    public void OnEnable()
+/*     public void OnEnable()
     {
-        navWaypointChooser = transform.GetComponent<NavWaypointChooser>();
-        if (navWaypointChooser != null)
+        navWaypoints = transform.GetComponent<NavWaypoints>();
+        if (navWaypoints != null)
         {
-            navWaypointChooser.Place += NavPointPlace;
-            print("navWaypointChooser.Place += NavPointPlace");
+            navWaypoints.Place += NavPointPlace;
+            print("navWaypoints.Place += NavPointPlace");
         }
         NavWaypointMover.MoveComplete += ClearList;
     }
 
     void OnDisable()
     {
-        if (navWaypointChooser != null)
+        if (navWaypoints != null)
         {
-            navWaypointChooser.Place -= NavPointPlace;
+            navWaypoints.Place -= NavPointPlace;
         }
         print("navWaypointChooser.Place -= NavPointPlace");
         NavWaypointMover.MoveComplete -= ClearList;
-    }
+    } */
 
+    void Start ()
+    {
+        CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
+        combatCommandMove.Clicked += NavPointPlace;
+        NavWaypointMover.MoveComplete += ClearList;
+    }
 	
     public void NavPointPlace(Vector3 point)
     {
 
         GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-        NavWaypointRenderer navRender = o.GetComponent<NavWaypointRenderer>();
+        NavWaypointCreator navRender = o.GetComponent<NavWaypointCreator>();
 
         if (navPointObjects.Count == 0)
         {
