@@ -13,59 +13,43 @@ public class NavWaypointManager : MonoBehaviour {
     void Start ()
     {
         CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
-        NavWaypointSpawner.ReportDistance += DistanceUpdate;
         combatCommandMove.Clicked += NavPointPlace;
         NavWaypointMover.MoveComplete += ClearList;
     }
 	
     public void NavPointPlace(Vector3 point)
-    {
-                {
-
-
-                    if (navPointObjects.Count == 0)
-                    {
-                        if (GetTheDistance.Calculate((GetThePath.CalculatePath(this.transform.parent.gameObject, point))) < maxDistance)
-                        {
-                            GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-                            NavWaypointSpawner navRender = o.GetComponent<NavWaypointSpawner>();
-                            navRender.target = transform.parent;
-                            navPointObjects.Add(o);
-                        }
-                        else
-                        {
-                            print("too far");
-                        }
-                    }
-                    if (navPointObjects.Count > 0)
-                    {
-                         if (GetTheDistance.Calculate((GetThePath.CalculatePath(navPointObjects[(navPointObjects.Count - 1)], point))) < maxDistance)
-                        {
-                            GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-                            NavWaypointSpawner navRender = o.GetComponent<NavWaypointSpawner>();
-                            navRender.target = transform.parent;
-                            navPointObjects.Add(o);
-                           navRender.target = navPointObjects[(navPointObjects.Count - 1)].transform;          // tell object to point to last waypoint
-
-                        }
-                        else
-                        {
-                            print("too far");
-                        }
-                    }
-
-                    return;
-                }
-    } 
-
-        void DistanceUpdate(float d)
+    {      
+        GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
+        
+        NavWaypointSpawner navRender = o.GetComponent<NavWaypointSpawner>();
+/*         if (navPointObjects.Count == 0)
         {
-            distance += d;    
+            navRender.target = transform.parent;
         }
+        if (navPointObjects.Count > 0)
+        {
+            navRender.target = navPointObjects[(navPointObjects.Count - 1)].transform;          // tell object to point to last waypoint
+        } */
+        navRender.hostLine = this.gameObject.GetComponent<LineRenderer>();
+        navPointObjects.Add(o);
 
-        void ClearList()
+        return;
+    }
+
+    void DistanceCheck()
+    {
+      //  quickly compare distances using GetThePath Method
+    }
+
+    void DistanceUpdate(float d)
+    {
+        distance += d;
+    }
+
+    void ClearList()
     {
         navPointObjects.Clear();
         distance = 0;
     }
+
 }

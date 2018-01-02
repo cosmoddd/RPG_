@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypointSpawner : MonoBehaviour {
-
-public delegate void NavWaypointDelegate(float d);
-public static event NavWaypointDelegate ReportDistance;
+public class NavWaypointSpawner : MonoBehaviour {  //SPAWNS WAYPOINTS
 
 LineRenderer line; //to hold the line Renderer
-public Transform target; //to hold the transform of the target
-NavMeshAgent agent; //to hold the agent of this gameObject
+public LineRenderer hostLine;
 
-public float lengthSoFar;
 public Vector3[] pathway;
 public float lineOffset = 1;
 
 public void Start(){
 
-    CombatCommandMove.Move += DisableNavMesh;
+/*     CombatCommandMove.Move += DisableNavMesh; */
     NavWaypointMover.MoveComplete += DestroySelf;
-
     line = GetComponent<LineRenderer>(); //get the line renderer
-    agent = GetComponent<NavMeshAgent>(); //get the agent
-	line.useWorldSpace = true;
-    agent.isStopped = true;//add this if you don't want to move the agent
-    StartCoroutine ("DrawPath");
+    print("hungry!");
+
 }
 
-IEnumerator DrawPath()
+void Update(){
+        for(int i = 0; i < pathway.Length; i++){
+        print("blahblah");
+		line.SetPosition(i, hostLine.GetPosition(i));
+     }
+}
+/* IEnumerator DrawPath()
 {
     if (target != null)
     {
@@ -46,18 +44,18 @@ IEnumerator DrawPath()
      }
     yield return null;
 }
+ */
 
-
-void DisableNavMesh()
+/* void DisableNavMesh()
 {
     CombatCommandMove.Move -= DisableNavMesh;
-    agent.enabled = false;
-}
+
+} */
 
 void DestroySelf()
 {
       NavWaypointMover.MoveComplete -= DestroySelf;
-      CombatCommandMove.Move -= DisableNavMesh;
+/*       CombatCommandMove.Move -= DisableNavMesh; */
       Destroy(gameObject);
 }
 }

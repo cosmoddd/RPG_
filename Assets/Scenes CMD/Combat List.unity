@@ -376,22 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommandList:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  CommandQueue: []
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0
@@ -458,17 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommandList:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  CommandQueue: []
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0
@@ -569,7 +544,7 @@ GameObject:
   - component: {fileID: 1643912799}
   - component: {fileID: 1643912798}
   - component: {fileID: 1643912797}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
