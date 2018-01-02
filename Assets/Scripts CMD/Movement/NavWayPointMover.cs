@@ -6,28 +6,31 @@ using UnityEngine.AI;
 
 public class NavWaypointMover : MonoBehaviour {
 
+    static NavWaypointMover navWaypointMover;
+
     public delegate void NavWayDelegate ();
     public static event NavWayDelegate MoveComplete;
 
-    public List<Vector3> navPointz;
+    List<GameObject> navPointz;
     public bool isPaused = false;
 
     CombatCommandMove combatCommandMove;
-    NavWaypoints navWaypoints;
+    NavWaypointManager navWaypoints;
     
     public NavMeshAgent navMeshAgent;
 
     public void OnEnable()
     {
         combatCommandMove = GetComponent<CombatCommandMove>();
-        navWaypoints = GetComponent<NavWaypoints>();
+        navWaypoints = GetComponent<NavWaypointManager>();
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         CombatCommandMove.Move += Initialize;
-        navPointz = navWaypoints.navPoints;
+        navPointz = navWaypoints.navPointObjects;
+        StartCoroutine ("MoveToWaypoint");
         print("Mover init");
     }
 
-    void Initialize()
+    public void Initialize()
     {
         StartCoroutine ("MoveToWaypoint");
     }
@@ -37,7 +40,9 @@ public class NavWaypointMover : MonoBehaviour {
 
         for (int i = 0; i < navPointz.Count; i++)
         {
-            Vector3 destination = new Vector3(navPointz[i].x,gameObject.transform.parent.position.y,navPointz[i].z);
+            Vector3 destination = new Vector3(navPointz[i].transform.position.x,
+                                                gameObject.transform.parent.position.y,
+                                                navPointz[i].transform.position.z);
             print("go");
             while ((gameObject.transform.parent.position != destination))
             {

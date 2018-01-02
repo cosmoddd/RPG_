@@ -1,61 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NavWaypointSpawner : MonoBehaviour {
 
-	public GameObject navPointPrefab;
-	NavWaypoints navWaypoints;
-    public List<GameObject> navPointObjects;
+public delegate void NavWaypointDelegate(float d);
+public static event NavWaypointDelegate ReportDistance;
 
-/*     public void OnEnable()
+LineRenderer line; //to hold the line Renderer
+public Transform target; //to hold the transform of the target
+NavMeshAgent agent; //to hold the agent of this gameObject
+
+public float lengthSoFar;
+public Vector3[] pathway;
+public float lineOffset = 1;
+
+public void Start(){
+
+    CombatCommandMove.Move += DisableNavMesh;
+    NavWaypointMover.MoveComplete += DestroySelf;
+
+    line = GetComponent<LineRenderer>(); //get the line renderer
+    agent = GetComponent<NavMeshAgent>(); //get the agent
+	line.useWorldSpace = true;
+    agent.isStopped = true;//add this if you don't want to move the agent
+    StartCoroutine ("DrawPath");
+}
+
+IEnumerator DrawPath()
+{
+    if (target != null)
     {
-        navWaypoints = transform.GetComponent<NavWaypoints>();
-        if (navWaypoints != null)
-        {
-            navWaypoints.Place += NavPointPlace;
-            print("navWaypoints.Place += NavPointPlace");
-        }
-        NavWaypointMover.MoveComplete += ClearList;
+        agent.SetDestination(target.position); //create the path pointing to target
+        yield return null;                      // this yield is important.  do it!
     }
+    pathway = agent.path.corners;
+    ReportDistance(GetTheDistance.Calculate(agent.path));
+      yield return null;
+  
+    line.positionCount = pathway.Length;
 
-    void OnDisable()
-    {
-        if (navWaypoints != null)
-        {
-            navWaypoints.Place -= NavPointPlace;
-        }
-        print("navWaypointChooser.Place -= NavPointPlace");
-        NavWaypointMover.MoveComplete -= ClearList;
-    } */
+    for(int i = 0; i < pathway.Length; i++){
+		line.SetPosition(i, new Vector3(pathway[i].x,((pathway[i].y)+(lineOffset)),pathway[i].z));
+     }
+    yield return null;
+}
 
-    void Start ()
-    {
-        CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
-        combatCommandMove.Clicked += NavPointPlace;
-        NavWaypointMover.MoveComplete += ClearList;
-    }
-	
-    public void NavPointPlace(Vector3 point)
-    {
 
-        GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-        NavWaypointCreator navRender = o.GetComponent<NavWaypointCreator>();
+void DisableNavMesh()
+{
+    CombatCommandMove.Move -= DisableNavMesh;
+    agent.enabled = false;
+}
 
-        if (navPointObjects.Count == 0)
-        {
-            navRender.target = transform.parent;
-        }
-        if (navPointObjects.Count > 0)
-        {
-            navRender.target = navPointObjects[(navPointObjects.Count - 1)].transform;          // tell object to point to last waypoint
-        }
-        navPointObjects.Add(o);
-        return;
-    } 
-
-        void ClearList()
-    {
-        navPointObjects.Clear();
-    }
+void DestroySelf()
+{
+      NavWaypointMover.MoveComplete -= DestroySelf;
+      CombatCommandMove.Move -= DisableNavMesh;
+      Destroy(gameObject);
+}
 }
