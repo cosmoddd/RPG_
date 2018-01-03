@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 
 
-	NavMeshAgent agentSource;
+	public NavMeshAgent agentSource;
 	NavMeshPath path;
 	LineRenderer line;
 	public Vector3[] pathway;
@@ -15,7 +15,7 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 
 	void Start () {
 		
-		agentSource = GetComponentInParent<NavMeshAgent>();
+		agentSource = this.transform.parent.GetComponentInParent<NavMeshAgent>();
 	    line = GetComponent<LineRenderer>(); //get the line renderer
 		agentSource.isStopped = true;
 //		this.gameObject.GetComponent<CombatCommandMove>().Clicked += CalculateDistance;

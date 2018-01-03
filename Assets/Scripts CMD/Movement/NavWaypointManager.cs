@@ -10,35 +10,23 @@ public class NavWaypointManager : MonoBehaviour {
     public float distance = 0;
     public float maxDistance = 15;
 
+    GameObject lineRender;
+
     void Start ()
     {
         CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
         combatCommandMove.Clicked += NavPointPlace;
         NavWaypointMover.MoveComplete += ClearList;
+    
+        lineRender = this.transform.GetChild(0).gameObject;
     }
 	
     public void NavPointPlace(Vector3 point)
     {      
         GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-        
-        NavWaypointSpawner navRender = o.GetComponent<NavWaypointSpawner>();
-/*         if (navPointObjects.Count == 0)
-        {
-            navRender.target = transform.parent;
-        }
-        if (navPointObjects.Count > 0)
-        {
-            navRender.target = navPointObjects[(navPointObjects.Count - 1)].transform;          // tell object to point to last waypoint
-        } */
-        navRender.hostLine = this.gameObject.GetComponent<LineRenderer>();
+        lineRender.transform.SetParent(o.transform);
         navPointObjects.Add(o);
-
         return;
-    }
-
-    void DistanceCheck()
-    {
-      //  quickly compare distances using GetThePath Method
     }
 
     void DistanceUpdate(float d)
