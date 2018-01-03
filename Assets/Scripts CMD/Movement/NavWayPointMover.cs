@@ -11,8 +11,7 @@ public class NavWaypointMover : MonoBehaviour {
     public delegate void NavWayDelegate ();
     public static event NavWayDelegate MoveComplete;
 
-    List<GameObject> navPointz;
-    public bool isPaused = false;
+    public List<GameObject> navPointz;
 
     CombatCommandMove combatCommandMove;
     NavWaypointManager navWaypoints;
@@ -26,12 +25,12 @@ public class NavWaypointMover : MonoBehaviour {
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         CombatCommandMove.Move += Initialize;
         navPointz = navWaypoints.navPointObjects;
-        StartCoroutine ("MoveToWaypoint");
-        print("Mover init");
+  
     }
 
     public void Initialize()
     {
+        print("Mover init");
         StartCoroutine ("MoveToWaypoint");
     }
 
@@ -43,9 +42,12 @@ public class NavWaypointMover : MonoBehaviour {
             Vector3 destination = new Vector3(navPointz[i].transform.position.x,
                                                 gameObject.transform.parent.position.y,
                                                 navPointz[i].transform.position.z);
-            print("go");
+            yield return null;
             while ((gameObject.transform.parent.position != destination))
             {
+                navMeshAgent.isStopped=false;
+                yield return null;
+                print(destination);
                 navMeshAgent.destination = destination;
                 yield return null;
             }

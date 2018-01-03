@@ -5,17 +5,18 @@ using UnityEngine.AI;
 
 public class NavWaypointSpawner : MonoBehaviour {  //SPAWNS WAYPOINTS
 
-LineRenderer line; //to hold the line Renderer
-public LineRenderer hostLine;
-public Vector3[] hostPathway;
-int positions;
-public float lineOffset = 1;
 
 public void Start(){
-
+    CombatCommandMove.Move += DisableNavAgent;
     NavWaypointMover.MoveComplete += DestroySelf;
 }
 
+void DisableNavAgent()
+{
+    print("navmesh disabledd");
+    CombatCommandMove.Move -= DisableNavAgent;
+    GetComponent<NavMeshAgent>().enabled = false;
+}
 
 void DestroySelf()
 {

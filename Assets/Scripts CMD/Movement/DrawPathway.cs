@@ -5,22 +5,28 @@ using UnityEngine.AI;
 
 public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 
-
 	public NavMeshAgent agentSource;
 	NavMeshPath path;
 	LineRenderer line;
+    CombatCommandMove host;
 	public Vector3[] pathway;
     public float lineOffset = 1;
 	public float totalDistance;
 
 	void Start () {
-		
-		agentSource = this.transform.parent.GetComponentInParent<NavMeshAgent>();
+
+	    host = this.gameObject.transform.parent.GetComponentInChildren<CombatCommandMove>();
+        host.Clicked += Deactivate;
+
 	    line = GetComponent<LineRenderer>(); //get the line renderer
 		agentSource.isStopped = true;
-//		this.gameObject.GetComponent<CombatCommandMove>().Clicked += CalculateDistance;
 	}
 	
+    public void GetAgentSource (GameObject o)
+    {
+        agentSource = o.GetComponent<NavMeshAgent>();
+    }
+
 	void Update(){
 
 		Vector3 targetPoint = CastRay();
@@ -49,6 +55,16 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
                 return interactionInfo.point;
             }
 		else return Vector3.zero;
+    }
+
+
+    public void Deactivate(Vector3 point){
+
+        print("Draw Pathway Deactivated");
+        host.Clicked -= Deactivate;
+        this.enabled = false;
+        return;
+
     }
 
 }
