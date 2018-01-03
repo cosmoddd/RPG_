@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SubscribeMover {
 
-    public static SubscribeMover subscribeMover;
+//    public static SubscribeMover subscribeMover;
 
 	private static void Start()
     {
-        if(subscribeMover != null)
+/*         if(subscribeMover != null)
         {
-            SubscribeMover subscribeMover = new SubscribeMover();
-        }
+ //           SubscribeMover subscribeMover = new SubscribeMover();
+        } */
 
         Debug.Log("awake");
       //  CombatCommandMove.Move += Initialize;

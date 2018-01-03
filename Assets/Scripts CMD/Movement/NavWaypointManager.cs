@@ -17,11 +17,11 @@ public class NavWaypointManager : MonoBehaviour {
     {
         CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
         combatCommandMove.Clicked += NavPointPlace;
-        CombatCommandMove.Move += DisableDrawPathway;
         NavWaypointMover.MoveComplete += ClearList;
 
         lineRender = SpawnLineRenderer(this.transform.parent.gameObject);
-        lineRender.GetComponent<DrawPathway>().GetAgentSource(this.transform.parent.gameObject);
+
+        lineRender.GetComponent<DrawPathway>().SetAgentSource(this.transform.parent.parent.gameObject);
 
     }
 	
@@ -38,15 +38,11 @@ public class NavWaypointManager : MonoBehaviour {
     {
         GameObject l = Object.Instantiate(lineRendererPrefab, target.transform.position, Quaternion.identity);
         l.transform.SetParent(this.transform.parent);  // still keeps the parent as the source
-        l.GetComponent<DrawPathway>().GetAgentSource(target);
+
+        l.GetComponent<DrawPathway>().SetAgentSource(target);
         return l;
     }
 
-    void DisableDrawPathway()
-    {
-        GameObject l = transform.parent.GetComponentInChildren<LineRenderer>().gameObject;
-        l.SetActive(false);
-    }
 
     void DistanceUpdate(float d)
     {

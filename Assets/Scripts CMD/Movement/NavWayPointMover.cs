@@ -13,23 +13,21 @@ public class NavWaypointMover : MonoBehaviour {
 
     public List<GameObject> navPointz;
 
-    CombatCommandMove combatCommandMove;
     NavWaypointManager navWaypoints;
     
     public NavMeshAgent navMeshAgent;
 
     public void OnEnable()
     {
-        combatCommandMove = GetComponent<CombatCommandMove>();
+        
         navWaypoints = GetComponent<NavWaypointManager>();
-        navMeshAgent = GetComponentInParent<NavMeshAgent>();
-        CombatCommandMove.Move += Initialize;
         navPointz = navWaypoints.navPointObjects;
-  
+
     }
 
     public void Initialize()
     {
+
         print("Mover init");
         StartCoroutine ("MoveToWaypoint");
     }
@@ -60,11 +58,5 @@ public class NavWaypointMover : MonoBehaviour {
         Destroy(this);
 
     }
-
-    void OnDisable()
-    {
-        CombatCommandMove.Move -= Initialize;
-    }
-
 
 }

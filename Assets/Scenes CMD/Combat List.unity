@@ -286,8 +286,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 873786690}
+  - component: {fileID: 873786691}
   m_Layer: 0
-  m_Name: Character Model
+  m_Name: Bruno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,6 +309,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &873786691
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 873786689}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.000001
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &928113591
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +342,6 @@ GameObject:
   - component: {fileID: 928113593}
   - component: {fileID: 928113592}
   - component: {fileID: 928113596}
-  - component: {fileID: 928113597}
   m_Layer: 0
   m_Name: _CombatControl
   m_TagString: Untagged
@@ -406,32 +427,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CommandQueue: []
+  navMeshAgent: {fileID: 0}
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0
   timerRunning: 0
   listLength: 10
---- !u!195 &928113597
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 928113591}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.000001
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1540151629
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CommandQueue: []
+  navMeshAgent: {fileID: 0}
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
   isPaused: 0

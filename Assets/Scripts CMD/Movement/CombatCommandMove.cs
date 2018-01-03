@@ -5,31 +5,36 @@ using UnityEngine.AI;
 
 public class CombatCommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
-    public delegate void SetPointDelegate (Vector3 point);
+    public delegate void SetPointDelegate(Vector3 point);
     public event SetPointDelegate Clicked;
 
     public delegate void MoveDelegate();
     public static event MoveDelegate Move;
+    public NavMeshAgent navMeshAgent;
 
     float alottedDistance = 15f;
 
     public override void Start()
     {
-        transform.localPosition = new Vector3(0,0,0);
+        transform.localPosition = new Vector3(0, 0, 0);
 
     }
 
     public override void Update()
     {
         if (Input.GetMouseButtonDown(0))// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
-        {          
-               Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
+        {
+            Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
         }
 
-        if (Input.GetKeyDown(KeyCode.G)&& (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
+        if (Input.GetKeyDown(KeyCode.G) && (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
         {
-          this.gameObject.AddComponent<NavWaypointMover>();
-          Move();  // execute the move event
+            transform.parent.GetComponentInChildren<DrawPathway>().gameObject.SetActive(false);
+            navMeshAgent = this.GetComponentInParent<NavMeshAgent>();
+            NavWaypointMover m = this.gameObject.AddComponent<NavWaypointMover>();
+            m.navMeshAgent = navMeshAgent;
+            m.Initialize();
+            Move();  // execute the move event
         }
 
 

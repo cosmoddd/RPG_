@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 
-	public NavMeshAgent agentSource;
+	public NavMeshAgent navMeshAgent;
 	NavMeshPath path;
 	LineRenderer line;
     CombatCommandMove host;
@@ -16,15 +16,16 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 	void Start () {
 
 	    host = this.gameObject.transform.parent.GetComponentInChildren<CombatCommandMove>();
-        host.Clicked += Deactivate;
+        host.Clicked += DeactivateScript;
+   //     CombatCommandMove.Move += Disable;
 
 	    line = GetComponent<LineRenderer>(); //get the line renderer
-		agentSource.isStopped = true;
+		navMeshAgent.isStopped = true;
 	}
 	
-    public void GetAgentSource (GameObject o)
+    public void SetAgentSource (GameObject o)
     {
-        agentSource = o.GetComponent<NavMeshAgent>();
+        navMeshAgent = o.GetComponent<NavMeshAgent>();
     }
 
 	void Update(){
@@ -32,9 +33,9 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 		Vector3 targetPoint = CastRay();
         if (targetPoint != Vector3.zero)
         {
-            agentSource.SetDestination(targetPoint); //create the path pointing to target
+            navMeshAgent.SetDestination(targetPoint); //create the path pointing to target
 		}
-        pathway = agentSource.path.corners;
+        pathway = navMeshAgent.path.corners;
         line.positionCount = pathway.Length;
 
         for (int i = 0; i < pathway.Length; i++)
@@ -58,10 +59,11 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
     }
 
 
-    public void Deactivate(Vector3 point){
+
+    public void DeactivateScript(Vector3 point){
 
         print("Draw Pathway Deactivated");
-        host.Clicked -= Deactivate;
+        host.Clicked -= DeactivateScript;
         this.enabled = false;
         return;
 

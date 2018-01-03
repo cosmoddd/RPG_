@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 // MASTER COMBAT TIMER FOR EACH CHARACTER
 
 public class CombatTimer : MonoBehaviour
 {
 
     public List<string> CommandQueue;
+    public NavMeshAgent navMeshAgent;
     public GameObject thisCommand;
     public bool isPaused = false;
     public bool timerRunning = false;
@@ -15,6 +16,7 @@ public class CombatTimer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
             {        
                 CommandQueue.Add(null);
@@ -32,14 +34,7 @@ public class CombatTimer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            GameObject m;
-            if (this.GetComponentInChildren<CombatCommandMove>()==null)
-            {           
-                m = Instantiate(thisCommand, this.transform);
-                m.GetComponent<CombatCommandMove>().timer = this;
-            }
-            else{ print ("already attached!");}
-            return;
+              SpawnMoveCommand();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -62,6 +57,7 @@ public class CombatTimer : MonoBehaviour
             {           
                 m = Instantiate(thisCommand, this.transform);
                 m.GetComponent<CombatCommandMove>().timer = this;
+                m.GetComponent<CombatCommandMove>().navMeshAgent = navMeshAgent;
             }
             else{ print ("already attached!");}
             return;
