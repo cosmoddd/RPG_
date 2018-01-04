@@ -11,8 +11,11 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
     public delegate void MoveDelegate();
     public static event MoveDelegate Move;
     public NavMeshAgent navMeshAgent;
+    public bool maxDistanceExceeded = false;
 
-    float alottedDistance = 15f;
+    bool moving = false;
+
+
 
     public override void Start()
     {
@@ -22,7 +25,7 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
 
     public override void Update()
     {
-        if (Input.GetMouseButtonDown(0))// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
+        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && !maxDistanceExceeded)// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
         }

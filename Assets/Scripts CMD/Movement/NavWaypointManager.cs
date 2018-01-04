@@ -8,14 +8,18 @@ public class NavWaypointManager : MonoBehaviour {
 	public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
     public List<GameObject> navPointObjects;
-    public float distance = 0;
+    public float distanceSoFar = 0;
     public float maxDistance = 15;
+
+    public float distanceTest;
 
     GameObject lineRender;
 
+    CombatCommandMove combatCommandMove;
+
     void Start ()
     {
-        CombatCommandMove combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
+        combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
         combatCommandMove.Clicked += NavPointPlace;
         NavWaypointMover.MoveComplete += ClearList;
 
@@ -26,6 +30,7 @@ public class NavWaypointManager : MonoBehaviour {
 	
     public void NavPointPlace(Vector3 point)
     {      
+        DistanceUpdate(lineRender.GetComponent<DrawPathway>().distance);
         GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
         lineRender.transform.SetParent(o.transform);
         lineRender.GetComponent<DrawPathway>().enabled = false;
@@ -42,10 +47,22 @@ public class NavWaypointManager : MonoBehaviour {
         return l;
     }
 
+    void Update()
+    {
+        distanceTest = lineRender.GetComponent<DrawPathway>().distance + distanceSoFar;
+        if (lineRender.GetComponent<DrawPathway>().distance + distanceSoFar > maxDistance)
+        {
+            combatCommandMove.maxDistanceExceeded = true;
+        }
+        else
+        {
+            combatCommandMove.maxDistanceExceeded = false;
+        }
+    }
 
     void DistanceUpdate(float d)
     {
-        distance += d;
+        distanceSoFar += d;
     }
 
     void ClearList()
@@ -53,7 +70,7 @@ public class NavWaypointManager : MonoBehaviour {
         Destroy(lineRender);
         lineRender = SpawnLineRenderer(this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
-        distance = 0;
+        distanceSoFar = 0;
     }
 
 }
