@@ -16,7 +16,6 @@ public class DrawPathway : MonoBehaviour
 
     void Start()
     {
-
         line = GetComponent<LineRenderer>(); //get the line renderer
         navMeshAgent.isStopped = true;
     }

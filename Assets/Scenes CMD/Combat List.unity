@@ -261,7 +261,7 @@ Transform:
   m_LocalScale: {x: 3.7617369, y: 7.626681, z: 3.7617364}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &257204992
 NavMeshObstacle:
@@ -307,7 +307,7 @@ Transform:
   - {fileID: 928113595}
   - {fileID: 1580317695}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &873786691
 NavMeshAgent:
@@ -421,53 +421,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928113591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CommandQueue: []
-  navMeshAgent: {fileID: 0}
-  thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
-    type: 2}
-  isPaused: 0
-  timerRunning: 0
-  listLength: 10
---- !u!1 &1540151629
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1540151630}
-  - component: {fileID: 1540151631}
-  m_Layer: 0
-  m_Name: CombatTimer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1540151630
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540151629}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.924963, y: -2.3663929, z: -8.955942}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1540151631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540151629}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f900eddad1461409ae109d20b12e66, type: 3}
@@ -646,7 +599,7 @@ Transform:
   m_LocalScale: {x: 7.011513, y: 7.011514, z: 7.011514}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1818889056
 GameObject:
@@ -824,5 +777,5 @@ Transform:
   m_LocalScale: {x: 51.55645, y: 1.5900431, z: 48.574318}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

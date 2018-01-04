@@ -57,8 +57,10 @@ MonoBehaviour:
   lineRendererPrefab: {fileID: 1006545319742572, guid: ae19b30e810986643886af85255da684,
     type: 2}
   navPointObjects: []
-  distance: 0
+  distanceSoFar: 0
   maxDistance: 15
+  distanceTest: 0
+  navPointPrefabSpawned: {fileID: 0}
 --- !u!114 &114659425257439532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,3 +74,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: -7
   timer: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  maxDistanceExceeded: 0
+  ready: 1

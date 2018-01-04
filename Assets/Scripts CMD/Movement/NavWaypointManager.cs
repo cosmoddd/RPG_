@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypointManager : MonoBehaviour {
+public class NavWaypointManager : MonoBehaviour
+{
 
-	public GameObject navPointPrefab;
+    public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
     public List<GameObject> navPointObjects;
     public float distanceSoFar = 0;
@@ -14,31 +15,33 @@ public class NavWaypointManager : MonoBehaviour {
     public float distanceTest;
 
     GameObject lineRender;
+    public GameObject navPointPrefabSpawned;
 
     CombatCommandMove combatCommandMove;
 
-    void Start ()
+    void Start()
     {
         combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
-    
 
         combatCommandMove.Clicked += NavPointPlace;
+        combatCommandMove.RightClicked += DeSpawn;
+
         NavWaypointMover.MoveComplete += ClearList;
-        combatCommandMove.RightClicked += DeSpawnLineRenderer;
+        NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
         lineRender = SpawnLineRenderer(this.transform.parent.gameObject);
         lineRender.GetComponent<DrawPathway>().SetAgentSource(this.transform.parent.parent.gameObject);
 
     }
-	
+
     public void NavPointPlace(Vector3 point)
-    {      
+    {
         DistanceUpdate(lineRender.GetComponent<DrawPathway>().distance);
-        GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-        lineRender.transform.SetParent(o.transform);
+        navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
+        lineRender.transform.SetParent(navPointPrefabSpawned.transform);
         lineRender.GetComponent<DrawPathway>().enabled = false;
-        navPointObjects.Add(o);
-        lineRender = SpawnLineRenderer(o);
+        navPointObjects.Add(navPointPrefabSpawned);
+        lineRender = SpawnLineRenderer(navPointPrefabSpawned);
         return;
     }
 
@@ -50,10 +53,36 @@ public class NavWaypointManager : MonoBehaviour {
         return l;
     }
 
-    public void DeSpawnLineRenderer(Vector3 v)
+    public void ReSpawnLineRenderer()
 
     {
-        lineRender.GetComponent<LineRenderer>().enabled = false;
+        Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
+        lineRender.GetComponent<LineRenderer>().enabled = true;
+    }
+
+
+    public void DeSpawn(Vector3 v)
+
+    {
+        if (navPointPrefabSpawned != null && (lineRender.GetComponent<LineRenderer>().enabled == true))
+        {
+            lineRender.GetComponent<LineRenderer>().enabled = false;
+            print("yams");
+            navPointPrefabSpawned.AddComponent<BoxCollider>();
+            return;
+        }
+
+        if (navPointPrefabSpawned != null && (lineRender.GetComponent<LineRenderer>().enabled == false))
+        {
+            lineRender.GetComponent<LineRenderer>().enabled = false;
+            print("moo moo");
+            ClearMostRecentPoint();
+            return;
+        }
+        else{
+                DestroyEverything();
+                return;
+        }
     }
 
     void Update()
@@ -69,9 +98,15 @@ public class NavWaypointManager : MonoBehaviour {
         }
     }
 
+
     void DistanceUpdate(float d)
     {
         distanceSoFar += d;
+    }
+
+    void ClearMostRecentPoint()
+    {
+        navPointObjects.Remove(navPointObjects[navPointObjects.Count-1]);
     }
 
     void ClearList()
@@ -80,6 +115,17 @@ public class NavWaypointManager : MonoBehaviour {
         lineRender = SpawnLineRenderer(this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
         distanceSoFar = 0;
+    }
+
+    void DestroyEverything(){
+        
+        combatCommandMove.Clicked -= NavPointPlace;
+        combatCommandMove.RightClicked -= DeSpawn;
+        NavWaypointMover.MoveComplete -= ClearList;
+        NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
+        NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
+            Destroy(lineRender);
+            Destroy(this.gameObject); 
     }
 
 }

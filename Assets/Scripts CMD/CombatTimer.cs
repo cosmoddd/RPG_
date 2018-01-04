@@ -32,11 +32,6 @@ public class CombatTimer : MonoBehaviour
             StartCoroutine("TimerExecute");
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-              SpawnMoveCommand();
-        }
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             isPaused = !isPaused;

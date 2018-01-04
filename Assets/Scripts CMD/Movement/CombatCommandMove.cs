@@ -52,9 +52,15 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
         }
     }
 
-    void Ready()
+    public void Ready()
     {
         print("Readeeey");
+        Invoke("DelayedReady", .1f);
+    }
+
+    void DelayedReady()
+    {
         ready = true;
     }
+
 }
