@@ -51,17 +51,22 @@ public class CombatTimer : MonoBehaviour
  }
 
     void SpawnMoveCommand()
-    {
+        {
             GameObject m;
+
+
             if (this.GetComponentInChildren<CombatCommandMove>()==null)
-            {           
-                m = Instantiate(thisCommand, this.transform);
+            {     
+                m = Instantiate(thisCommand, this.transform);      
                 m.GetComponent<CombatCommandMove>().timer = this;
                 m.GetComponent<CombatCommandMove>().navMeshAgent = navMeshAgent;
             }
-            else{ print ("already attached!");}
+            else
+            { 
+                print ("already attached!");
+            }
             return;
-    }
+         }
 
     IEnumerator TimerExecute()
     {   

@@ -52,6 +52,7 @@ public class NavWaypointMover : MonoBehaviour {
             yield return null;
         }
         print("done moving");
+        navMeshAgent.isStopped=false;
         MoveComplete();
         yield return null;
 

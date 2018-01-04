@@ -20,7 +20,6 @@ public class NavWaypointManager : MonoBehaviour {
         NavWaypointMover.MoveComplete += ClearList;
 
         lineRender = SpawnLineRenderer(this.transform.parent.gameObject);
-
         lineRender.GetComponent<DrawPathway>().SetAgentSource(this.transform.parent.parent.gameObject);
 
     }
@@ -29,6 +28,7 @@ public class NavWaypointManager : MonoBehaviour {
     {      
         GameObject o = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
         lineRender.transform.SetParent(o.transform);
+        lineRender.GetComponent<DrawPathway>().enabled = false;
         navPointObjects.Add(o);
         lineRender = SpawnLineRenderer(o);
         return;
@@ -38,7 +38,6 @@ public class NavWaypointManager : MonoBehaviour {
     {
         GameObject l = Object.Instantiate(lineRendererPrefab, target.transform.position, Quaternion.identity);
         l.transform.SetParent(this.transform.parent);  // still keeps the parent as the source
-
         l.GetComponent<DrawPathway>().SetAgentSource(target);
         return l;
     }
@@ -51,6 +50,8 @@ public class NavWaypointManager : MonoBehaviour {
 
     void ClearList()
     {
+        Destroy(lineRender);
+        lineRender = SpawnLineRenderer(this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
         distance = 0;
     }

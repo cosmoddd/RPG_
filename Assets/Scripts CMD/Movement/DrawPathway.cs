@@ -16,9 +16,6 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 	void Start () {
 
 	    host = this.gameObject.transform.parent.GetComponentInChildren<CombatCommandMove>();
-        host.Clicked += DeactivateScript;
-   //     CombatCommandMove.Move += Disable;
-
 	    line = GetComponent<LineRenderer>(); //get the line renderer
 		navMeshAgent.isStopped = true;
 	}
@@ -45,6 +42,7 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
 
     }
 
+
 	public Vector3 CastRay()
 
     {
@@ -56,17 +54,6 @@ public class DrawPathway : MonoBehaviour {  //DRAWS WAYPOINTS
                 return interactionInfo.point;
             }
 		else return Vector3.zero;
-    }
-
-
-
-    public void DeactivateScript(Vector3 point){
-
-        print("Draw Pathway Deactivated");
-        host.Clicked -= DeactivateScript;
-        this.enabled = false;
-        return;
-
     }
 
 }
