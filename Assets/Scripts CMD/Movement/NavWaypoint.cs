@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypointSpawner : MonoBehaviour {  //SPAWNS WAYPOINTS
+public class NavWaypoint : MonoBehaviour {  //SPAWNS WAYPOINTS
 
+public delegate void NavWaypointDelegate();
+public static event NavWaypointDelegate WayPointClicked;
 
 public void Start(){
     CombatCommandMove.Move += DisableNavAgent;
@@ -23,4 +25,11 @@ void DestroySelf()
       NavWaypointMover.MoveComplete -= DestroySelf;
       Destroy(gameObject);
 }
+
+void OnMouseDown()
+    {
+        print ("get ready");
+        WayPointClicked();
+    }
+
 }

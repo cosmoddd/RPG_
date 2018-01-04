@@ -48,7 +48,7 @@ public class CombatTimer : MonoBehaviour
     void OnMouseDown()
     {       
         Invoke("SpawnMoveCommand", .01f);
- }
+    }
 
     void SpawnMoveCommand()
         {

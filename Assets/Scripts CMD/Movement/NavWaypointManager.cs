@@ -20,8 +20,11 @@ public class NavWaypointManager : MonoBehaviour {
     void Start ()
     {
         combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
+    
+
         combatCommandMove.Clicked += NavPointPlace;
         NavWaypointMover.MoveComplete += ClearList;
+        combatCommandMove.RightClicked += DeSpawnLineRenderer;
 
         lineRender = SpawnLineRenderer(this.transform.parent.gameObject);
         lineRender.GetComponent<DrawPathway>().SetAgentSource(this.transform.parent.parent.gameObject);
@@ -45,6 +48,12 @@ public class NavWaypointManager : MonoBehaviour {
         l.transform.SetParent(this.transform.parent);  // still keeps the parent as the source
         l.GetComponent<DrawPathway>().SetAgentSource(target);
         return l;
+    }
+
+    public void DeSpawnLineRenderer(Vector3 v)
+
+    {
+        lineRender.GetComponent<LineRenderer>().enabled = false;
     }
 
     void Update()
