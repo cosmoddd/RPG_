@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DrawPathway : MonoBehaviour
+public class DrawPathway : MonoBehaviour  // this class should deal specifically with the drawing of the lines between waypoints
 {  //DRAWS WAYPOINTS
 
     public NavMeshAgent navMeshAgent;

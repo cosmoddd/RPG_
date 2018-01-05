@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114659425257439532}
   - component: {fileID: 114211653486180058}
   m_Layer: 0
-  m_Name: Command_Move
+  m_Name: Command_Move_r1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     type: 2}
   navPointObjects: []
   distanceSoFar: 0
-  maxDistance: 30
+  maxDistance: 15
   distanceTest: 0
   navPointPrefabSpawned: {fileID: 0}
 --- !u!114 &114659425257439532

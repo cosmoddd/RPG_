@@ -28,7 +28,6 @@ void DestroySelf()
 
 void OnMouseDown()
     {
-
         print ("get ready");
         WayPointClicked();
     }

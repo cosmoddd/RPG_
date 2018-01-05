@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypointManager : MonoBehaviour
+public class NavWaypointManager : MonoBehaviour    // this class should specifically deal with the addition and deletion of waypoints
 {
+
+    CombatCommandMove combatCommandMove;
 
     public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
+
     public List<GameObject> navPointObjects;
+    
     public float distanceSoFar = 0;
     public float maxDistance = 15;
 
     public float distanceTest;
 
-    GameObject lineRender;
-    public GameObject navPointPrefabSpawned;
+    public GameObject lineRenderObject;
 
-    CombatCommandMove combatCommandMove;
+    LineRenderer lineRenderer;
+    DrawPathway drawPathway;
+
+    public GameObject navPointPrefabSpawned;
 
     void Start()
     {
@@ -29,53 +35,78 @@ public class NavWaypointManager : MonoBehaviour
         NavWaypointMover.MoveComplete += ClearList;
         NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
-        lineRender = SpawnLineRenderer(this.transform.parent.gameObject);
-        lineRender.GetComponent<DrawPathway>().SetAgentSource(this.transform.parent.parent.gameObject);
-
+        lineRenderObject = SpawnLineRenderer(this.transform.parent.gameObject);
+        SetupDependencies();
+        drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);   
     }
 
-    public void NavPointPlace(Vector3 point)
+    void SetupDependencies()
     {
-        DistanceUpdate(lineRender.GetComponent<DrawPathway>().distance);
-        navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);
-        lineRender.transform.SetParent(navPointPrefabSpawned.transform);
-        lineRender.GetComponent<DrawPathway>().enabled = false;
-        navPointObjects.Add(navPointPrefabSpawned);
-        lineRender = SpawnLineRenderer(navPointPrefabSpawned);
+        lineRenderer = lineRenderObject.GetComponent<LineRenderer>();
+        drawPathway = lineRenderObject.GetComponent<DrawPathway>();
+    }
+
+        void Update()  //checks if distance on line renderer has been exceeded or not
+        {
+            distanceTest = drawPathway.distance + distanceSoFar;
+            if (drawPathway.distance + distanceSoFar > maxDistance)
+            {
+                combatCommandMove.maxDistanceExceeded = true;
+                return;
+            }
+            else
+            {
+                combatCommandMove.maxDistanceExceeded = false;
+                return;
+            }
+        }
+
+    public void NavPointPlace(Vector3 point)  // places next nav point in the world space
+    {
+        Yams yams = new Yams();
+
+        DistanceUpdate(drawPathway.distance);
+        navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3          //instantiate new navpoint
+                                                    (point.x, (point.y + 1), point.z), 
+                                                    Quaternion.identity);
+        navPointObjects.Add(navPointPrefabSpawned);                                     //add new navpoint to the list
+        lineRenderObject.transform.SetParent(navPointPrefabSpawned.transform);          //set line render object to previous navpoint
+        drawPathway.enabled = false;                                                    //disable draw pathway script
+ 
+        lineRenderObject = SpawnLineRenderer(navPointPrefabSpawned);                    //spawn new line renderer (function)
+        SetupDependencies();
         return;
     }
 
-    public GameObject SpawnLineRenderer(GameObject target)
+    public GameObject SpawnLineRenderer(GameObject target)  // activates line renderer script on Nav Point
     {
-        GameObject l = Object.Instantiate(lineRendererPrefab, target.transform.position, Quaternion.identity);
-        l.transform.SetParent(this.transform.parent);  // still keeps the parent as the source
-        l.GetComponent<DrawPathway>().SetAgentSource(target);
+        GameObject l = Object.Instantiate(lineRendererPrefab, target.transform.position, Quaternion.identity);  //spawn new line renderer
+        l.transform.SetParent(this.transform.parent);            // keeps the parent as the source
+        l.GetComponent<DrawPathway>().SetAgentSource(target);   
         return l;
     }
 
-    public void ReSpawnLineRenderer()
+    public void ReSpawnLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
 
     {
         Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
-        lineRender.GetComponent<LineRenderer>().enabled = true;
+        lineRenderer.enabled = true;
     }
 
-
-    public void DeSpawn(Vector3 v)
+    public void DeSpawn(Vector3 v)      //checker for dynamically retracting the placed navpoints
 
     {
-        if (navPointPrefabSpawned != null && (lineRender.GetComponent<LineRenderer>().enabled == true))
+        if (navPointPrefabSpawned != null && (lineRenderer.enabled == true))
         {
-            lineRender.GetComponent<LineRenderer>().enabled = false;
+            lineRenderer.enabled = false;
             print("yams");
             navPointPrefabSpawned.AddComponent<BoxCollider>();
             return;
         }
 
-        if (navPointPrefabSpawned != null && (lineRender.GetComponent<LineRenderer>().enabled == false))
+        if (navPointPrefabSpawned != null && (lineRenderer.enabled == false))
         {
-            lineRender.GetComponent<LineRenderer>().enabled = false;
-            print("moo moo");
+            lineRenderer.enabled = false;
             ClearMostRecentPoint();
             return;
         }
@@ -85,46 +116,52 @@ public class NavWaypointManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        distanceTest = lineRender.GetComponent<DrawPathway>().distance + distanceSoFar;
-        if (lineRender.GetComponent<DrawPathway>().distance + distanceSoFar > maxDistance)
-        {
-            combatCommandMove.maxDistanceExceeded = true;
-        }
-        else
-        {
-            combatCommandMove.maxDistanceExceeded = false;
-        }
-    }
 
-
-    void DistanceUpdate(float d)
+    void DistanceUpdate(float d)                //updates cumulative distance of nav points
     {
         distanceSoFar += d;
     }
 
-    void ClearMostRecentPoint()
+    void ClearMostRecentPoint()             // removes most recent nav point (WIP)
     {
+    
+        Destroy(navPointObjects[navPointObjects.Count-1]);
         navPointObjects.Remove(navPointObjects[navPointObjects.Count-1]);
+
+
+        if (navPointObjects.Count - 1 > -1)
+        {
+            GameObject mostRecentNav = navPointObjects[navPointObjects.Count - 1];
+            lineRenderObject = mostRecentNav;                   
+            drawPathway.SetAgentSource(mostRecentNav);
+            navPointPrefabSpawned = mostRecentNav;
+        }
+        else
+        {
+            lineRenderObject = transform.parent.GetComponentInChildren<DrawPathway>().gameObject;               
+            drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);
+        }
+
+        lineRenderer.enabled = true;
+        combatCommandMove.ready = true;
     }
 
-    void ClearList()
+    void ClearList()                                    // removes all nav points and resets the navpoint system after movement
     {
-        Destroy(lineRender);
-        lineRender = SpawnLineRenderer(this.transform.parent.parent.gameObject);
+        Destroy(lineRenderObject);
+        lineRenderObject = SpawnLineRenderer(this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
         distanceSoFar = 0;
     }
 
-    void DestroyEverything(){
+    void DestroyEverything(){                           //destroyes entire movement command hierarchy and starts from scratch
         
         combatCommandMove.Clicked -= NavPointPlace;
         combatCommandMove.RightClicked -= DeSpawn;
         NavWaypointMover.MoveComplete -= ClearList;
         NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
         NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
-            Destroy(lineRender);
+            Destroy(lineRenderObject);
             Destroy(this.gameObject); 
     }
 

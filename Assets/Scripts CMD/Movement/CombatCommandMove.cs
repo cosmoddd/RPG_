@@ -30,12 +30,14 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
         if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && !maxDistanceExceeded && ready)// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
+            return;
         }
 
         if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
             ready = false;
             RightClicked(GetThePoint.PickVector3());
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.G) && (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
@@ -43,12 +45,14 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
             if (transform.parent.GetComponentInChildren<DrawPathway>().gameObject.activeInHierarchy == true)
             {
                 transform.parent.GetComponentInChildren<DrawPathway>().gameObject.SetActive(false);
+                return;
             }
             navMeshAgent = this.GetComponentInParent<NavMeshAgent>();
             NavWaypointMover m = this.gameObject.AddComponent<NavWaypointMover>();
             m.navMeshAgent = navMeshAgent;
             m.Initialize();
             Move();  // execute the move event
+            return;
         }
     }
 

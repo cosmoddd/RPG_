@@ -30,14 +30,14 @@ public class CombatTimer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J) && !timerRunning)
         {
             StartCoroutine("TimerExecute");
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
             isPaused = !isPaused;
+            return;
         }
-        
-
     }
 
     void OnMouseDown()
