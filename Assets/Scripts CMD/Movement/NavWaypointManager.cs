@@ -63,7 +63,6 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     public void NavPointPlace(Vector3 point)  // places next nav point in the world space
     {
-        Yams yams = new Yams();
 
         DistanceUpdate(drawPathway.distance);
         navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3          //instantiate new navpoint
@@ -106,6 +105,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == false))
         {
+            print("blarney stone");
             lineRenderer.enabled = false;
             ClearMostRecentPoint();
             return;
@@ -122,28 +122,16 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         distanceSoFar += d;
     }
 
-    void ClearMostRecentPoint()             // removes most recent nav point (WIP)
+    void ClearMostRecentPoint()
     {
-    
-        Destroy(navPointObjects[navPointObjects.Count-1]);
-        navPointObjects.Remove(navPointObjects[navPointObjects.Count-1]);
 
-
-        if (navPointObjects.Count - 1 > -1)
-        {
-            GameObject mostRecentNav = navPointObjects[navPointObjects.Count - 1];
-            lineRenderObject = mostRecentNav;                   
-            drawPathway.SetAgentSource(mostRecentNav);
-            navPointPrefabSpawned = mostRecentNav;
-        }
-        else
-        {
-            lineRenderObject = transform.parent.GetComponentInChildren<DrawPathway>().gameObject;               
-            drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);
-        }
-
-        lineRenderer.enabled = true;
-        combatCommandMove.ready = true;
+        this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects, 
+                                                                    lineRenderObject, 
+                                                                    drawPathway, 
+                                                                    this, 
+                                                                    lineRenderer, combatCommandMove);
+/*         ClearMostRecentPoint clear = this.gameObject.AddComponent<ClearMostRecentPoint>();
+        clear.Clear(navPointObjects, lineRenderObject, drawPathway, navPointPrefabSpawned, lineRenderer, combatCommandMove); */
     }
 
     void ClearList()                                    // removes all nav points and resets the navpoint system after movement
