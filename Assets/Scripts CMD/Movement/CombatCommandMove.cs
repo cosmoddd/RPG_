@@ -14,8 +14,6 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
     public NavMeshAgent navMeshAgent;
     public bool maxDistanceExceeded = false;
     public bool ready = true;
-    bool moving = false;
-
 
     public override void Start()
     {

@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class NavWaypointManager : MonoBehaviour    // this class should specifically deal with the addition and deletion of waypoints
 {
+#region variables
 
-    CombatCommandMove combatCommandMove;
+    public CombatCommandMove combatCommandMove;
 
     public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
@@ -21,9 +22,10 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public GameObject lineRenderObject;
 
     LineRenderer lineRenderer;
-    DrawPathway drawPathway;
+    public DrawPathway drawPathway;
 
     public GameObject navPointPrefabSpawned;
+#endregion
 
     void Start()
     {
@@ -35,12 +37,12 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         NavWaypointMover.MoveComplete += ClearList;
         NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
-        lineRenderObject = SpawnLineRenderer(this.transform.parent.gameObject);
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.gameObject);
         SetupDependencies();
         drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);   
     }
 
-    void SetupDependencies()
+    public void SetupDependencies()
     {
         lineRenderer = lineRenderObject.GetComponent<LineRenderer>();
         drawPathway = lineRenderObject.GetComponent<DrawPathway>();
@@ -61,9 +63,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
             }
         }
 
-    public void NavPointPlace(Vector3 point)  // places next nav point in the world space
+    public void NavPointPlace(Vector3 point)  // places next nav point in the world space  // CORE USAGE OF THIS CLASS!
     {
-
         DistanceUpdate(drawPathway.distance);
         navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3          //instantiate new navpoint
                                                     (point.x, (point.y + 1), point.z), 
@@ -72,17 +73,9 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         lineRenderObject.transform.SetParent(navPointPrefabSpawned.transform);          //set line render object to previous navpoint
         drawPathway.enabled = false;                                                    //disable draw pathway script
  
-        lineRenderObject = SpawnLineRenderer(navPointPrefabSpawned);                    //spawn new line renderer (function)
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);                    //spawn new line renderer (function)
         SetupDependencies();
         return;
-    }
-
-    public GameObject SpawnLineRenderer(GameObject target)  // activates line renderer script on Nav Point
-    {
-        GameObject l = Object.Instantiate(lineRendererPrefab, target.transform.position, Quaternion.identity);  //spawn new line renderer
-        l.transform.SetParent(this.transform.parent);            // keeps the parent as the source
-        l.GetComponent<DrawPathway>().SetAgentSource(target);   
-        return l;
     }
 
     public void ReSpawnLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
@@ -98,20 +91,21 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == true))
         {
             lineRenderer.enabled = false;
-            print("yams");
             navPointPrefabSpawned.AddComponent<BoxCollider>();
             return;
         }
 
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == false))
         {
-            print("blarney stone");
             lineRenderer.enabled = false;
             ClearMostRecentPoint();
             return;
         }
         else{
-                DestroyEverything();
+                NavWaypointMover.MoveComplete -= ClearList;
+                NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
+                NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
+                this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
                 return;
         }
     }
@@ -124,33 +118,15 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     void ClearMostRecentPoint()
     {
-
-        this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects, 
-                                                                    lineRenderObject, 
-                                                                    drawPathway, 
-                                                                    this, 
-                                                                    lineRenderer, combatCommandMove);
-/*         ClearMostRecentPoint clear = this.gameObject.AddComponent<ClearMostRecentPoint>();
-        clear.Clear(navPointObjects, lineRenderObject, drawPathway, navPointPrefabSpawned, lineRenderer, combatCommandMove); */
+        this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects,lineRenderObject,drawPathway, this,  lineRenderer, combatCommandMove);
     }
 
-    void ClearList()                                    // removes all nav points and resets the navpoint system after movement
+    public void ClearList()                                    // removes all nav points and resets the navpoint system after movement
     {
         Destroy(lineRenderObject);
-        lineRenderObject = SpawnLineRenderer(this.transform.parent.parent.gameObject);
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
         distanceSoFar = 0;
-    }
-
-    void DestroyEverything(){                           //destroyes entire movement command hierarchy and starts from scratch
-        
-        combatCommandMove.Clicked -= NavPointPlace;
-        combatCommandMove.RightClicked -= DeSpawn;
-        NavWaypointMover.MoveComplete -= ClearList;
-        NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
-        NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
-            Destroy(lineRenderObject);
-            Destroy(this.gameObject); 
     }
 
 }

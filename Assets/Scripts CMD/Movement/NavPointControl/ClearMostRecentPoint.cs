@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ClearMostRecentPoint : MonoBehaviour {
 
+    public void Yams()
+    {
+        //navPointPrefabSpawned
+    }
+
     public void Clear(List<GameObject> navPointObjects,
 								GameObject lineRenderObject,
 								DrawPathway drawPathway,
