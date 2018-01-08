@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NavWaypointManager : MonoBehaviour    // this class should specifically deal with the addition and deletion of waypoints
 {
@@ -51,22 +50,19 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         lineRenderObject.transform.SetParent(navPointPrefabSpawned.transform);          //set line render object to previous navpoint
         drawPathway.enabled = false;                                                    //disable draw pathway script
  
-        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);                    //spawn new line renderer (function)
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);   //spawn new line renderer (function)
         SetupDependencies();
         return;
     }
 
     public void ReSpawnLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
-
     {
         Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
         lineRenderer.enabled = true;
     }
 
     public void DeSpawn(Vector3 v)      //checker for dynamically retracting the placed navpoints
-
     {
-
         //  ENTIRE DESPAWN CAN BE IT'S OWN CLASS
 
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == true))
@@ -93,18 +89,17 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     public void ClearList()                                    // removes all nav points and resets the navpoint system after movement
     {
-        Destroy(lineRenderObject);
-        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
-        navPointObjects.Clear();
+//        Destroy(lineRenderObject);
+//        navPointObjects.Clear();
         DeleteThis();
     }
 
     void DeleteThis(){
-                NavWaypointMover.MoveComplete -= ClearList;
-                NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
-                NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
-                this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
-                return;
+        NavWaypointMover.MoveComplete -= ClearList;
+        NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
+        NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
+        this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
+        return;
     }
 
 }
