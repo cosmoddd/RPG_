@@ -57,6 +57,8 @@ public class NavWaypointMover : MonoBehaviour {
 
         Destroy(this);
 
+        
+
     }
 
 }

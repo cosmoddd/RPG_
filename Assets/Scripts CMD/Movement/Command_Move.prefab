@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4794790919112098}
   - component: {fileID: 114659425257439532}
   - component: {fileID: 114211653486180058}
+  - component: {fileID: 114504613893981300}
   m_Layer: 0
   m_Name: Command_Move
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b2b8248f1bb894aa19db05fa6f7b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatCommandMove: {fileID: 0}
   navPointPrefab: {fileID: 1213992271057444, guid: 9f41913030d64d54687b8e15ae765e11,
     type: 2}
   lineRendererPrefab: {fileID: 1006545319742572, guid: ae19b30e810986643886af85255da684,
@@ -59,8 +61,21 @@ MonoBehaviour:
   navPointObjects: []
   distanceSoFar: 0
   maxDistance: 30
-  distanceTest: 0
+  distanceTestFloat: 0
+  lineRenderObject: {fileID: 0}
+  drawPathway: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
+--- !u!114 &114504613893981300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2ec43f44f49944dac6dea925d9e748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114659425257439532
 MonoBehaviour:
   m_ObjectHideFlags: 1

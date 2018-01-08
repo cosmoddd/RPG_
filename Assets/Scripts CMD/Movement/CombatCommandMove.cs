@@ -43,7 +43,6 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
             if (transform.parent.GetComponentInChildren<DrawPathway>().gameObject.activeInHierarchy == true)
             {
                 transform.parent.GetComponentInChildren<DrawPathway>().gameObject.SetActive(false);
-                return;
             }
             navMeshAgent = this.GetComponentInParent<NavMeshAgent>();
             NavWaypointMover m = this.gameObject.AddComponent<NavWaypointMover>();
@@ -57,6 +56,7 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
     public void Ready()
     {
         print("Readeeey");
+        NavWaypointMover.MoveComplete -= Ready;
         Invoke("DelayedReady", .1f);
     }
 

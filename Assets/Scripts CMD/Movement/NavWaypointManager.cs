@@ -13,18 +13,12 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public GameObject lineRendererPrefab;
 
     public List<GameObject> navPointObjects;
-    
-    public float distanceSoFar = 0;
-    public float maxDistance = 15;
-
-    public float distanceTest;
-
     public GameObject lineRenderObject;
 
     LineRenderer lineRenderer;
     public DrawPathway drawPathway;
-
     public GameObject navPointPrefabSpawned;
+
 #endregion
 
     void Start()
@@ -48,24 +42,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         drawPathway = lineRenderObject.GetComponent<DrawPathway>();
     }
 
-        void Update()  //checks if distance on line renderer has been exceeded or not
-        {
-            distanceTest = drawPathway.distance + distanceSoFar;
-            if (drawPathway.distance + distanceSoFar > maxDistance)
-            {
-                combatCommandMove.maxDistanceExceeded = true;
-                return;
-            }
-            else
-            {
-                combatCommandMove.maxDistanceExceeded = false;
-                return;
-            }
-        }
-
     public void NavPointPlace(Vector3 point)  // places next nav point in the world space  // CORE USAGE OF THIS CLASS!
     {
-        DistanceUpdate(drawPathway.distance);
         navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3          //instantiate new navpoint
                                                     (point.x, (point.y + 1), point.z), 
                                                     Quaternion.identity);
@@ -88,6 +66,9 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public void DeSpawn(Vector3 v)      //checker for dynamically retracting the placed navpoints
 
     {
+
+        //  ENTIRE DESPAWN CAN BE IT'S OWN CLASS
+
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == true))
         {
             lineRenderer.enabled = false;
@@ -98,35 +79,32 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         if (navPointPrefabSpawned != null && (lineRenderer.enabled == false))
         {
             lineRenderer.enabled = false;
-            ClearMostRecentPoint();
+            this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects,lineRenderObject,drawPathway, this, lineRenderer, combatCommandMove);
             return;
         }
+
+        //  DESPAWN CAN BE IT'S OWN CLASS
+
         else{
-                NavWaypointMover.MoveComplete -= ClearList;
-                NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
-                NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
-                this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
-                return;
+            DeleteThis();
         }
     }
 
-
-    void DistanceUpdate(float d)                //updates cumulative distance of nav points
-    {
-        distanceSoFar += d;
-    }
-
-    void ClearMostRecentPoint()
-    {
-        this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects,lineRenderObject,drawPathway, this,  lineRenderer, combatCommandMove);
-    }
 
     public void ClearList()                                    // removes all nav points and resets the navpoint system after movement
     {
         Destroy(lineRenderObject);
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
         navPointObjects.Clear();
-        distanceSoFar = 0;
+        DeleteThis();
+    }
+
+    void DeleteThis(){
+                NavWaypointMover.MoveComplete -= ClearList;
+                NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
+                NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
+                this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
+                return;
     }
 
 }
