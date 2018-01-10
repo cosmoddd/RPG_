@@ -14,9 +14,12 @@ public class DrawPathway : MonoBehaviour  // this class should deal specifically
     public float lineOffset = 1;
     public float distance;
 
+    public float lengthSoFar;
+
     void Start()
     {
         line = GetComponent<LineRenderer>(); //get the line renderer
+        this.transform.parent.GetComponentInChildren<CalculateTotalDistance>().drawPathway = this;
         navMeshAgent.isStopped = true;
     }
 
@@ -41,16 +44,18 @@ public class DrawPathway : MonoBehaviour  // this class should deal specifically
             line.SetPosition(i, new Vector3(pathway[i].x, ((pathway[i].y) + (lineOffset)), pathway[i].z));
         }
 
-        distance = PathLength(navMeshAgent.path);
+      distance = PathLength(navMeshAgent.path);  // could be a separate class
     }
 
-    public float PathLength(NavMeshPath path)
+// could be a separate class  ----v
+
+     public float PathLength(NavMeshPath path)
         {
             if (path.corners.Length < 2)
                 return 0;
 
             Vector3 previousCorner = path.corners[0];
-            float lengthSoFar = 0.0F;
+            lengthSoFar = 0.0F;
             int i = 1;
             while (i < path.corners.Length)
             {
@@ -60,8 +65,9 @@ public class DrawPathway : MonoBehaviour  // this class should deal specifically
                 i++;
             }
             return lengthSoFar;
-        }
+        } 
 
+// could be a separate class  -----^
 }
 
 

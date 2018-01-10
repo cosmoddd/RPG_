@@ -6,7 +6,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 {
 #region variables
 
-    public CombatCommandMove combatCommandMove;
+    public CommandMove combatCommandMove;
 
     public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
@@ -22,12 +22,13 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     void Start()
     {
-        combatCommandMove = this.gameObject.GetComponent<CombatCommandMove>();
+        combatCommandMove = this.gameObject.GetComponent<CommandMove>();
 
         combatCommandMove.Clicked += NavPointPlace;
         combatCommandMove.RightClicked += DeSpawn;
 
         NavWaypointMover.MoveComplete += ClearList;
+
         NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.gameObject);
@@ -53,12 +54,14 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);   //spawn new line renderer (function)
         SetupDependencies();
         return;
+        
     }
 
     public void ReSpawnLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
     {
-        Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
-        lineRenderer.enabled = true;
+           lineRenderer.enabled = true;
+           Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
+           return;
     }
 
     public void DeSpawn(Vector3 v)      //checker for dynamically retracting the placed navpoints
@@ -79,7 +82,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
             return;
         }
 
-        //  DESPAWN CAN BE IT'S OWN CLASS
+        //  DESPAWN CAN BE IT'S OWN CLASS OR ADDED TO CLEAR MOST RECENT POINT
 
         else{
             DeleteThis();

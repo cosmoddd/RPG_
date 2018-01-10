@@ -7,29 +7,35 @@ public class NavWaypoint : MonoBehaviour {  //SPAWNS WAYPOINTS
 
 public delegate void NavWaypointDelegate();
 public static event NavWaypointDelegate WayPointClicked;
+public static event NavWaypointDelegate WayPointHover;
 
 public void Start(){
-    CombatCommandMove.Move += DisableNavAgent;
+    CommandMove.Move += DisableNavAgent;
     NavWaypointMover.MoveComplete += DestroySelf;
 }
 
 void DisableNavAgent()
 {
     print("navmesh disabledd");
-    CombatCommandMove.Move -= DisableNavAgent;
+    CommandMove.Move -= DisableNavAgent;
     GetComponent<NavMeshAgent>().enabled = false;
 }
 
 void DestroySelf()
 {
+      CommandMove.Move -= DisableNavAgent;
       NavWaypointMover.MoveComplete -= DestroySelf;
       Destroy(gameObject);
 }
 
 void OnMouseDown()
     {
-        print ("get ready");
         WayPointClicked();
     }
+
+void OnMouseOver()
+{
+    WayPointHover();
+}
 
 }

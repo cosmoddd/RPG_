@@ -8,14 +8,14 @@ public class NavWaypoints : MonoBehaviour
     public delegate void VectorPick(Vector3 v);
     public event VectorPick Place;
     public List<Vector3> navPoints;
-    CombatCommandMove combatCommandMove;
+    CommandMove combatCommandMove;
     float pointDistance;
     Vector3 point;
 
 #region Events
     public void OnEnable()
     {
-        combatCommandMove = transform.GetComponent<CombatCommandMove>();
+        combatCommandMove = transform.GetComponent<CommandMove>();
         if (combatCommandMove != null)
         {
             combatCommandMove.Clicked += SetNav;

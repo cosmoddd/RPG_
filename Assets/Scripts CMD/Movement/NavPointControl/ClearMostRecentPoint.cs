@@ -14,7 +14,7 @@ public class ClearMostRecentPoint : MonoBehaviour {
 								DrawPathway drawPathway,
 								NavWaypointManager navWaypointManager,
 								LineRenderer lineRenderer,
-								CombatCommandMove combatCommandMove )             // removes most recent nav point (WIP)
+								CommandMove combatCommandMove )             // removes most recent nav point (WIP)
     {
     
         Destroy(navPointObjects[navPointObjects.Count-1]);
@@ -36,6 +36,7 @@ public class ClearMostRecentPoint : MonoBehaviour {
 
         lineRenderer.enabled = true;
         combatCommandMove.ready = true;
+        SendMessage("Subtract");
 		Destroy(this);
     }
 }

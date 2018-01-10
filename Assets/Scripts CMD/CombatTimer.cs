@@ -50,11 +50,11 @@ public class CombatTimer : MonoBehaviour
             GameObject m;
 
 
-            if (this.GetComponentInChildren<CombatCommandMove>()==null)
+            if (this.GetComponentInChildren<CommandMove>()==null)
             {     
                 m = Instantiate(thisCommand, this.transform);      
-                m.GetComponent<CombatCommandMove>().timer = this;
-                m.GetComponent<CombatCommandMove>().navMeshAgent = navMeshAgent;
+                m.GetComponent<CommandMove>().timer = this;
+                m.GetComponent<CommandMove>().navMeshAgent = navMeshAgent;
             }
             else
             { 

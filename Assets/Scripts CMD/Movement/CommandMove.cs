@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CombatCommandMove : CombatCommand  // the master controller for the 'Move' combat command.
+public class CommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
     public delegate void SetPointDelegate(Vector3 point);
     public event SetPointDelegate Clicked;
@@ -18,6 +18,7 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
     public override void Start()
     {
         NavWaypoint.WayPointClicked += Ready;
+        NavWaypoint.WayPointHover += Unready;
         NavWaypointMover.MoveComplete += Ready;
         transform.localPosition = new Vector3(0, 0, 0);
         ready = true;
@@ -25,13 +26,13 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
 
     public override void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && !maxDistanceExceeded && ready)// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
+        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && !maxDistanceExceeded && ready)
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
         }
 
-        if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)// && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
+        if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)
         {
             ready = false;
             RightClicked(GetThePoint.PickVector3());
@@ -51,6 +52,12 @@ public class CombatCommandMove : CombatCommand  // the master controller for the
             Move();  // execute the move event
             return;
         }
+    }
+
+    public void Unready()
+    {
+        ready = false;
+        print("Unready");
     }
 
     public void Ready()

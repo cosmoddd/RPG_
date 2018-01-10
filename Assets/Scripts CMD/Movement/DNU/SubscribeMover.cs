@@ -17,7 +17,7 @@ public class SubscribeMover {
       //  CombatCommandMove.Move += Initialize;
     }
 
-    public static void Initialize(CombatCommandMove c)
+    public static void Initialize(CommandMove c)
     {
         c.gameObject.AddComponent<NavWaypointMover>();
     }
