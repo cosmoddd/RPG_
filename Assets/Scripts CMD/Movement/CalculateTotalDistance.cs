@@ -5,7 +5,7 @@ using UnityEngine;
 public class CalculateTotalDistance : MonoBehaviour {
 
 	public CommandMove combatCommandMove;
-    public PathwayDraw drawPathway;
+    public PathwayLength pathwayLength;
 
     public float cumulativeDistance = 0;
     public float currentDistance = 0;
@@ -15,20 +15,21 @@ public class CalculateTotalDistance : MonoBehaviour {
 
 	void Start(){
 
-  		combatCommandMove = this.transform.GetComponent<CommandMove>();    
+  		combatCommandMove = this.transform.GetComponent<CommandMove>();   
         NavWaypointMover.MoveComplete += ResetDistance;
         combatCommandMove.Clicked += DistanceAdd;
+
 	}
 
     public void Update()
             {
-                if (drawPathway == null)
+                if (pathwayLength == null)
                 {                      
-                    drawPathway = this.transform.parent.GetComponentInChildren<PathwayDraw>();
+                    pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
                     return;
                 }
                 
-                currentDistance = drawPathway.distance;
+                currentDistance = pathwayLength.distance;
 
 // move this to the CommandMove master function
 
@@ -49,12 +50,17 @@ public class CalculateTotalDistance : MonoBehaviour {
     {
         currentDistanceSaved.Add(currentDistance);
         cumulativeDistance = currentDistance + cumulativeDistance;
+        pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
+
     }
 
-    void Subtract()
+
+        void Subtract()
     {
         cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
         currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
+        pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
+
     }
 
     void ResetDistance()
@@ -65,8 +71,9 @@ public class CalculateTotalDistance : MonoBehaviour {
     void OnDisable()
     {
         print("distance test disable");
-    
-        NavWaypointMover.MoveComplete -= ResetDistance;   
+        NavWaypointMover.MoveComplete -= ResetDistance;  
+        combatCommandMove.Clicked -= DistanceAdd; 
+ 
     }
 
 

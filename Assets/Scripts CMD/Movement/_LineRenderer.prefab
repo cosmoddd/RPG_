@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4152575145577644}
   - component: {fileID: 120994657196072168}
-  - component: {fileID: 114373172180164434}
   - component: {fileID: 114978393617888106}
+  - component: {fileID: 114373172180164434}
   m_Layer: 0
   m_Name: _LineRenderer
   m_TagString: Untagged
@@ -56,7 +56,6 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   pathway: []
   lineOffset: 1
-  distance: 0
 --- !u!114 &114978393617888106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,7 +69,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   distance: 0
-  lengthSoFar: 0
 --- !u!120 &120994657196072168
 LineRenderer:
   m_ObjectHideFlags: 1

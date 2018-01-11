@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PathwayLength : MonoBehaviour {
+public class PathwayLength : MonoBehaviour {  // Live update of the distance between two points.
 
 	public NavMeshAgent navMeshAgent;
     NavMeshPath path;
     public float distance;
 
-    public float lengthSoFar;
-
 	void Update () {
 
 		if (navMeshAgent != null)
 		{
-	      distance = PathLength(navMeshAgent.path);  // could be a separate class
+	      distance = PathLength(navMeshAgent.path); 
 		}
 	}
 
     public void SetAgentSource(GameObject o)
     {
-        navMeshAgent = transform.parent.GetComponentInChildren<PathwayDraw>().navMeshAgent;
+        navMeshAgent = o.GetComponent<NavMeshAgent>();
     }
 
      public float PathLength(NavMeshPath path)
@@ -30,16 +28,16 @@ public class PathwayLength : MonoBehaviour {
                 return 0;
 
             Vector3 previousCorner = path.corners[0];
-            lengthSoFar = 0.0F;
+            distance = 0.0F;
             int i = 1;
             while (i < path.corners.Length)
             {
                 Vector3 currentCorner = path.corners[i];
-                lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
+                distance += Vector3.Distance(previousCorner, currentCorner);
                 previousCorner = currentCorner;
                 i++;
             }
-            return lengthSoFar;
+            return distance;
         } 
 
 }

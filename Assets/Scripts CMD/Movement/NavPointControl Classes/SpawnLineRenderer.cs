@@ -9,8 +9,8 @@ public class SpawnLineRenderer : MonoBehaviour{
     {
         GameObject l = Object.Instantiate(n.lineRendererPrefab, target.transform.position, Quaternion.identity);  //spawn new line renderer
         l.transform.SetParent(this.transform.parent);            // keeps the parent as the source
-        l.GetComponent<PathwayDraw>().SetAgentSource(target);   
-        Destroy(this);  // this works, really?!?1?
+        l.SendMessage("SetAgentSource", target);  
+        Destroy(this); 
         return l;
     }
 

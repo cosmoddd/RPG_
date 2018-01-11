@@ -12,12 +12,10 @@ public class PathwayDraw : MonoBehaviour  // this class should deal specifically
 
     public Vector3[] pathway;
     public float lineOffset = 1;
-    public float distance;
 
     void Start()
     {
         line = GetComponent<LineRenderer>(); //get the line renderer
-        this.transform.parent.GetComponentInChildren<CalculateTotalDistance>().drawPathway = this;
         navMeshAgent.isStopped = true;
     }
 

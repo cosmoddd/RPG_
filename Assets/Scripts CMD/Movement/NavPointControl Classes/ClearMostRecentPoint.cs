@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class ClearMostRecentPoint : MonoBehaviour {
 
-    public void Yams()
-    {
-        //navPointPrefabSpawned
-    }
 
     public void Clear(List<GameObject> navPointObjects,
 								GameObject lineRenderObject,
-								PathwayDraw drawPathway,
 								NavWaypointManager navWaypointManager,
 								LineRenderer lineRenderer,
 								CommandMove combatCommandMove )             // removes most recent nav point (WIP)
@@ -24,14 +19,15 @@ public class ClearMostRecentPoint : MonoBehaviour {
         if (navPointObjects.Count - 1 > -1)
         {
             GameObject mostRecentNav = navPointObjects[navPointObjects.Count - 1];
-            lineRenderObject = mostRecentNav;                   
-            drawPathway.SetAgentSource(mostRecentNav);
+            
+            lineRenderObject.SendMessage("SetAgentSource", mostRecentNav);
+            lineRenderObject = mostRecentNav;
             navWaypointManager.navPointPrefabSpawned = mostRecentNav;
         }
         else
         {
-            lineRenderObject = transform.parent.GetComponentInChildren<PathwayDraw>().gameObject;               
-            drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);
+            lineRenderObject = transform.parent.GetComponentInChildren<PathwayDraw>().gameObject;
+            lineRenderObject.SendMessage("SetAgentSource", this.transform.parent.parent.gameObject);
         }
 
         lineRenderer.enabled = true;
