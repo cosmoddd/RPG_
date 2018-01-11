@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CalculateTotalDistance : MonoBehaviour {
+public class CalcTotalDistance : MonoBehaviour {
 
 	public CommandMove combatCommandMove;
     public PathwayLength pathwayLength;
@@ -15,9 +15,11 @@ public class CalculateTotalDistance : MonoBehaviour {
 
 	void Start(){
 
-  		combatCommandMove = this.transform.GetComponent<CommandMove>();   
-        NavWaypointMover.MoveComplete += ResetDistance;
+  		combatCommandMove = this.transform.GetComponent<CommandMove>(); 
         combatCommandMove.Clicked += DistanceAdd;
+        combatCommandMove.calcTotalDistance = this;
+
+        NavWaypointMover.MoveComplete += ResetDistance;
 
 	}
 
@@ -31,7 +33,7 @@ public class CalculateTotalDistance : MonoBehaviour {
                 
                 currentDistance = pathwayLength.distance;
 
-// move this to the CommandMove master function
+/* // move this to the CommandMove master function
 
                 if (currentDistance + cumulativeDistance > maxDistance)
                 {
@@ -41,7 +43,7 @@ public class CalculateTotalDistance : MonoBehaviour {
                     combatCommandMove.ready = true;
                 }
 
-// move this to the CommandMove master function
+// move this to the CommandMove master function */
 
 
             }

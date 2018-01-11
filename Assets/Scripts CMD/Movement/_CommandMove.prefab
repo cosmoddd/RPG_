@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4794790919112098}
   - component: {fileID: 114670487032653950}
   - component: {fileID: 114211653486180058}
-  - component: {fileID: 114253418924597882}
+  - component: {fileID: 114961929642424564}
   m_Layer: 0
   m_Name: _CommandMove
   m_TagString: Untagged
@@ -60,25 +60,8 @@ MonoBehaviour:
     type: 2}
   navPointObjects: []
   lineRenderObject: {fileID: 0}
-  drawPathway: {fileID: 0}
+  pathwayDraw: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
---- !u!114 &114253418924597882
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1735436830655158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2a034ad7b62bf439b8f510378a568e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatCommandMove: {fileID: 0}
-  drawPathway: {fileID: 0}
-  cumulativeDistance: 0
-  currentDistance: 0
-  maxDistance: 20
-  currentDistanceSaved: []
 --- !u!114 &114670487032653950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,5 +76,22 @@ MonoBehaviour:
   slots: 0
   timer: {fileID: 0}
   navMeshAgent: {fileID: 0}
-  maxDistanceExceeded: 0
   ready: 1
+  calcTotalDistance: {fileID: 0}
+--- !u!114 &114961929642424564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1c6942c8ed79a44b4c6f9d32f7eee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatCommandMove: {fileID: 0}
+  pathwayLength: {fileID: 0}
+  cumulativeDistance: 0
+  currentDistance: 0
+  maxDistance: 20
+  currentDistanceSaved: []

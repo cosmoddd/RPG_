@@ -7,16 +7,12 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 #region variables
 
     public CommandMove combatCommandMove;
-
     public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
-
     public List<GameObject> navPointObjects;
     public GameObject lineRenderObject;
-
     LineRenderer lineRenderer;
     public PathwayDraw pathwayDraw;
-
     public GameObject navPointPrefabSpawned;
 
 #endregion
@@ -28,9 +24,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         combatCommandMove.Clicked += NavPointPlace;
         combatCommandMove.RightClicked += DeSpawn;
 
-        NavWaypointMover.MoveComplete += ClearList;
-        
-     //   combatCommandMove.RightClicked += DeSpawnLineRenderer;
+        NavWaypointMover.MoveComplete += DeleteThis;
 
         NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
@@ -56,7 +50,6 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);   //spawn new line renderer (function)
         SetupDependencies();
         return;
-        
     }
 
     public void ReSpawnLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
@@ -66,40 +59,13 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
            return;
     }
 
-    public void DeSpawn(Vector3 v)      //checker for dynamically retracting the placed navpoints
+    public void DeSpawn(Vector3 v)   
     {
-        //  ENTIRE DESPAWN CAN BE IT'S OWN CLASS
-
-        if (navPointPrefabSpawned != null && (lineRenderer.enabled == true))  // If there's a line but no point.
-        {
-            lineRenderer.enabled = false;
-            navPointPrefabSpawned.AddComponent<BoxCollider>();
-            return;
-        }
-
-        if (navPointPrefabSpawned != null && (lineRenderer.enabled == false))  // If there's a point but no line.
-        {
-            lineRenderer.enabled = false;
-            this.gameObject.AddComponent<ClearMostRecentPoint>().Clear(navPointObjects, lineRenderObject, this, lineRenderer, combatCommandMove);
-            
-            return;
-        }
-
-        //  DESPAWN CAN BE IT'S OWN CLASS OR ADDED TO CLEAR MOST RECENT POINT
-
-        else{
-            DeleteThis();
-        }
+        this.gameObject.AddComponent<NavRemove>().DeSpawn(navPointObjects, v, navPointPrefabSpawned, lineRenderObject, lineRenderer);
     }
 
-
-    public void ClearList()  // removes all nav points and resets the navpoint system after movement
-    {
-        DeleteThis();
-    }
-
-    void DeleteThis(){
-        NavWaypointMover.MoveComplete -= ClearList;
+    void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
+        NavWaypointMover.MoveComplete -= DeleteThis;
         NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
         NavWaypoint.WayPointClicked -= ReSpawnLineRenderer;
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything

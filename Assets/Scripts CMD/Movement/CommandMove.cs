@@ -12,8 +12,10 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public delegate void MoveDelegate();
     public static event MoveDelegate Move;
     public NavMeshAgent navMeshAgent;
-    public bool maxDistanceExceeded = false;
+
     public bool ready = true;
+
+    public CalcTotalDistance calcTotalDistance;
 
     public override void Start()
     {
@@ -26,7 +28,9 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     public override void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && !maxDistanceExceeded && ready)
+        print(DistanceTest());
+
+        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && DistanceTest() == true && ready)
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
@@ -52,6 +56,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             Move();  // execute the move event
             return;
         }
+
     }
 
     public void Unready()
@@ -72,4 +77,11 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         ready = true;
     }
 
+    bool DistanceTest()
+    {
+        if (calcTotalDistance != null){
+            return ((calcTotalDistance.currentDistance + calcTotalDistance.cumulativeDistance) < calcTotalDistance.maxDistance);
+        }
+        return false;
+    }
 }
