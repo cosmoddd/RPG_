@@ -28,6 +28,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         combatCommandMove.RightClicked += DeSpawn;
 
         NavWaypointMover.MoveComplete += ClearList;
+        
+        combatCommandMove.RightClicked += DeSpawnLineRenderer;
 
         NavWaypoint.WayPointClicked += ReSpawnLineRenderer;
 
