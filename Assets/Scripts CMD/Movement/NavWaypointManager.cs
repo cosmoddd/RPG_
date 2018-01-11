@@ -15,7 +15,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public GameObject lineRenderObject;
 
     LineRenderer lineRenderer;
-    public DrawPathway drawPathway;
+    public PathwayDraw drawPathway;
     public GameObject navPointPrefabSpawned;
 
 #endregion
@@ -39,7 +39,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public void SetupDependencies()
     {
         lineRenderer = lineRenderObject.GetComponent<LineRenderer>();
-        drawPathway = lineRenderObject.GetComponent<DrawPathway>();
+        drawPathway = lineRenderObject.GetComponent<PathwayDraw>();
     }
 
     public void NavPointPlace(Vector3 point)  // places next nav point in the world space  // CORE USAGE OF THIS CLASS!

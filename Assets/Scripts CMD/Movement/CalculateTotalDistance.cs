@@ -5,7 +5,7 @@ using UnityEngine;
 public class CalculateTotalDistance : MonoBehaviour {
 
 	public CommandMove combatCommandMove;
-    public DrawPathway drawPathway;
+    public PathwayDraw drawPathway;
 
     public float cumulativeDistance = 0;
     public float currentDistance = 0;
@@ -24,7 +24,7 @@ public class CalculateTotalDistance : MonoBehaviour {
             {
                 if (drawPathway == null)
                 {                      
-                    drawPathway = this.transform.parent.GetComponentInChildren<DrawPathway>();
+                    drawPathway = this.transform.parent.GetComponentInChildren<PathwayDraw>();
                     return;
                 }
                 

@@ -19,11 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4794790919112098}
-  - component: {fileID: 114659425257439532}
+  - component: {fileID: 114670487032653950}
   - component: {fileID: 114211653486180058}
-  - component: {fileID: 114504613893981300}
+  - component: {fileID: 114253418924597882}
   m_Layer: 0
-  m_Name: Command_Move
+  m_Name: _CommandMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,13 +59,10 @@ MonoBehaviour:
   lineRendererPrefab: {fileID: 1006545319742572, guid: ae19b30e810986643886af85255da684,
     type: 2}
   navPointObjects: []
-  distanceSoFar: 0
-  maxDistance: 30
-  distanceTestFloat: 0
   lineRenderObject: {fileID: 0}
   drawPathway: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
---- !u!114 &114504613893981300
+--- !u!114 &114253418924597882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -73,10 +70,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1735436830655158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc2ec43f44f49944dac6dea925d9e748, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e2a034ad7b62bf439b8f510378a568e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114659425257439532
+  combatCommandMove: {fileID: 0}
+  drawPathway: {fileID: 0}
+  cumulativeDistance: 0
+  currentDistance: 0
+  maxDistance: 20
+  currentDistanceSaved: []
+--- !u!114 &114670487032653950
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -84,10 +87,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1735436830655158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85bc1333aa7b01942a2e59e3aa714e10, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ec643a42919a64418689d1eda700bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: -7
+  slots: 0
   timer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   maxDistanceExceeded: 0

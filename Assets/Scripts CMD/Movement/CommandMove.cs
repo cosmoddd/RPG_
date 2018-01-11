@@ -41,9 +41,9 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         if (Input.GetKeyDown(KeyCode.G) && (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
         {
-            if (transform.parent.GetComponentInChildren<DrawPathway>().gameObject.activeInHierarchy == true)
+            if (transform.parent.GetComponentInChildren<PathwayDraw>().gameObject.activeInHierarchy == true)
             {
-                transform.parent.GetComponentInChildren<DrawPathway>().gameObject.SetActive(false);
+                transform.parent.GetComponentInChildren<PathwayDraw>().gameObject.SetActive(false);
             }
             navMeshAgent = this.GetComponentInParent<NavMeshAgent>();
             NavWaypointMover m = this.gameObject.AddComponent<NavWaypointMover>();

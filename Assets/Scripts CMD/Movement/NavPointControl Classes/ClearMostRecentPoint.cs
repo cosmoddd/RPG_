@@ -11,7 +11,7 @@ public class ClearMostRecentPoint : MonoBehaviour {
 
     public void Clear(List<GameObject> navPointObjects,
 								GameObject lineRenderObject,
-								DrawPathway drawPathway,
+								PathwayDraw drawPathway,
 								NavWaypointManager navWaypointManager,
 								LineRenderer lineRenderer,
 								CommandMove combatCommandMove )             // removes most recent nav point (WIP)
@@ -30,7 +30,7 @@ public class ClearMostRecentPoint : MonoBehaviour {
         }
         else
         {
-            lineRenderObject = transform.parent.GetComponentInChildren<DrawPathway>().gameObject;               
+            lineRenderObject = transform.parent.GetComponentInChildren<PathwayDraw>().gameObject;               
             drawPathway.SetAgentSource(this.transform.parent.parent.gameObject);
         }
 
