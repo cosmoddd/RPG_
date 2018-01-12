@@ -261,7 +261,7 @@ Transform:
   m_LocalScale: {x: 3.7617369, y: 7.626681, z: 3.7617364}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &257204992
 NavMeshObstacle:
@@ -307,7 +307,7 @@ Transform:
   - {fileID: 928113595}
   - {fileID: 1580317695}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &873786691
 NavMeshAgent:
@@ -599,7 +599,7 @@ Transform:
   m_LocalScale: {x: 7.011513, y: 7.011514, z: 7.011514}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1818889056
 GameObject:
@@ -694,7 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd462a45a5e16a442a0e64cb453687cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navPoints: []
 --- !u!1 &2054680949
 GameObject:
   m_ObjectHideFlags: 0

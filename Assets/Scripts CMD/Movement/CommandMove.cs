@@ -11,9 +11,13 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     public delegate void MoveDelegate();
     public static event MoveDelegate Move;
+    public event MoveDelegate OutOfRange;
+    public event MoveDelegate InsideRange;    
+
     public NavMeshAgent navMeshAgent;
 
     public bool ready = true;
+    public bool InRange = true;
 
     public CalcTotalDistance calcTotalDistance;
 
@@ -28,7 +32,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     public override void Update()
     {
-        print(DistanceTest());
+        DistanceTest();
 
         if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && DistanceTest() == true && ready)
         {
@@ -62,12 +66,10 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public void Unready()
     {
         ready = false;
-        print("Unready");
     }
 
     public void Ready()
     {
-        print("Readeeey");
         NavWaypointMover.MoveComplete -= Ready;
         Invoke("DelayedReady", .1f);
     }
@@ -80,8 +82,19 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     bool DistanceTest()
     {
         if (calcTotalDistance != null){
-            return ((calcTotalDistance.currentDistance + calcTotalDistance.cumulativeDistance) < calcTotalDistance.maxDistance);
-        }
+            if ((calcTotalDistance.currentDistance + calcTotalDistance.cumulativeDistance) < calcTotalDistance.maxDistance)
+                {
+                    InRange = true;
+                    InsideRange();
+                    return InRange;
+                }
+            if ((calcTotalDistance.currentDistance + calcTotalDistance.cumulativeDistance) >= calcTotalDistance.maxDistance) 
+                {
+                    InRange = false;
+                    OutOfRange();
+                    return InRange;
+                }
+        }   
         return false;
     }
 }

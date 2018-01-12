@@ -11,12 +11,11 @@ public static event NavWaypointDelegate WayPointHover;
 
 public void Start(){
     CommandMove.Move += DisableNavAgent;
-    NavWaypointMover.MoveComplete += DestroySelf;
+    NavWaypointMover.MoveComplete += DestroySelf;    
 }
 
 void DisableNavAgent()
 {
-    print("navmesh disabledd");
     CommandMove.Move -= DisableNavAgent;
     GetComponent<NavMeshAgent>().enabled = false;
 }
@@ -36,6 +35,18 @@ void OnMouseDown()
 void OnMouseOver()
 {
     WayPointHover();
+}
+
+void InsideRange(
+){
+
+    print("in range");
+}
+
+void OutOfRange(){
+
+    
+    print("out of range");
 }
 
 }
