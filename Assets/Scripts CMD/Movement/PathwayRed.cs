@@ -25,8 +25,7 @@ public class PathwayRed : MonoBehaviour
 
         if (distanceCompare == null)
         {
-            print("getting the distance compare item");
-			print(this.transform.parent);
+
             distanceCompare = this.transform.parent.GetComponentInChildren<DistanceCompare>();
             distanceCompare.InsideRange += InsideRange;
             distanceCompare.OutOfRange += OutOfRange;
@@ -35,8 +34,6 @@ public class PathwayRed : MonoBehaviour
 
         if (commandMove == null){
 
-            print("getting the command move item");
-			print(this.transform.parent);
             commandMove = this.transform.parent.GetComponentInChildren<CommandMove>();
             commandMove.RightClicked += InsideRangeRC;
 			return;

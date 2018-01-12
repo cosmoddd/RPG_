@@ -12,6 +12,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     public List<GameObject> navPointObjects;
     public GameObject lineRenderObject;
     LineRenderer lineRenderer;
+    PathwayLength pathwayLength;
     public PathwayDraw pathwayDraw;
     public GameObject navPointPrefabSpawned;
 

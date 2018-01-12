@@ -59,7 +59,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             {
                 distanceCalc.enabled = true;
             }
-
             ready = false;
             RightClicked(GetThePoint.PickVector3());
             return;

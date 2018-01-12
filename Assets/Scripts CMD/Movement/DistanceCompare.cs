@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DistanceCompare : MonoBehaviour {
 
-    public CommandMove commandMove;
-	public DistanceCalc distanceCalc;
+    CommandMove commandMove;
+	DistanceCalc distanceCalc;
     public bool InRange;
 
     public delegate void DistanceCompareDelegate();
