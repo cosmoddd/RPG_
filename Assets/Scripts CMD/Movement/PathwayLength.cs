@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(PathwayDraw))]
+[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(PathwayRed))]
+
 public class PathwayLength : MonoBehaviour {  // Live update of the distance between two points.
 
 	public NavMeshAgent navMeshAgent;

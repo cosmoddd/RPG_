@@ -3,50 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypoint : MonoBehaviour {  //SPAWNS WAYPOINTS
+public class NavWaypoint : MonoBehaviour
+{  //SPAWNS WAYPOINTS
 
-public delegate void NavWaypointDelegate();
-public static event NavWaypointDelegate WayPointClicked;
-public static event NavWaypointDelegate WayPointHover;
+    public delegate void NavWaypointDelegate();
+    public static event NavWaypointDelegate WayPointClicked;
+    public static event NavWaypointDelegate WayPointHover;
 
-public void Start(){
-    CommandMove.Move += DisableNavAgent;
-    NavWaypointMover.MoveComplete += DestroySelf;    
-}
+    public void Start()
+    {
+        CommandMove.Move += DisableNavAgent;
+        NavWaypointMover.MoveComplete += DestroySelf;
+    }
 
-void DisableNavAgent()
-{
-    CommandMove.Move -= DisableNavAgent;
-    GetComponent<NavMeshAgent>().enabled = false;
-}
+    void DisableNavAgent()
+    {
+        CommandMove.Move -= DisableNavAgent;
+        GetComponent<NavMeshAgent>().enabled = false;
+    }
 
-void DestroySelf()
-{
-      CommandMove.Move -= DisableNavAgent;
-      NavWaypointMover.MoveComplete -= DestroySelf;
-      Destroy(gameObject);
-}
+    void DestroySelf()
+    {
+        CommandMove.Move -= DisableNavAgent;
+        NavWaypointMover.MoveComplete -= DestroySelf;
+        Destroy(gameObject);
+    }
 
-void OnMouseDown()
+    void OnMouseDown()
     {
         WayPointClicked();
     }
 
-void OnMouseOver()
-{
-    WayPointHover();
-}
-
-void InsideRange(
-){
-
-    print("in range");
-}
-
-void OutOfRange(){
-
-    
-    print("out of range");
-}
+    void OnMouseOver()
+    {
+        WayPointHover();
+    }
 
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CalcTotalDistance : MonoBehaviour {
+public class DistanceCalc : MonoBehaviour {
 
-	public CommandMove combatCommandMove;
+	public CommandMove commandMove;
     public PathwayLength pathwayLength;
 
     public float cumulativeDistance = 0;
@@ -15,49 +15,31 @@ public class CalcTotalDistance : MonoBehaviour {
 
 	void Start(){
 
-  		combatCommandMove = this.transform.GetComponent<CommandMove>(); 
-        combatCommandMove.Clicked += DistanceAdd;
-        combatCommandMove.calcTotalDistance = this;
+  		commandMove = this.transform.GetComponent<CommandMove>(); 
+        commandMove.Clicked += DistanceAdd;
+        commandMove.distanceCalc = this;
 
         NavWaypointMover.MoveComplete += ResetDistance;
-
 	}
 
     public void Update()
-            {
-                if (pathwayLength == null)
-                {                      
-                    pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
-                    return;
-                }
-                
-                currentDistance = pathwayLength.distance;
-
-/* // move this to the CommandMove master function
-
-                if (currentDistance + cumulativeDistance > maxDistance)
-                {
-                    combatCommandMove.ready = false;
-                }
-                else {
-                    combatCommandMove.ready = true;
-                }
-
-// move this to the CommandMove master function */
-
-
-            }
+    {
+        if (pathwayLength == null)
+        {                      
+            pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
+            return;
+        }   
+        currentDistance = pathwayLength.distance;
+    }
 
     void DistanceAdd(Vector3 v)                //updates cumulative distance of nav points
     {
         currentDistanceSaved.Add(currentDistance);
         cumulativeDistance = currentDistance + cumulativeDistance;
         pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
-
     }
-
-
-        void Subtract()
+    
+    void Subtract()
     {
         cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
         currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
@@ -74,9 +56,6 @@ public class CalcTotalDistance : MonoBehaviour {
     {
         print("distance test disable");
         NavWaypointMover.MoveComplete -= ResetDistance;  
-        combatCommandMove.Clicked -= DistanceAdd; 
- 
+        commandMove.Clicked -= DistanceAdd; 
     }
-
-
 }

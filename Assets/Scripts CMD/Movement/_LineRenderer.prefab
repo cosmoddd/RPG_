@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 120994657196072168}
   - component: {fileID: 114978393617888106}
   - component: {fileID: 114373172180164434}
+  - component: {fileID: 114483803640047728}
   m_Layer: 0
   m_Name: _LineRenderer
   m_TagString: Untagged
@@ -56,6 +57,17 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   pathway: []
   lineOffset: 1
+--- !u!114 &114483803640047728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006545319742572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7863b211013abf348badae997fa826fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114978393617888106
 MonoBehaviour:
   m_ObjectHideFlags: 1

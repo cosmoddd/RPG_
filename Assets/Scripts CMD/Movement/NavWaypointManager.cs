@@ -40,9 +40,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     public void NavPointPlace(Vector3 point)  // places next nav point in the world space  // CORE USAGE OF THIS CLASS!
     {
-        navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3          //instantiate new navpoint
-                                                    (point.x, (point.y + 1), point.z), 
-                                                    Quaternion.identity);
+        navPointPrefabSpawned = Object.Instantiate(navPointPrefab, new Vector3(point.x, (point.y + 1), point.z), Quaternion.identity);                                        
         navPointObjects.Add(navPointPrefabSpawned);                                     //add new navpoint to the list
         lineRenderObject.transform.SetParent(navPointPrefabSpawned.transform);          //set line render object to previous navpoint
         pathwayDraw.enabled = false;                                                    //disable draw pathway script

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+[RequireComponent(typeof(PathwayLength))]
+[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(PathwayRed))]
+
 public class PathwayDraw : MonoBehaviour  // this class should deal specifically with the drawing of the lines between waypoints
 {  //DRAWS WAYPOINTS
 
