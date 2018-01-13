@@ -51,16 +51,21 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)  // Right Click
         {
+            RightClicked(GetThePoint.PickVector3());
             if (ready)
-            {
+            {   
+                distanceCalc.currentDistance = 0;
                 distanceCalc.enabled = false;
+                ready = false;
+                return;
             }
             if (!ready)
             {
+                distanceCalc.currentDistance = 0;
                 distanceCalc.enabled = true;
+                ready = true;
+                return;
             }
-            ready = false;
-            RightClicked(GetThePoint.PickVector3());
             return;
         }
 

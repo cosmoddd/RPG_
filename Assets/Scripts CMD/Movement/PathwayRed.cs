@@ -41,11 +41,6 @@ public class PathwayRed : MonoBehaviour
 
     }
 
-    void Subscribe()
-    {
-
-    }
-
     void InsideRange()	
 	{
         lineRenderer.startColor = Color.blue;

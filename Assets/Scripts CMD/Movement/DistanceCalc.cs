@@ -17,14 +17,13 @@ public class DistanceCalc : MonoBehaviour {
 
   		commandMove = this.transform.GetComponent<CommandMove>(); 
         commandMove.Clicked += DistanceAdd;
-        commandMove.distanceCalc = this;
 
         NavWaypointMover.MoveComplete += ResetDistance;
 	}
 
     public void Update()
     {
-        if (pathwayLength == null)
+        if (pathwayLength == null || pathwayLength != this.transform.parent.GetComponentInChildren<PathwayLength>())
         {                      
             pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
             return;
@@ -35,18 +34,15 @@ public class DistanceCalc : MonoBehaviour {
 
     void DistanceAdd(Vector3 v)                //updates cumulative distance of nav points
     {
-        print("Distance Calc clicked");
         currentDistanceSaved.Add(currentDistance);
         cumulativeDistance = currentDistance + cumulativeDistance;
-        pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
+        currentDistance = 0f;
     }
     
     void Subtract()
     {
-        print("subtracted");
         cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
         currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
-        pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
     }
 
     void ResetDistance()

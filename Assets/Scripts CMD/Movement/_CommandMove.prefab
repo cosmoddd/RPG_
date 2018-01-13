@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4794790919112098}
   - component: {fileID: 114670487032653950}
   - component: {fileID: 114211653486180058}
-  - component: {fileID: 114961929642424564}
+  - component: {fileID: 114045011886174242}
+  - component: {fileID: 114811385732181660}
   m_Layer: 0
   m_Name: _CommandMove
   m_TagString: Untagged
@@ -42,6 +43,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114045011886174242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753799f553d53ef438960a067886bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathwayLength: {fileID: 0}
+  cumulativeDistance: 0
+  currentDistance: 0
+  maxDistance: 20
+  currentDistanceSaved: []
 --- !u!114 &114211653486180058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,8 +94,9 @@ MonoBehaviour:
   timer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   ready: 1
-  calcTotalDistance: {fileID: 0}
---- !u!114 &114961929642424564
+  distanceCalc: {fileID: 0}
+  distanceCompare: {fileID: 0}
+--- !u!114 &114811385732181660
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,12 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1735436830655158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c1c6942c8ed79a44b4c6f9d32f7eee8, type: 3}
+  m_Script: {fileID: 11500000, guid: 68e12dd0adde63a4f9521bafb57ed988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatCommandMove: {fileID: 0}
-  pathwayLength: {fileID: 0}
-  cumulativeDistance: 0
-  currentDistance: 0
-  maxDistance: 20
-  currentDistanceSaved: []
+  InRange: 0

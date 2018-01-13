@@ -18,8 +18,8 @@ public class NavRemove : MonoBehaviour {
 
         if (navSpawned != null && (l.enabled == false))  // If there's a point but no line.
         {
-            l.enabled = false;
-            Clear(navPointObjects, lObj, this.gameObject.GetComponent<NavWaypointManager>(), l, this.gameObject.GetComponent<CommandMove>());
+            Clear(navPointObjects, lObj, this.gameObject.GetComponent<NavWaypointManager>());
+            l.enabled = true;
             Destroy(this);           
             return;
         }
@@ -31,16 +31,11 @@ public class NavRemove : MonoBehaviour {
 
     }
 
-    public void Clear(List<GameObject> navPointObjects,
-								GameObject lineRenderObject,
-								NavWaypointManager navWaypointManager,
-								LineRenderer lineRenderer,
-								CommandMove combatCommandMove )             // removes most recent nav point
+    public void Clear(List<GameObject> navPointObjects,	GameObject lineRenderObject,NavWaypointManager navWaypointManager) // removes most recent nav point
     {
     
         Destroy(navPointObjects[navPointObjects.Count-1]);
         navPointObjects.Remove(navPointObjects[navPointObjects.Count-1]);
-        print("it's " + (navPointObjects.Count));
 
         if (navPointObjects.Count - 1 > -1)
         {
@@ -56,8 +51,6 @@ public class NavRemove : MonoBehaviour {
             lineRenderObject.SendMessage("SetAgentSource", this.transform.parent.parent.gameObject);
         }
 
-        lineRenderer.enabled = true;
-        combatCommandMove.ready = true;
         SendMessage("Subtract");
 		Destroy(this);
     }
