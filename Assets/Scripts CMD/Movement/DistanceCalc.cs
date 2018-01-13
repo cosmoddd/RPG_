@@ -11,12 +11,22 @@ public class DistanceCalc : MonoBehaviour {
     public float currentDistance = 0;
     public float maxDistance =20;
 
+    public bool ready; 
+
     public List <float> currentDistanceSaved;
+
+    void Start(){
+
+        ready = true;
+    }
 
 	void OnEnable(){
 
   		commandMove = this.transform.GetComponent<CommandMove>(); 
         commandMove.Clicked += DistanceAdd;
+
+        Selection.MouseOver += Unready;
+        Selection.MouseExit += Ready;
 
         NavWaypointMover.MoveComplete += ResetDistance;
 	}
@@ -26,6 +36,11 @@ public class DistanceCalc : MonoBehaviour {
         if (pathwayLength == null || pathwayLength != this.transform.parent.GetComponentInChildren<PathwayLength>())
         {                      
             pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
+            return;
+        }
+
+        while (ready == false)
+        {
             return;
         }
 
@@ -50,9 +65,23 @@ public class DistanceCalc : MonoBehaviour {
         cumulativeDistance = 0f;
     }
 
+    void Ready ()
+    {
+       ready = true;
+    }
+
+    void Unready ()
+    {
+        ready = false;
+    }
+
     void OnDisable()
     {
         NavWaypointMover.MoveComplete -= ResetDistance;  
         commandMove.Clicked -= DistanceAdd; 
+        
+        Selection.MouseOver -= Unready;
+        Selection.MouseExit -= Ready;
+
     }
 }

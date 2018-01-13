@@ -34,13 +34,18 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void OnEnable()
     {
+        Selection.MouseOver += Unready;
+        Selection.MouseExit += Ready;
+
         NavWaypoint.WayPointClicked += Ready;
         NavWaypoint.WayPointHover += Unready;
-        NavWaypointMover.MoveComplete += Ready;
+
+//        NavWaypointMover.MoveComplete += Ready;
     }
 
     public override void Update()
     {
+
         distanceCompare.DistanceTest(this, distanceCalc);
 
         if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && distanceCompare.InRange == true && ready)  // Left Click
@@ -55,20 +60,21 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             if (ready)
             {   
                 distanceCalc.currentDistance = 0;
-                distanceCalc.enabled = false;
+                distanceCalc.ready = false;
                 ready = false;
                 return;
             }
             if (!ready)
             {
                 distanceCalc.currentDistance = 0;
-                distanceCalc.enabled = true;
+                distanceCalc.ready = true;
                 ready = true;
                 return;
             }
             return;
         }
 
+        #region go script
         // --------------v a separate class
         if (Input.GetKeyDown(KeyCode.G) && (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
         {
@@ -84,22 +90,25 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             return;
         }
         //  -------------^ a separate class
+        #endregion
     }
 
     public void Unready()
     {
+        this.enabled = false;
         ready = false;
     }
 
     public void Ready()
     {
-        distanceCalc.enabled = true;
         NavWaypointMover.MoveComplete -= Ready;
         Invoke("DelayedReady", .1f);
     }
 
     void DelayedReady()
     {
+        distanceCompare.enabled = true;
+        this.enabled = true;
         ready = true;
     }
 

@@ -10,6 +10,7 @@ public class NavWaypoint : MonoBehaviour
     public static event NavWaypointDelegate WayPointClicked;
     public static event NavWaypointDelegate WayPointHover;
 
+
     public void Start()
     {
         CommandMove.Move += DisableNavAgent;
