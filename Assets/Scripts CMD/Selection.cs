@@ -21,11 +21,17 @@ public class Selection : MonoBehaviour {
 
 	void  OnMouseOver()
 	{
-		MouseOver();
+		if (MouseOver != null)
+		{
+			MouseOver();
+		}
 	}
 
 	void OnMouseExit()
 	{
-		MouseExit();
+		if (MouseExit != null)
+		{
+				MouseExit();
+		}
 	}
 }

@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 // MASTER COMBAT TIMER FOR EACH CHARACTER
 
-public class CombatTimer : MonoBehaviour
+public class CombatController : MonoBehaviour, ISelectable
 {
+
+  	public delegate void SelectionDelegate();
+	public static event SelectionDelegate DeSelect;
+
+    public bool selected;
 
     public List<string> CommandQueue;
     public NavMeshAgent navMeshAgent;
@@ -13,9 +18,11 @@ public class CombatTimer : MonoBehaviour
     public bool isPaused = false;
     public bool timerRunning = false;
     public int listLength = 10;
-    // Use this for initialization
+
     void Start()
     {
+        CombatController.DeSelect += _DeSelect;   // deselect this when another controller is clicked
+
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
             {        
@@ -23,6 +30,17 @@ public class CombatTimer : MonoBehaviour
             }
     }
 
+    public void Clicked()
+    {   
+        DeSelect();
+        Invoke("SpawnMoveCommand", .01f);
+        selected = true;
+    }
+
+    public void _DeSelect()
+    {   if (selected)
+        selected = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -40,10 +58,6 @@ public class CombatTimer : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
-    {       
-        Invoke("SpawnMoveCommand", .01f);
-    }
 
     void SpawnMoveCommand()
         {
@@ -53,7 +67,7 @@ public class CombatTimer : MonoBehaviour
             if (this.GetComponentInChildren<CommandMove>()==null)
             {     
                 m = Instantiate(thisCommand, this.transform);      
-                m.GetComponent<CommandMove>().timer = this;
+                m.GetComponent<CommandMove>().controller = this;
                 m.GetComponent<CommandMove>().navMeshAgent = navMeshAgent;
             }
             else
