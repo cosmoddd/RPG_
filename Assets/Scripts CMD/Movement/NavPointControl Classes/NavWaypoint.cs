@@ -9,6 +9,7 @@ public class NavWaypoint : MonoBehaviour
     public delegate void NavWaypointDelegate();
     public static event NavWaypointDelegate WayPointClicked;
     public static event NavWaypointDelegate WayPointHover;
+    public static event NavWaypointDelegate WayPointHoverExit;
 
 
     public void Start()
@@ -32,12 +33,24 @@ public class NavWaypoint : MonoBehaviour
 
     void OnMouseDown()
     {
+        Destroy(GetComponent<BoxCollider>());
         WayPointClicked();
     }
 
     void OnMouseOver()
     {
-        WayPointHover();
+        if (WayPointHover != null)
+        {
+             WayPointHover();
+        }
+    }
+
+    void OnMouseExit()
+    {
+        if (WayPointHover != null)
+        {
+             WayPointHoverExit();
+        }
     }
 
 }

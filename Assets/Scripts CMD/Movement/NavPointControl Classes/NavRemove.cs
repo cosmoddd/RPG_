@@ -5,11 +5,13 @@ using UnityEngine;
 public class NavRemove : MonoBehaviour {
 
     
+    
     public void DeSpawn(List<GameObject> navPointObjects, Vector3 v, GameObject navSpawned, GameObject lObj, LineRenderer l)      //checker for dynamically retracting the placed navpoints
     {
 
         if (navSpawned != null && (l.enabled == true))  // If there's a line but no point.
         {
+            
             l.enabled = false;
             navSpawned.AddComponent<BoxCollider>();
             Destroy(this);

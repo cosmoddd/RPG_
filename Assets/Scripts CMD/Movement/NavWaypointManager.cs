@@ -25,8 +25,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         combatCommandMove.Clicked += NavPointPlace;
 
         combatCommandMove.RightClicked += DeSpawn;
+
         NavWaypointMover.MoveComplete += DeleteThis;
-    //    NavWaypoint.WayPointClicked += ReActivateLineRenderer;
     
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
         SetupDependencies();
@@ -50,23 +50,6 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         SetupDependencies();
         return;
     }
-    
-    //control when this ----v gets spawned
-
-    /* 
-    
-    public void ReActivateLineRenderer()       // respawns line renderer script once the most recent navpoint has been clicked.  dependant on navpoint
-    {
-           lineRenderer.enabled = true;
-           Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
-           return;
-    }
-
-    public void DeActivateLineRenderer()
-    {
-
-    }
-    */ 
 
     public void DeSpawn(Vector3 v)   
     {
@@ -76,7 +59,6 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
         NavWaypointMover.MoveComplete -= DeleteThis;
         NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
-//        NavWaypoint.WayPointClicked -= ReActivateLineRenderer;
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
         return;
     }

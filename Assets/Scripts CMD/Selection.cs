@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Selection : MonoBehaviour {
 
-	public delegate void SelectionEvent();
+	public delegate void SelectionEvent ();
 	public static event SelectionEvent MouseOver;
 	public static event SelectionEvent MouseExit;
 

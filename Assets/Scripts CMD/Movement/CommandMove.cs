@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 [RequireComponent(typeof(NavWaypointManager))]
 [RequireComponent(typeof(DistanceCalc))]
 [RequireComponent(typeof(DistanceCompare))]
@@ -20,9 +19,24 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public NavMeshAgent navMeshAgent;
 
     public bool ready = true;
+    public bool overselectable = false;
 
     public DistanceCalc distanceCalc;
     public DistanceCompare distanceCompare;
+
+    void OnEnable()
+    {
+        Selection.MouseOver += OverSelectable;  
+        Selection.MouseExit += OverSelectableFalse; 
+
+        NavWaypoint.WayPointHover += OverSelectable;
+        NavWaypoint.WayPointHoverExit += OverSelectableFalse;
+
+
+        NavWaypoint.WayPointClicked += Ready;
+
+//        NavWaypointMover.MoveComplete += Ready;
+    }
 
     public override void Start()
     {
@@ -32,19 +46,14 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         ready = true;
     }
 
-    void OnEnable()
-    {
-        Selection.MouseOver += Unready;
-        Selection.MouseExit += Ready;
-
-        NavWaypoint.WayPointClicked += Ready;
-        NavWaypoint.WayPointHover += Unready;
-
-//        NavWaypointMover.MoveComplete += Ready;
-    }
 
     public override void Update()
     {
+
+        while(overselectable == true)
+        {
+            return;
+        }
 
         distanceCompare.DistanceTest(this, distanceCalc);
 
@@ -93,11 +102,21 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         #endregion
     }
 
-    public void Unready()
+    public void OverWaypoint()
     {
-        this.enabled = false;
         ready = false;
     }
+
+    public void OverSelectable()
+    {
+        overselectable = true;
+    }
+
+     public void OverSelectableFalse()
+    {
+        overselectable = false;
+    }
+
 
     public void Ready()
     {
@@ -107,16 +126,20 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void DelayedReady()
     {
-        distanceCompare.enabled = true;
-        this.enabled = true;
         ready = true;
+        this.enabled = true;
     }
 
     void OnDisable()
     {
-        NavWaypoint.WayPointClicked -= Ready;
-        NavWaypoint.WayPointHover -= Unready;
         NavWaypointMover.MoveComplete -= Ready;
+    }
+
+    void OnDestroy()
+    {
+
+        NavWaypoint.WayPointHover -= OverSelectableFalse;
+        NavWaypoint.WayPointClicked -= Ready;
     }
 
 }
