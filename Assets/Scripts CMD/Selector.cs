@@ -21,9 +21,10 @@ public class Selector : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
+
 			if (iselectable != null)
 			{
-				iselectable.Clicked();
+				iselectable.Select();
 				selected = hovered;
 			}
 		}
@@ -44,7 +45,8 @@ public class Selector : MonoBehaviour {
                 }
                 else
                 {
-					selected = null;
+					hovered = null;
+					iselectable = null;
 				}
             }
 

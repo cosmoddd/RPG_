@@ -2,44 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatCommand : MonoBehaviour {
+public abstract class CombatCommand : MonoBehaviour {
 
+	public CombatController combatController;
+	public bool selected = true;
 
-	string commandString;
-	public int slots;
-	public CombatController controller;
+    public delegate void MoveDelegate();
+    public static event MoveDelegate Move;
 
 	public virtual void Start()
 	{
-	
-	}
 
-	public void AddToList()
-	{
-		int i = NullString();
-		int j = i+slots;
-		for (i =NullString(); i < j; i++)
-		{
-			if (i < (controller.CommandQueue.Count) && (i > -1))
-			{
-			controller.CommandQueue[i] = this.ToString();
-			}
-		}
-	}
+		combatController = GetComponentInParent<CombatController>();
+		
+		combatController.SelectEvent += _SelectEvent;   
+		combatController.DeSelectEvent += _DeSelectEvent;   
 
+        Selection.MouseOver += _SelectEvent;  
+        Selection.MouseExit += _DeSelectEvent; 
 
-	public virtual void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.A) && (NullString()!=-1))
-        {
-			AddToList();
-        }
+        NavWaypoint.WayPointHover += _SelectEvent;
+        NavWaypoint.WayPointHoverExit += _DeSelectEvent;
+
+		selected = true;
 
 	}
 
-	int NullString()
-	{
-		return controller.CommandQueue.IndexOf("");
+    public void _SelectEvent()
+    {
+		print("selected?");
+        selected = true;
+    }
+
+     public void _DeSelectEvent()
+    {   if (selected)
+        selected = false;
+    }
+
+
+	public void OnDisable(){
+
+        Selection.MouseOver -= _SelectEvent;  
+        Selection.MouseExit -= _DeSelectEvent; 
+
+        NavWaypoint.WayPointHover -= _SelectEvent;
+        NavWaypoint.WayPointHoverExit -= _DeSelectEvent;
+
+		combatController.SelectEvent -= _SelectEvent;   
+		combatController.DeSelectEvent -= _DeSelectEvent;   
+
 	}
 
 }

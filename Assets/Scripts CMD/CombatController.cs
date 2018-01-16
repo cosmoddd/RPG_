@@ -8,7 +8,8 @@ public class CombatController : MonoBehaviour, ISelectable
 {
 
   	public delegate void SelectionDelegate();
-	public static event SelectionDelegate DeSelect;
+  	public event SelectionDelegate SelectEvent;
+	public event SelectionDelegate DeSelectEvent;
 
     public bool selected;
 
@@ -21,7 +22,6 @@ public class CombatController : MonoBehaviour, ISelectable
 
     void Start()
     {
-        CombatController.DeSelect += _DeSelect;   // deselect this when another controller is clicked
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
@@ -30,18 +30,25 @@ public class CombatController : MonoBehaviour, ISelectable
             }
     }
 
-    public void Clicked()
+    public void Select()
     {   
-        DeSelect();
-        Invoke("SpawnMoveCommand", .01f);
+
+        if (SelectEvent == null)
+        {
+            print("nothing attached... yet");
+            Invoke("SpawnCommandMove", .01f);
+        }
+        else{   
+            SelectEvent();
+        }
         selected = true;
     }
 
-    public void _DeSelect()
+    public void DeSelect()
     {   if (selected)
         selected = false;
     }
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -59,7 +66,7 @@ public class CombatController : MonoBehaviour, ISelectable
     }
 
 
-    void SpawnMoveCommand()
+    void SpawnCommandMove()
         {
             GameObject m;
 
@@ -67,7 +74,7 @@ public class CombatController : MonoBehaviour, ISelectable
             if (this.GetComponentInChildren<CommandMove>()==null)
             {     
                 m = Instantiate(thisCommand, this.transform);      
-                m.GetComponent<CommandMove>().controller = this;
+                m.GetComponent<CommandMove>().combatController = this;
                 m.GetComponent<CommandMove>().navMeshAgent = navMeshAgent;
             }
             else
@@ -76,6 +83,8 @@ public class CombatController : MonoBehaviour, ISelectable
             }
             return;
          }
+
+    //----v could be separate class
 
     IEnumerator TimerExecute()
     {   
@@ -105,6 +114,8 @@ public class CombatController : MonoBehaviour, ISelectable
         yield return null;
 
     }
+
+    //----^ could be separate class
 
     private static WaitForSecondsRealtime HalfSecond()
     {

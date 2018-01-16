@@ -38,7 +38,7 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
 
     public void SelectionMouseExit()
     {
-        if (commandMove.ready == true)
+        if (commandMove.canPlaceWaypoint == true)
         {
             lineRenderer.enabled = true;
             return;

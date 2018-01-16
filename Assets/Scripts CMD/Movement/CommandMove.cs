@@ -13,51 +13,40 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public event SetPointDelegate Clicked;
     public event SetPointDelegate RightClicked;
 
-    public delegate void MoveDelegate();
-    public static event MoveDelegate Move;
-
     public NavMeshAgent navMeshAgent;
-
-    public bool ready = true;
-    public bool deselected = false;
-
     public DistanceCalc distanceCalc;
     public DistanceCompare distanceCompare;
 
+    public bool canPlaceWaypoint = true;
+
     void OnEnable()
     {
-        Selection.MouseOver += DeSelected;  
-        Selection.MouseExit += DeSelectedFalse; 
-
-        NavWaypoint.WayPointHover += DeSelected;
-        NavWaypoint.WayPointHoverExit += DeSelectedFalse;
-
-
         NavWaypoint.WayPointClicked += Ready;
-
 //        NavWaypointMover.MoveComplete += Ready;
     }
 
     public override void Start()
     {
+        base.Start();
+
         distanceCalc = GetComponent<DistanceCalc>();
         distanceCompare = GetComponent<DistanceCompare>();
         transform.localPosition = new Vector3(0, 0, 0);
-        ready = true;
+        canPlaceWaypoint = true;
     }
 
 
-    public override void Update()
+    public void Update()
     {
 
-        while(deselected == true)
+        while(!selected)
         {
             return;
         }
 
         distanceCompare.DistanceTest(this, distanceCalc);
 
-        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && distanceCompare.InRange == true && ready)  // Left Click
+        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && distanceCompare.InRange == true && canPlaceWaypoint)  // Left Click
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
@@ -66,57 +55,29 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)  // Right Click
         {
             RightClicked(GetThePoint.PickVector3());
-            if (ready)
+            if (canPlaceWaypoint)
             {   
                 distanceCalc.currentDistance = 0;
                 distanceCalc.ready = false;
-                ready = false;
+                canPlaceWaypoint = false;
                 return;
             }
-            if (!ready)
+            if (!canPlaceWaypoint)
             {
                 distanceCalc.currentDistance = 0;
                 distanceCalc.ready = true;
-                ready = true;
+                canPlaceWaypoint = true;
                 return;
             }
             return;
         }
 
-        #region go script
-        // --------------v a separate class
-        if (Input.GetKeyDown(KeyCode.G) && (transform.GetComponent<NavWaypointMover>() == null)) // check if it's not already attached
-        {
-            if (transform.parent.GetComponentInChildren<PathwayDraw>().gameObject.activeInHierarchy == true)
-            {
-                transform.parent.GetComponentInChildren<PathwayDraw>().gameObject.SetActive(false);
-            }
-            navMeshAgent = this.GetComponentInParent<NavMeshAgent>();
-            NavWaypointMover m = this.gameObject.AddComponent<NavWaypointMover>();
-            m.navMeshAgent = navMeshAgent;
-            m.Initialize();
-            Move();  // execute the move event
-            return;
-        }
-        //  -------------^ a separate class
-        #endregion
     }
 
     public void OverWaypoint()
     {
-        ready = false;
+        canPlaceWaypoint = false;
     }
-
-    public void DeSelected()
-    {
-        deselected = true;
-    }
-
-     public void DeSelectedFalse()
-    {
-        deselected = false;
-    }
-
 
     public void Ready()
     {
@@ -126,19 +87,18 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void DelayedReady()
     {
-        ready = true;
+        canPlaceWaypoint = true;
         this.enabled = true;
     }
 
     void OnDisable()
     {
+        base.OnDisable();
         NavWaypointMover.MoveComplete -= Ready;
     }
 
     void OnDestroy()
     {
-
-        NavWaypoint.WayPointHover -= DeSelectedFalse\;
         NavWaypoint.WayPointClicked -= Ready;
     }
 

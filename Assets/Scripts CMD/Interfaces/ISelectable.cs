@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface ISelectable {
 
-void Clicked(); 
+void Select(); 
 
-void _DeSelect();
+void DeSelect();
 
 }
