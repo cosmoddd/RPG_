@@ -19,18 +19,18 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public NavMeshAgent navMeshAgent;
 
     public bool ready = true;
-    public bool overselectable = false;
+    public bool deselected = false;
 
     public DistanceCalc distanceCalc;
     public DistanceCompare distanceCompare;
 
     void OnEnable()
     {
-        Selection.MouseOver += OverSelectable;  
-        Selection.MouseExit += OverSelectableFalse; 
+        Selection.MouseOver += DeSelected;  
+        Selection.MouseExit += DeSelectedFalse; 
 
-        NavWaypoint.WayPointHover += OverSelectable;
-        NavWaypoint.WayPointHoverExit += OverSelectableFalse;
+        NavWaypoint.WayPointHover += DeSelected;
+        NavWaypoint.WayPointHoverExit += DeSelectedFalse;
 
 
         NavWaypoint.WayPointClicked += Ready;
@@ -50,7 +50,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public override void Update()
     {
 
-        while(overselectable == true)
+        while(deselected == true)
         {
             return;
         }
@@ -107,14 +107,14 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         ready = false;
     }
 
-    public void OverSelectable()
+    public void DeSelected()
     {
-        overselectable = true;
+        deselected = true;
     }
 
-     public void OverSelectableFalse()
+     public void DeSelectedFalse()
     {
-        overselectable = false;
+        deselected = false;
     }
 
 
@@ -138,7 +138,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     void OnDestroy()
     {
 
-        NavWaypoint.WayPointHover -= OverSelectableFalse;
+        NavWaypoint.WayPointHover -= DeSelectedFalse\;
         NavWaypoint.WayPointClicked -= Ready;
     }
 
