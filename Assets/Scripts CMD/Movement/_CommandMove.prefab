@@ -79,7 +79,7 @@ MonoBehaviour:
   lineRenderObject: {fileID: 0}
   pathwayDraw: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
---- !u!114 &114670487032653950
+--- !u!114 &114398213821901446
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1735436830655158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec643a42919a64418689d1eda700bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 753799f553d53ef438960a067886bf58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 0
