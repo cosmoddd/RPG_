@@ -19,10 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4794790919112098}
-  - component: {fileID: 114670487032653950}
   - component: {fileID: 114211653486180058}
   - component: {fileID: 114045011886174242}
   - component: {fileID: 114811385732181660}
+  - component: {fileID: 114398213821901446}
+  - component: {fileID: 114556086513332800}
   m_Layer: 0
   m_Name: _CommandMove
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1735436830655158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.9049937, y: 0.79502153, z: -40.080196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,6 +59,7 @@ MonoBehaviour:
   cumulativeDistance: 0
   currentDistance: 0
   maxDistance: 20
+  ready: 0
   currentDistanceSaved: []
 --- !u!114 &114211653486180058
 MonoBehaviour:
@@ -77,7 +79,6 @@ MonoBehaviour:
     type: 2}
   navPointObjects: []
   lineRenderObject: {fileID: 0}
-  pathwayDraw: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
 --- !u!114 &114398213821901446
 MonoBehaviour:
@@ -90,12 +91,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753799f553d53ef438960a067886bf58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: 0
-  timer: {fileID: 0}
+  pathwayLength: {fileID: 0}
+  cumulativeDistance: 0
+  currentDistance: 0
+  maxDistance: 20
+  ready: 0
+  currentDistanceSaved: []
+--- !u!114 &114556086513332800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec643a42919a64418689d1eda700bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatController: {fileID: 0}
+  selected: 1
   navMeshAgent: {fileID: 0}
-  ready: 1
   distanceCalc: {fileID: 0}
   distanceCompare: {fileID: 0}
+  canPlaceWaypoint: 1
 --- !u!114 &114811385732181660
 MonoBehaviour:
   m_ObjectHideFlags: 1
