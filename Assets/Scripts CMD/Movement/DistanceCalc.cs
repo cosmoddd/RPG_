@@ -23,11 +23,13 @@ public class DistanceCalc : MonoBehaviour {
 	void OnEnable(){
 
   		commandMove = this.transform.GetComponent<CommandMove>(); 
+
         commandMove.Clicked += DistanceAdd;
 
-        Selection.MouseOver += Unready;
-        Selection.MouseExit += Ready;
+        Selection.Enter += Unready;
+        Selection.Exit += HoverExitReady;
 
+        NavWaypoint.WayPointClicked += NavClickedReady;
         NavWaypointMover.MoveComplete += ResetDistance;
 	}
 
@@ -65,9 +67,17 @@ public class DistanceCalc : MonoBehaviour {
         cumulativeDistance = 0f;
     }
 
-    void Ready ()
+    void NavClickedReady()
     {
-       ready = true;
+             ready = true;
+    }
+
+    void HoverExitReady ()
+    {
+        if (commandMove.canPlaceWaypoint == true)
+        {
+             ready = true;
+        }
     }
 
     void Unready ()
@@ -78,10 +88,12 @@ public class DistanceCalc : MonoBehaviour {
     void OnDisable()
     {
         NavWaypointMover.MoveComplete -= ResetDistance;  
+        NavWaypoint.WayPointClicked -= NavClickedReady;
+
         commandMove.Clicked -= DistanceAdd; 
         
-        Selection.MouseOver -= Unready;
-        Selection.MouseExit -= Ready;
+        Selection.Enter -= Unready;
+        Selection.Exit -= HoverExitReady;
 
     }
 }

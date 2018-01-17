@@ -6,7 +6,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 {
 #region variables
 
-    public CommandMove combatCommandMove;
+    public CommandMove commandMove;
     public GameObject navPointPrefab;
     public GameObject lineRendererPrefab;
     public List<GameObject> navPointObjects;
@@ -20,11 +20,9 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     void Start()
     {
-        combatCommandMove = this.gameObject.GetComponent<CommandMove>();
-
-        combatCommandMove.Clicked += NavPointPlace;
-
-        combatCommandMove.RightClicked += DeSpawn;
+        commandMove = this.gameObject.GetComponent<CommandMove>();
+        commandMove.Clicked += NavPointPlace;
+        commandMove.RightClicked += DeSpawn;
 
         NavWaypointMover.MoveComplete += DeleteThis;
     
@@ -57,8 +55,9 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     }
 
     void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
+        
         NavWaypointMover.MoveComplete -= DeleteThis;
-        NavWaypoint.WayPointClicked -= combatCommandMove.Ready;
+        NavWaypoint.WayPointClicked -= commandMove.Ready;
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
         return;
     }

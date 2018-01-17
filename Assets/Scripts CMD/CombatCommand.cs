@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CombatCommand : MonoBehaviour {
+public abstract class   CombatCommand : MonoBehaviour {
 
 	public CombatController combatController;
 	public bool selected = true;
@@ -17,12 +17,6 @@ public abstract class CombatCommand : MonoBehaviour {
 		
 		combatController.SelectEvent += _SelectEvent;   
 		combatController.DeSelectEvent += _DeSelectEvent;   
-
-        Selection.MouseOver += _SelectEvent;  
-        Selection.MouseExit += _DeSelectEvent; 
-
-        NavWaypoint.WayPointHover += _SelectEvent;
-        NavWaypoint.WayPointHoverExit += _DeSelectEvent;
 
 		selected = true;
 
@@ -42,15 +36,8 @@ public abstract class CombatCommand : MonoBehaviour {
 
 	public void OnDisable(){
 
-        Selection.MouseOver -= _SelectEvent;  
-        Selection.MouseExit -= _DeSelectEvent; 
-
-        NavWaypoint.WayPointHover -= _SelectEvent;
-        NavWaypoint.WayPointHoverExit -= _DeSelectEvent;
-
 		combatController.SelectEvent -= _SelectEvent;   
 		combatController.DeSelectEvent -= _DeSelectEvent;   
-
 	}
 
 }

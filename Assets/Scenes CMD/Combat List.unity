@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 308999364}
   - component: {fileID: 308999363}
   - component: {fileID: 308999362}
+  - component: {fileID: 308999366}
   m_Layer: 0
   m_Name: _CombatControl3
   m_TagString: Untagged
@@ -457,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779cf435a38ab3840bbd0d3c2f99000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: 1
+  selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
@@ -518,6 +519,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308999360}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &308999366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308999360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990a807653c2a047bb4783f68e9536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hovering: 0
 --- !u!1 &532727433
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1990a807653c2a047bb4783f68e9536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hovering: 0
 --- !u!23 &532727435
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -678,6 +692,7 @@ GameObject:
   - component: {fileID: 928113593}
   - component: {fileID: 928113592}
   - component: {fileID: 928113596}
+  - component: {fileID: 928113597}
   m_Layer: 0
   m_Name: _CombatControl2
   m_TagString: Untagged
@@ -762,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779cf435a38ab3840bbd0d3c2f99000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: 1
+  selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
@@ -770,6 +785,18 @@ MonoBehaviour:
   isPaused: 0
   timerRunning: 0
   listLength: 10
+--- !u!114 &928113597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 928113591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990a807653c2a047bb4783f68e9536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hovering: 0
 --- !u!1 &971599458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1071,7 @@ GameObject:
   - component: {fileID: 1697418985}
   - component: {fileID: 1697418984}
   - component: {fileID: 1697418983}
+  - component: {fileID: 1697418987}
   m_Layer: 0
   m_Name: _CombatControl
   m_TagString: Untagged
@@ -1075,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779cf435a38ab3840bbd0d3c2f99000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: 1
+  selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
   thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
@@ -1136,6 +1164,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1697418981}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1697418987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1697418981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990a807653c2a047bb4783f68e9536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hovering: 0
 --- !u!1 &1818889056
 GameObject:
   m_ObjectHideFlags: 0

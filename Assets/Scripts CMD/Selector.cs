@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Selector : MonoBehaviour {
 
-
 	public GameObject hovered;
 	public GameObject selected;
-	ISelectable iselectable;
+
+	IHoverable iHoverable;
+	ISelectable iSelectable;
 
 	// Use this for initialization
 	void Start () {
@@ -17,40 +18,62 @@ public class Selector : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		Selection();
+		Hover();
 
 		if (Input.GetMouseButtonDown(0))
 		{
-
-			if (iselectable != null)
-			{
-				iselectable.Select();
-				selected = hovered;
-			}
+			Select();
 		}
 
 	}
 
-	void Selection(){
-	{
-        Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit interactionInfo;
-
-        if (Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
-            {
-                if (interactionInfo.transform.gameObject.GetComponent<ISelectable>() != null)
-                {
-                    hovered = interactionInfo.transform.gameObject;
-                    iselectable = interactionInfo.transform.gameObject.GetComponent<ISelectable>();
-                }
-                else
-                {
-					hovered = null;
-					iselectable = null;
+ 	void Select(){
+	 	
+		if (CastRay()!= null)
+		{
+			if (CastRay().GetComponent<ISelectable>() != null)
+				{
+					iSelectable = CastRay().GetComponent<ISelectable>();
+					iSelectable.Select();
 				}
-            }
+			}
+		}
+	
+ 
 
-    }
+	void Hover(){
+	{
+		if (CastRay()!= null)
+		{
+			if (CastRay().GetComponent<IHoverable>() != null)
+				{
+					iHoverable = CastRay().GetComponent<IHoverable>();
+					hovered = CastRay();
+					iHoverable.HoverEnter();
+				}
+				else
+				{
+					if (iHoverable != null)
+					{
+						iHoverable.HoverExit();
+					}
+					iHoverable = null;
+					hovered = null;	
+				}
+			}
+		}
+	}
+
+	public GameObject CastRay(){
+
+		Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit interactionInfo;
+        if (Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
+		{
+			return interactionInfo.transform.gameObject;
+		}
+
+		else return null;
 
 	}
 }

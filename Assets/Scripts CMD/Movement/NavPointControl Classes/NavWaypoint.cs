@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavWaypoint : MonoBehaviour
+public class NavWaypoint : MonoBehaviour, ISelectable
 {  //SPAWNS WAYPOINTS
 
     public delegate void NavWaypointDelegate();
@@ -31,11 +31,17 @@ public class NavWaypoint : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnMouseDown()
+    public void Select()
     {
         Destroy(GetComponent<BoxCollider>());
         WayPointClicked();
     }
+
+    public void DeSelect()
+    {
+        
+    }
+
 
     void OnMouseOver()
     {

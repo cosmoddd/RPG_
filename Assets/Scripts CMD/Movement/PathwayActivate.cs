@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class PathwayActivate : MonoBehaviour    // this class should specifically deal with the addition and deletion of waypoints
 {
-
     public bool hoveringOverNav;
     CommandMove commandMove;
     public LineRenderer lineRenderer;
 
   public void OnEnable(){
 
-        Selection.MouseOver += DeActivateNavLine;
-        Selection.MouseExit += SelectionMouseExit;
+        Selection.Enter += DeActivateNavLine;
+        Selection.Exit += SelectionMouseExit;
 
         NavWaypoint.WayPointHover += WayPointHover;
         NavWaypoint.WayPointHoverExit += WayPointHoverExit;
@@ -49,8 +48,8 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
     {
         if (hoveringOverNav == true)
             {
-            lineRenderer.enabled = true;
-            return;
+                lineRenderer.enabled = true;
+                return;
             }
         return;
     }
@@ -63,8 +62,8 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
 
     public void OnDisable(){
 
-        Selection.MouseOver -= DeActivateNavLine;
-        Selection.MouseExit -= SelectionMouseExit;
+        Selection.Enter -= DeActivateNavLine;
+        Selection.Exit -= SelectionMouseExit;
 
         NavWaypoint.WayPointHover -= WayPointHover;
         NavWaypoint.WayPointHoverExit -= WayPointHoverExit;

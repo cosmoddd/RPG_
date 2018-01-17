@@ -10,6 +10,7 @@ using UnityEngine.AI;
 public class CommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
     public delegate void SetPointDelegate(Vector3 point);
+    
     public event SetPointDelegate Clicked;
     public event SetPointDelegate RightClicked;
 
@@ -98,7 +99,8 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     }
 
     void OnDestroy()
-    {
+    {   
+        combatController.selected = false;
         NavWaypoint.WayPointClicked -= Ready;
     }
 

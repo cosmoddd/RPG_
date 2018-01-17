@@ -35,7 +35,6 @@ public class CombatController : MonoBehaviour, ISelectable
 
         if (SelectEvent == null)
         {
-            print("nothing attached... yet");
             Invoke("SpawnCommandMove", .01f);
         }
         else{   
@@ -65,12 +64,9 @@ public class CombatController : MonoBehaviour, ISelectable
         }
     }
 
-
     void SpawnCommandMove()
         {
             GameObject m;
-
-
             if (this.GetComponentInChildren<CommandMove>()==null)
             {     
                 m = Instantiate(thisCommand, this.transform);      
@@ -85,7 +81,7 @@ public class CombatController : MonoBehaviour, ISelectable
          }
 
     //----v could be separate class
-
+#region timerExecute
     IEnumerator TimerExecute()
     {   
         timerRunning = true;
@@ -114,7 +110,7 @@ public class CombatController : MonoBehaviour, ISelectable
         yield return null;
 
     }
-
+#endregion
     //----^ could be separate class
 
     private static WaitForSecondsRealtime HalfSecond()

@@ -2,36 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Selection : MonoBehaviour {
+public class Selection : MonoBehaviour, IHoverable {
 
 	public delegate void SelectionEvent ();
-	public static event SelectionEvent MouseOver;
-	public static event SelectionEvent MouseExit;
+	public static event SelectionEvent Enter;
+	public static event SelectionEvent Exit;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public bool hovering;
 
-
-	void  OnMouseOver()
+	public void  HoverEnter()
 	{
-		if (MouseOver != null)
+		if (Enter != null)
 		{
-			MouseOver();
+			hovering = true;
+			Enter();
 		}
 	}
 
-	void OnMouseExit()
+	public void HoverExit()
 	{
-		if (MouseExit != null)
+		if (Exit != null)
 		{
-				MouseExit();
+			hovering = false;
+				Exit();
 		}
 	}
 }
