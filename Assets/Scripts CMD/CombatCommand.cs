@@ -16,7 +16,7 @@ public abstract class   CombatCommand : MonoBehaviour {
 		combatController = GetComponentInParent<CombatController>();
 		
 		combatController.SelectEvent += _SelectEvent;   
-		combatController.DeSelectEvent += _DeSelectEvent;   
+		CombatController.DeSelectAllEvent += _DeSelectEvent;   
 
 		selected = true;
 
@@ -29,7 +29,9 @@ public abstract class   CombatCommand : MonoBehaviour {
     }
 
      public void _DeSelectEvent()
-    {   if (selected)
+    {   
+		if (selected)
+		print("deselect " + this.transform.name);
         selected = false;
     }
 
@@ -37,7 +39,7 @@ public abstract class   CombatCommand : MonoBehaviour {
 	public void OnDisable(){
 
 		combatController.SelectEvent -= _SelectEvent;   
-		combatController.DeSelectEvent -= _DeSelectEvent;   
+		CombatController.DeSelectAllEvent -= _DeSelectEvent;   
 	}
 
 }

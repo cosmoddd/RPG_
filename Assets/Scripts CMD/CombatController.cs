@@ -8,8 +8,9 @@ public class CombatController : MonoBehaviour, ISelectable
 {
 
   	public delegate void SelectionDelegate();
+
   	public event SelectionDelegate SelectEvent;
-	public event SelectionDelegate DeSelectEvent;
+	public static event SelectionDelegate DeSelectAllEvent;
 
     public bool selected;
 
@@ -22,6 +23,7 @@ public class CombatController : MonoBehaviour, ISelectable
 
     void Start()
     {
+        CombatController.DeSelectAllEvent += DeSelect;
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
@@ -35,33 +37,26 @@ public class CombatController : MonoBehaviour, ISelectable
 
         if (SelectEvent == null)
         {
-            Invoke("SpawnCommandMove", .01f);
+            if (DeSelectAllEvent != null)           // deselect everything first
+                DeSelectAllEvent();
+
+            Invoke("SpawnCommandMove", .01f);          // then spawn the command
         }
-        else{   
-            SelectEvent();
+
+        else{                                        // -- OR --
+
+            if (DeSelectAllEvent != null){          //deselect everything first
+               DeSelectAllEvent();
+            }
+            SelectEvent();                          //then select
         }
-        selected = true;
+
+        selected = true;                        // set script as selected (debugging only(?))
     }
 
     public void DeSelect()
     {   if (selected)
         selected = false;
-    }
-
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.J) && !timerRunning)
-        {
-            StartCoroutine("TimerExecute");
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            isPaused = !isPaused;
-            return;
-        }
     }
 
     void SpawnCommandMove()
@@ -80,38 +75,6 @@ public class CombatController : MonoBehaviour, ISelectable
             return;
          }
 
-    //----v could be separate class
-#region timerExecute
-    IEnumerator TimerExecute()
-    {   
-        timerRunning = true;
-        while(isPaused) {yield return null;}
-
-        CommandExecute c = this.gameObject.AddComponent<CommandExecute>();
-        for (int i = 0; i < 10; i++)
-        {
-              while(isPaused) {yield return null;}
-
-			if (CommandQueue[i] != null && CommandQueue[i] != null)
-			{
-                c.CommandSwitch();
-           		print(CommandQueue[i]);
-			}
-              while(isPaused) {yield return null;}
-
-                   yield return HalfSecond();
-
-              while(isPaused) {yield return null;}
-        }
-        
-        Destroy (c);
-        print("done");
-        timerRunning = false;
-        yield return null;
-
-    }
-#endregion
-    //----^ could be separate class
 
     private static WaitForSecondsRealtime HalfSecond()
     {

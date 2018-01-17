@@ -9,13 +9,7 @@ public class Selector : MonoBehaviour {
 
 	IHoverable iHoverable;
 	ISelectable iSelectable;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 		Hover();
@@ -38,8 +32,6 @@ public class Selector : MonoBehaviour {
 				}
 			}
 		}
-	
- 
 
 	void Hover(){
 	{
