@@ -34,6 +34,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     {
         lineRenderer = lineRenderObject.GetComponent<LineRenderer>();
         pathwayDraw = lineRenderObject.GetComponent<PathwayDraw>();
+        if (navPointPrefabSpawned != null)
+            navPointPrefabSpawned.SendMessage ("SetupDependency", this.gameObject);
     }
 
     public void NavPointPlace(Vector3 point)  // places next nav point in the world space  // CORE USAGE OF THIS CLASS!
@@ -57,7 +59,6 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
         
         NavWaypointMover.MoveComplete -= DeleteThis;
-        NavWaypoint.WayPointClicked -= commandMove.Ready;
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
         return;
     }

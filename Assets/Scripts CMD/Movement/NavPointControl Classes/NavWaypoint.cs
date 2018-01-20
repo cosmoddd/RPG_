@@ -7,9 +7,14 @@ public class NavWaypoint : MonoBehaviour, ISelectable
 {  //SPAWNS WAYPOINTS
 
     public delegate void NavWaypointDelegate();
-    public static event NavWaypointDelegate WayPointClicked;
+    public event NavWaypointDelegate WayPointClicked;
     public static event NavWaypointDelegate WayPointHover;
     public static event NavWaypointDelegate WayPointHoverExit;
+    
+    public static event NavWaypointDelegate DeSelectAllEvent;
+
+    public GameObject spawner;
+    CommandMove commandMove;
 
 
     public void Start()
@@ -28,13 +33,19 @@ public class NavWaypoint : MonoBehaviour, ISelectable
     {
         CommandMove.Move -= DisableNavAgent;
         NavWaypointMover.MoveComplete -= DestroySelf;
+        WayPointClicked -= commandMove.Ready;
         Destroy(gameObject);
     }
 
     public void Select()
     {
         Destroy(GetComponent<BoxCollider>());
-        WayPointClicked();
+        if (DeSelectAllEvent != null)
+        DeSelectAllEvent();      
+        if (WayPointClicked != null)
+        {
+            WayPointClicked(); 
+        } 
     }
 
     public void DeSelect()
@@ -42,6 +53,14 @@ public class NavWaypoint : MonoBehaviour, ISelectable
         
     }
 
+    public void SetupDependency(GameObject o)
+    {
+        print("dependency set");
+        spawner = o;
+        commandMove = o.GetComponent<CommandMove>();
+        WayPointClicked += commandMove.Ready;
+        return;
+    }
 
     void OnMouseOver()
     {

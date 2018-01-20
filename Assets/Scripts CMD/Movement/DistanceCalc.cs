@@ -11,14 +11,8 @@ public class DistanceCalc : MonoBehaviour {
     public float currentDistance = 0;
     public float maxDistance =20;
 
-    public bool ready; 
-
     public List <float> currentDistanceSaved;
 
-    void Start(){
-
-        ready = true;
-    }
 
 	void OnEnable(){
 
@@ -26,27 +20,31 @@ public class DistanceCalc : MonoBehaviour {
 
         commandMove.Clicked += DistanceAdd;
 
-        Selection.Enter += Unready;
-        Selection.Exit += HoverExitReady;
-
-        NavWaypoint.WayPointClicked += NavClickedReady;
         NavWaypointMover.MoveComplete += ResetDistance;
 	}
 
     public void Update()
     {
+        if (commandMove.canPlaceWaypoint == true)
+           {
+            CalculateDistance();
+           } 
+        else{
+                return;
+            }
+
+        if (pathwayLength != null)
+        {
+          currentDistance = pathwayLength.distance;
+        }
+    }
+
+    void CalculateDistance()
+    {      
         if (pathwayLength == null || pathwayLength != this.transform.parent.GetComponentInChildren<PathwayLength>())
         {                      
             pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
-            return;
         }
-
-        while (ready == false)
-        {
-            return;
-        }
-
-        currentDistance = pathwayLength.distance;
     }
 
     void DistanceAdd(Vector3 v)                //updates cumulative distance of nav points
@@ -67,33 +65,10 @@ public class DistanceCalc : MonoBehaviour {
         cumulativeDistance = 0f;
     }
 
-    void NavClickedReady()
-    {
-             ready = true;
-    }
-
-    void HoverExitReady ()
-    {
-        if (commandMove.canPlaceWaypoint == true)
-        {
-             ready = true;
-        }
-    }
-
-    void Unready ()
-    {
-        ready = false;
-    }
-
     void OnDisable()
     {
         NavWaypointMover.MoveComplete -= ResetDistance;  
-        NavWaypoint.WayPointClicked -= NavClickedReady;
 
         commandMove.Clicked -= DistanceAdd; 
-        
-        Selection.Enter -= Unready;
-        Selection.Exit -= HoverExitReady;
-
     }
 }

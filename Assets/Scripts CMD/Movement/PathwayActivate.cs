@@ -14,9 +14,9 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
         Selection.Enter += DeActivateNavLine;
         Selection.Exit += SelectionMouseExit;
 
-        NavWaypoint.WayPointHover += WayPointHover;
+/*         NavWaypoint.WayPointHover += WayPointHover;
         NavWaypoint.WayPointHoverExit += WayPointHoverExit;
-        NavWaypoint.WayPointClicked += ActivateNavLine;
+//        NavWaypoint.WayPointClicked += ActivateNavLine; */
     }
 
     public void Start(){
@@ -65,9 +65,9 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
         Selection.Enter -= DeActivateNavLine;
         Selection.Exit -= SelectionMouseExit;
 
-        NavWaypoint.WayPointHover -= WayPointHover;
+/*         NavWaypoint.WayPointHover -= WayPointHover;
         NavWaypoint.WayPointHoverExit -= WayPointHoverExit;
-        NavWaypoint.WayPointClicked -= ActivateNavLine;
+//        NavWaypoint.WayPointClicked -= ActivateNavLine; */
     }
 
 }

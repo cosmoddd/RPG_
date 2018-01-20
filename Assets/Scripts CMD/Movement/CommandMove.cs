@@ -22,7 +22,8 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void OnEnable()
     {
-        NavWaypoint.WayPointClicked += Ready;
+//        NavWaypoint.WayPointClicked += Ready;
+        NavWaypoint.DeSelectAllEvent += _DeSelectEvent;        
 //        NavWaypointMover.MoveComplete += Ready;
     }
 
@@ -35,7 +36,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         transform.localPosition = new Vector3(0, 0, 0);
         canPlaceWaypoint = true;
     }
-
 
     public void Update()
     {
@@ -59,14 +59,14 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             if (canPlaceWaypoint)
             {   
                 distanceCalc.currentDistance = 0;
-                distanceCalc.ready = false;
+//                distanceCalc.ready = false;
                 canPlaceWaypoint = false;
                 return;
             }
             if (!canPlaceWaypoint)
             {
                 distanceCalc.currentDistance = 0;
-                distanceCalc.ready = true;
+ //               distanceCalc.ready = true;
                 canPlaceWaypoint = true;
                 return;
             }
@@ -88,6 +88,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void DelayedReady()
     {
+        base.selected = true;
         canPlaceWaypoint = true;
         this.enabled = true;
     }
@@ -101,7 +102,9 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     void OnDestroy()
     {   
         combatController.selected = false;
-        NavWaypoint.WayPointClicked -= Ready;
+//        NavWaypoint.WayPointClicked -= Ready;
+        NavWaypoint.DeSelectAllEvent -= _DeSelectEvent;        
+
     }
 
 }

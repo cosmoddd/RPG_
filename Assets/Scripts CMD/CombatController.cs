@@ -24,6 +24,7 @@ public class CombatController : MonoBehaviour, ISelectable
     void Start()
     {
         CombatController.DeSelectAllEvent += DeSelect;
+        NavWaypoint.DeSelectAllEvent += DeSelect;
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
