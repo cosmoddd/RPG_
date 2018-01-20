@@ -10,7 +10,7 @@ using UnityEngine.AI;
 public class CommandMove : CombatCommand  // the master controller for the 'Move' combat command.
 {
     public delegate void SetPointDelegate(Vector3 point);
-    
+
     public event SetPointDelegate Clicked;
     public event SetPointDelegate RightClicked;
 
@@ -22,14 +22,15 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void OnEnable()
     {
-//        NavWaypoint.WayPointClicked += Ready;
         NavWaypoint.DeSelectAllEvent += _DeSelectEvent;        
-//        NavWaypointMover.MoveComplete += Ready;
+        NavWaypointMover.MoveComplete += Ready;
     }
 
     public override void Start()
     {
         base.Start();
+
+        combatController.SelectEvent += Ready;
 
         distanceCalc = GetComponent<DistanceCalc>();
         distanceCompare = GetComponent<DistanceCompare>();
@@ -59,14 +60,12 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             if (canPlaceWaypoint)
             {   
                 distanceCalc.currentDistance = 0;
-//                distanceCalc.ready = false;
                 canPlaceWaypoint = false;
                 return;
             }
             if (!canPlaceWaypoint)
             {
                 distanceCalc.currentDistance = 0;
- //               distanceCalc.ready = true;
                 canPlaceWaypoint = true;
                 return;
             }
@@ -84,6 +83,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     {
         NavWaypointMover.MoveComplete -= Ready;
         Invoke("DelayedReady", .1f);
+
     }
 
     void DelayedReady()
@@ -102,9 +102,9 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     void OnDestroy()
     {   
         combatController.selected = false;
-//        NavWaypoint.WayPointClicked -= Ready;
         NavWaypoint.DeSelectAllEvent -= _DeSelectEvent;        
-
+        NavWaypointMover.MoveComplete -= Ready;
+        combatController.SelectEvent -= Ready;
     }
 
 }

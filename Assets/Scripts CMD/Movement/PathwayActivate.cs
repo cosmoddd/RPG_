@@ -7,39 +7,31 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
 {
     public bool hoveringOverNav;
     CommandMove commandMove;
+    CombatController c;
     public LineRenderer lineRenderer;
 
   public void OnEnable(){
 
         Selection.Enter += DeActivateNavLine;
         Selection.Exit += SelectionMouseExit;
-
-/*         NavWaypoint.WayPointHover += WayPointHover;
-        NavWaypoint.WayPointHoverExit += WayPointHoverExit;
-//        NavWaypoint.WayPointClicked += ActivateNavLine; */
     }
+
 
     public void Start(){
 
         commandMove = transform.parent.GetComponentInChildren<CommandMove>();
+ c = commandMove.combatController;
+
+        c.SelectEvent += Activate;
+
         lineRenderer = GetComponent<LineRenderer>();
-    }
-
-    public void WayPointHover()
-    {
-        hoveringOverNav = true;
-    }
-
-    public void WayPointHoverExit()
-    {
-        hoveringOverNav = false;
     }
 
     public void SelectionMouseExit()
     {
         if (commandMove.canPlaceWaypoint == true)
         {
-            lineRenderer.enabled = true;
+            Activate();
             return;
         }
     }
@@ -54,6 +46,13 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
         return;
     }
 
+    public void Activate()
+    {
+
+            lineRenderer.enabled = true;
+
+    }
+
     public void DeActivateNavLine()
     {
            lineRenderer.enabled = false;
@@ -64,10 +63,7 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
 
         Selection.Enter -= DeActivateNavLine;
         Selection.Exit -= SelectionMouseExit;
-
-/*         NavWaypoint.WayPointHover -= WayPointHover;
-        NavWaypoint.WayPointHoverExit -= WayPointHoverExit;
-//        NavWaypoint.WayPointClicked -= ActivateNavLine; */
+        c.SelectEvent -= Activate;
     }
 
 }

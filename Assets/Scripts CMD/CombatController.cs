@@ -60,7 +60,7 @@ public class CombatController : MonoBehaviour, ISelectable
         selected = false;
     }
 
-    void SpawnCommandMove()
+     void SpawnCommandMove()
         {
             GameObject m;
             if (this.GetComponentInChildren<CommandMove>()==null)
@@ -74,8 +74,7 @@ public class CombatController : MonoBehaviour, ISelectable
                 print ("already attached!");
             }
             return;
-         }
-
+         } 
 
     private static WaitForSecondsRealtime HalfSecond()
     {

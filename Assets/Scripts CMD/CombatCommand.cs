@@ -24,14 +24,13 @@ public abstract class   CombatCommand : MonoBehaviour {
 
     public void _SelectEvent()
     {
-		print("selected?");
+		print("selected" + this.name);
         selected = true;
     }
 
      public void _DeSelectEvent()
     {   
 		if (selected)
-		print("deselect " + this.transform.name);
         selected = false;
     }
 
