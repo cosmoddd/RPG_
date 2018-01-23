@@ -5,8 +5,8 @@ using UnityEngine.AI;
 // MASTER COMBAT TIMER FOR EACH CHARACTER
 
 public class CombatController : MonoBehaviour, ISelectable
-{
 
+{
   	public delegate void SelectionDelegate();
 
   	public event SelectionDelegate SelectEvent;
@@ -23,6 +23,13 @@ public class CombatController : MonoBehaviour, ISelectable
 
     void Start()
     {
+
+        ResetName();
+
+
+        CombatMasterControl.CombatMasterControlEvent += AddToEventControl;
+
+
         CombatController.DeSelectAllEvent += DeSelect;
         NavWaypoint.DeSelectAllEvent += DeSelect;
 
@@ -31,6 +38,12 @@ public class CombatController : MonoBehaviour, ISelectable
             {        
                 CommandQueue.Add(null);
             }
+    }
+
+    void AddToEventControl(CombatMasterControl combatMasterControl)
+    {
+        combatMasterControl.AddToEventControl(this);
+        print(this.name + " added to Master Combat Controller");
     }
 
     public void Select()
@@ -76,9 +89,19 @@ public class CombatController : MonoBehaviour, ISelectable
             return;
          } 
 
+    public void YammerBulls()
+    {
+        print ("YAMMER BULLS " + this.name);
+    }
+
     private static WaitForSecondsRealtime HalfSecond()
     {
         return new WaitForSecondsRealtime(.5f);
+    }
+
+    void ResetName(){
+
+        this.gameObject.name = string.Concat(this.transform.parent.name,this.gameObject.name);
     }
 
 }

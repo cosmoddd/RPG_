@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactiblez
   - Enemy
+  - Party
   layers:
   - Default
   - TransparentFX

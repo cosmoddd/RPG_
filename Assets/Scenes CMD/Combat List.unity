@@ -197,6 +197,53 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 45727489}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &47812702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 47812704}
+  - component: {fileID: 47812703}
+  m_Layer: 0
+  m_Name: Master Combat System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &47812703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 47812702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd0f7b3364f0494cb343e2668edfa75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatEventControl:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  CharacterCombatants: []
+  zam: {fileID: 0}
+--- !u!4 &47812704
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 47812702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.21471722, y: -0.89562964, z: -40.849304}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &102783154
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +419,7 @@ GameObject:
   - component: {fileID: 308555582}
   - component: {fileID: 308555581}
   m_Layer: 0
-  m_Name: Bruno (1)
+  m_Name: BlarneyStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,8 +475,8 @@ GameObject:
   - component: {fileID: 308999362}
   - component: {fileID: 308999366}
   m_Layer: 0
-  m_Name: _CombatControl3
-  m_TagString: Untagged
+  m_Name: _CombatControl
+  m_TagString: Party
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -694,8 +741,8 @@ GameObject:
   - component: {fileID: 928113596}
   - component: {fileID: 928113597}
   m_Layer: 0
-  m_Name: _CombatControl2
-  m_TagString: Untagged
+  m_Name: _CombatControl
+  m_TagString: Party
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,7 +1121,7 @@ GameObject:
   - component: {fileID: 1697418987}
   m_Layer: 0
   m_Name: _CombatControl
-  m_TagString: Untagged
+  m_TagString: Party
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
