@@ -24,11 +24,6 @@ public GameObject zam;
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if (Input.anyKeyDown)
-		{
-			combatEventControl.Invoke();
-		}
 
 	}
 
