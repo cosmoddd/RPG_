@@ -7,9 +7,6 @@ public abstract class   CombatCommand : MonoBehaviour {
 	public CombatController combatController;
 	public bool selected = true;
 
-    public delegate void MoveDelegate();
-    public static event MoveDelegate Move;
-
 	public virtual void Start()
 	{
 
@@ -28,14 +25,14 @@ public abstract class   CombatCommand : MonoBehaviour {
         selected = true;
     }
 
-     public void _DeSelectEvent()
+     public virtual void _DeSelectEvent()
     {   
 		if (selected)
         selected = false;
     }
 
 
-	public void OnDisable(){
+	virtual public void OnDisable(){
 
 		combatController.SelectEvent -= _SelectEvent;   
 		CombatController.DeSelectAllEvent -= _DeSelectEvent;   

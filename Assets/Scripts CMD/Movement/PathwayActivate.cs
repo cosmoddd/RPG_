@@ -20,7 +20,7 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
     public void Start(){
 
         commandMove = transform.parent.GetComponentInChildren<CommandMove>();
- c = commandMove.combatController;
+        c = commandMove.combatController;
 
         c.SelectEvent += Activate;
 

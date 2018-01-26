@@ -9,6 +9,9 @@ public class CombatMasterControl : MonoBehaviour {
 public delegate void CombatMasterControlDelegate (CombatMasterControl c);
 public static event CombatMasterControlDelegate CombatMasterControlEvent;
 
+public delegate void Command(); 
+public static event Command ExecuteCommand;
+
 
 public UnityEvent combatEventControl;
 public List<GameObject> CharacterCombatants;
@@ -16,20 +19,9 @@ public List<GameObject> CharacterCombatants;
 
 public GameObject zam;
 
-	// Use this for initialization
 	void Start () {
 
 		StartCoroutine("Fetch");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		if (Input.anyKeyDown)
-		{
-			combatEventControl.Invoke();
-		}
-
 	}
 
 	IEnumerator Fetch()
@@ -44,9 +36,12 @@ public GameObject zam;
 
 	public void AddToEventControl(CombatController c)
 	{
-		combatEventControl.AddListener(c.YammerBulls);
 		CharacterCombatants.Add(c.gameObject);
 	}
 
+	public void Execute()
+	{
+		ExecuteCommand();
+	}
 
 }

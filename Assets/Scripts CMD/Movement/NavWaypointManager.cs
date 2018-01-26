@@ -21,11 +21,13 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     void Start()
     {
         commandMove = this.gameObject.GetComponent<CommandMove>();
+
         commandMove.Clicked += NavPointPlace;
         commandMove.RightClicked += DeSpawn;
 
-        NavWaypointMover.MoveComplete += DeleteThis;
-    
+        CombatController.DeSelectAllEvent += AddColliderToWaypoint;
+        commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;
+
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
         SetupDependencies();
     }
@@ -51,14 +53,33 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         return;
     }
 
+    public void AddColliderToWaypoint()
+    {
+        if (navPointPrefabSpawned != null && navPointPrefabSpawned.GetComponent<BoxCollider>() == null)
+        {
+            navPointPrefabSpawned.AddComponent<BoxCollider>();
+        }
+    }
+
+    
+    public void RemoveColliderFromWaypoint()
+    {
+        if (navPointPrefabSpawned != null && navPointPrefabSpawned.GetComponent<BoxCollider>())
+        {   
+            Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
+        }
+    }
+
     public void DeSpawn(Vector3 v)   
     {
         this.gameObject.AddComponent<NavRemove>().DeSpawn(navPointObjects, v, navPointPrefabSpawned, lineRenderObject, lineRenderer);
     }
 
-    void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
+    public void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
         
-        NavWaypointMover.MoveComplete -= DeleteThis;
+        CombatController.DeSelectAllEvent += AddColliderToWaypoint;
+        commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;
+
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
         return;
     }

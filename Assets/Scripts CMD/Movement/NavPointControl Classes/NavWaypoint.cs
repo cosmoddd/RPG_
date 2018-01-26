@@ -20,20 +20,20 @@ public class NavWaypoint : MonoBehaviour, ISelectable
 
     public void Start()
     {
-        CommandMove.Move += DisableNavAgent;
-        NavWaypointMover.MoveComplete += DestroySelf;
+        CombatMasterControl.ExecuteCommand += DisableNavAgent;
+        NavMover.MoveComplete += DestroySelf;
     }
 
     void DisableNavAgent()
     {
-        CommandMove.Move -= DisableNavAgent;
+        CombatMasterControl.ExecuteCommand -= DisableNavAgent;
         GetComponent<NavMeshAgent>().enabled = false;
     }
 
     void DestroySelf()
     {
-        CommandMove.Move -= DisableNavAgent;
-        NavWaypointMover.MoveComplete -= DestroySelf;
+        CombatMasterControl.ExecuteCommand -= DisableNavAgent;
+        NavMover.MoveComplete -= DestroySelf;
         WayPointClicked -= combatController.Select;
         Destroy(gameObject);
     }
@@ -51,7 +51,6 @@ public class NavWaypoint : MonoBehaviour, ISelectable
 
     public void DeSelect()
     {
-        
     }
 
     public void SetupDependency(GameObject o)

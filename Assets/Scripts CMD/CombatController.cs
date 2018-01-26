@@ -26,9 +26,8 @@ public class CombatController : MonoBehaviour, ISelectable
 
         ResetName();
 
-
         CombatMasterControl.CombatMasterControlEvent += AddToEventControl;
-
+        CombatMasterControl.ExecuteCommand += YammerBulls;
 
         CombatController.DeSelectAllEvent += DeSelect;
         NavWaypoint.DeSelectAllEvent += DeSelect;

@@ -12,18 +12,20 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public delegate void SetPointDelegate(Vector3 point);
 
     public event SetPointDelegate Clicked;
-    public event SetPointDelegate RightClicked;
+    public event SetPointDelegate RightClicked; 
+
+    public bool canPlaceWaypoint = true;
+    public bool hoveringOverSomething;
 
     public NavMeshAgent navMeshAgent;
     public DistanceCalc distanceCalc;
     public DistanceCompare distanceCompare;
 
-    public bool canPlaceWaypoint = true;
-
     void OnEnable()
     {
-        NavWaypoint.DeSelectAllEvent += _DeSelectEvent;        
-        NavWaypointMover.MoveComplete += Ready;
+        NavWaypoint.DeSelectAllEvent += _DeSelectEvent;   
+        Selection.Enter += HoveringOverSomething;     
+        Selection.Exit += NotHovering;
     }
 
     public override void Start()
@@ -48,13 +50,14 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         distanceCompare.DistanceTest(this, distanceCalc);
 
-        if (Input.GetMouseButtonDown(0) && GetComponentInChildren<NavWaypointMover>() == null && distanceCompare.InRange == true && canPlaceWaypoint)  // Left Click
+        if (Input.GetMouseButtonDown(0) && distanceCompare.InRange == true && canPlaceWaypoint && !hoveringOverSomething)  // Left Click
         {
+            print("does this work?");
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
         }
 
-        if (Input.GetMouseButtonDown(1) && GetComponentInChildren<NavWaypointMover>() == null)  // Right Click
+        if (Input.GetMouseButtonDown(1) && !hoveringOverSomething)  // Right Click
         {
             RightClicked(GetThePoint.PickVector3());
             if (canPlaceWaypoint)
@@ -74,16 +77,28 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     }
 
-    public void OverWaypoint()
+    public override void _DeSelectEvent()
     {
+        base._DeSelectEvent();
+        hoveringOverSomething = false;
         canPlaceWaypoint = false;
+    }
+
+    public void HoveringOverSomething()
+    {
+        if (canPlaceWaypoint)
+        hoveringOverSomething = true;
+    }
+
+    public void NotHovering()
+    {
+        if (selected)
+        hoveringOverSomething = false;
     }
 
     public void Ready()
     {
-        NavWaypointMover.MoveComplete -= Ready;
         Invoke("DelayedReady", .1f);
-
     }
 
     void DelayedReady()
@@ -93,17 +108,18 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         this.enabled = true;
     }
 
-    void OnDisable()
+    public override void OnDisable()
     {
+        Selection.Enter -= HoveringOverSomething;    
+        Selection.Exit -= NotHovering;
+
         base.OnDisable();
-        NavWaypointMover.MoveComplete -= Ready;
     }
 
     void OnDestroy()
     {   
         combatController.selected = false;
         NavWaypoint.DeSelectAllEvent -= _DeSelectEvent;        
-        NavWaypointMover.MoveComplete -= Ready;
         combatController.SelectEvent -= Ready;
     }
 

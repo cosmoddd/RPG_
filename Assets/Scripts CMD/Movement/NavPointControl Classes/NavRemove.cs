@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NavRemove : MonoBehaviour {
-
-    
     
     public void DeSpawn(List<GameObject> navPointObjects, Vector3 v, GameObject navSpawned, GameObject lObj, LineRenderer l)      //checker for dynamically retracting the placed navpoints
     {

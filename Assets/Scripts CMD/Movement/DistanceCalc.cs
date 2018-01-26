@@ -18,7 +18,6 @@ public class DistanceCalc : MonoBehaviour {
 
   		commandMove = this.transform.GetComponent<CommandMove>(); 
         commandMove.Clicked += DistanceAdd;
-        NavWaypointMover.MoveComplete += ResetDistance;
 	}
 
     public void Update()
@@ -58,15 +57,13 @@ public class DistanceCalc : MonoBehaviour {
         currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
     }
 
-    void ResetDistance()
+    public void ResetDistance()
     {
         cumulativeDistance = 0f;
     }
 
     void OnDisable()
     {
-        NavWaypointMover.MoveComplete -= ResetDistance;  
-
         commandMove.Clicked -= DistanceAdd; 
     }
 }

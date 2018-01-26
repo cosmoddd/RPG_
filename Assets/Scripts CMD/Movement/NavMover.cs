@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
-public class NavWaypointMover : MonoBehaviour {
+public class NavMover : MonoBehaviour {
 
-    static NavWaypointMover navWaypointMover;
+    public UnityEvent moveEvent;
 
     public delegate void NavWayDelegate ();
     public static event NavWayDelegate MoveComplete;
@@ -21,7 +22,7 @@ public class NavWaypointMover : MonoBehaviour {
     {
         
         navWaypoints = GetComponent<NavWaypointManager>();
-        navPointz = navWaypoints.navPointObjects;
+
 
     }
 
@@ -35,6 +36,8 @@ public class NavWaypointMover : MonoBehaviour {
     IEnumerator MoveToWaypoint()
     {
 
+        navPointz = navWaypoints.navPointObjects;
+        
         for (int i = 0; i < navPointz.Count; i++)
         {
             Vector3 destination = new Vector3(navPointz[i].transform.position.x,
@@ -52,12 +55,9 @@ public class NavWaypointMover : MonoBehaviour {
         }
         print("done moving");
         navMeshAgent.isStopped=false;
-        MoveComplete();
+        moveEvent.Invoke();
         yield return null;
 
-        Destroy(this);
-
-        
 
     }
 
