@@ -55,19 +55,12 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
 
     public void AddColliderToWaypoint()
     {
-        if (navPointPrefabSpawned != null && navPointPrefabSpawned.GetComponent<BoxCollider>() == null)
-        {
-            navPointPrefabSpawned.AddComponent<BoxCollider>();
-        }
+        this.gameObject.AddComponent<NavWaypointColliderControl>().AddColliderToWaypoint(navPointPrefabSpawned);
     }
 
-    
     public void RemoveColliderFromWaypoint()
     {
-        if (navPointPrefabSpawned != null && navPointPrefabSpawned.GetComponent<BoxCollider>())
-        {   
-            Destroy(navPointPrefabSpawned.GetComponent<BoxCollider>());
-        }
+        this.gameObject.AddComponent<NavWaypointColliderControl>().RemoveColliderFromWaypoint(navPointPrefabSpawned);
     }
 
     public void DeSpawn(Vector3 v)   
@@ -76,10 +69,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     }
 
     public void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
-        
-        CombatController.DeSelectAllEvent += AddColliderToWaypoint;
-        commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;
-
+    
         this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
         return;
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NavWaypointColliderControl : MonoBehaviour {
 
-
     public void AddColliderToWaypoint(GameObject o)
     {
         if (o != null && o.GetComponent<BoxCollider>() == null)

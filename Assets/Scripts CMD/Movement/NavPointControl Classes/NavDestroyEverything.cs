@@ -10,6 +10,9 @@ public class NavDestroyEverything : MonoBehaviour {
         n.commandMove.Clicked -= n.NavPointPlace;
         n.commandMove.RightClicked -= n.DeSpawn;
 
+        CombatController.DeSelectAllEvent += n.AddColliderToWaypoint;
+        n.commandMove.combatController.SelectEvent += n.RemoveColliderFromWaypoint;
+
             Destroy(n.lineRenderObject);
             Destroy(this.gameObject); 
     }
