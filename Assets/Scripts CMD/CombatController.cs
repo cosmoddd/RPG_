@@ -50,6 +50,8 @@ public class CombatController : MonoBehaviour, ISelectable
 
         if (SelectEvent == null)
         {
+            print("select event = null");
+            
             if (DeSelectAllEvent != null)           // deselect everything first
                 DeSelectAllEvent();
 
@@ -101,6 +103,12 @@ public class CombatController : MonoBehaviour, ISelectable
     void ResetName(){
 
         this.gameObject.name = string.Concat(this.transform.parent.name,this.gameObject.name);
+    }
+
+    void CommandSelector(){
+
+        // selects the command based on whatever is actively in the command queue
+
     }
 
 }
