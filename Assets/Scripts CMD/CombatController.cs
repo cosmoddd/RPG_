@@ -16,7 +16,7 @@ public class CombatController : MonoBehaviour, ISelectable
 
     public List<string> CommandQueue;
     public NavMeshAgent navMeshAgent;
-    public GameObject thisCommand;
+
     public bool isPaused = false;
     public bool timerRunning = false;
     public int listLength = 10;
@@ -55,7 +55,6 @@ public class CombatController : MonoBehaviour, ISelectable
             if (DeSelectAllEvent != null)           // deselect everything first
                 DeSelectAllEvent();
 
-//            Invoke("SpawnCommandMove", .01f);          // then spawn the command
         }
 
         else{                                        // -- OR --

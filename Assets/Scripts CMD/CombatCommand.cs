@@ -5,17 +5,14 @@ using UnityEngine;
 public abstract class   CombatCommand : MonoBehaviour {
 
 	public CombatController combatController;
-	public bool selected = true;
+	public bool selected;
 
 	public virtual void Start()
 	{
-
 		combatController = GetComponentInParent<CombatController>();
 		
 		combatController.SelectEvent += _SelectEvent;   
 		CombatController.DeSelectAllEvent += _DeSelectEvent;   
-
-		selected = true;
 
 	}
 
@@ -30,7 +27,6 @@ public abstract class   CombatCommand : MonoBehaviour {
 		if (selected)
         selected = false;
     }
-
 
 	virtual public void OnDisable(){
 

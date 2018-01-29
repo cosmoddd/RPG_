@@ -28,7 +28,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         CombatController.DeSelectAllEvent += AddColliderToWaypoint;
         commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;
 
-        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, this.transform.parent.parent.gameObject);
+        print("just the first time for " + this.gameObject.name);
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>().spawnLineRenderer(this, this.transform.parent.parent.gameObject, false);
         SetupDependencies();
     }
 
@@ -36,6 +37,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
     {
         lineRenderer = lineRenderObject.GetComponent<LineRenderer>();
         pathwayDraw = lineRenderObject.GetComponent<PathwayDraw>();
+
         if (navPointPrefabSpawned != null)
             navPointPrefabSpawned.SendMessage ("SetupDependency", this.gameObject);
     }
@@ -48,7 +50,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         pathwayDraw.enabled = false;                                          //disable pathway draw script
         Destroy(lineRenderObject.GetComponent<PathwayActivate>());              //Destroy pathway activate script.
 
-        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>()._SpawnLineRenderer(this, navPointPrefabSpawned);   //spawn new line renderer (function)
+        lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>().spawnLineRenderer(this, navPointPrefabSpawned, true);   //spawn new line renderer (function)
         SetupDependencies();
         return;
     }
@@ -68,9 +70,9 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         this.gameObject.AddComponent<NavRemove>().DeSpawn(navPointObjects, v, navPointPrefabSpawned, lineRenderObject, lineRenderer);
     }
 
-    public void DeleteThis(){ // removes all nav points and resets the navpoint system after movement
+    public void DeleteThis(){ // removes all nav points and resets the navpoint system after movement   MAY NO LONGER NEED THIS
     
-        this.gameObject.AddComponent<NavDestroyEverything>()._NavDestroyEverything(this);  // destroy everything
+        this.gameObject.AddComponent<NavDestroyEverything>().navDestroyEverything(this);  // destroy everything
         return;
     }
 

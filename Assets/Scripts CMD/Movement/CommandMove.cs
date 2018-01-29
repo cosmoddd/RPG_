@@ -14,7 +14,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public event SetPointDelegate Clicked;
     public event SetPointDelegate RightClicked; 
 
-    public bool canPlaceWaypoint = true;
+    public bool canPlaceWaypoint;
     public bool hoveringOverSomething;
 
     public NavMeshAgent navMeshAgent;
@@ -28,11 +28,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         Selection.Exit += NotHovering;
     }
 
-    public void TestTest()
-    {
-        print("test test test");
-    }
-
     public override void Start()
     {
         base.Start();
@@ -42,7 +37,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         distanceCalc = GetComponent<DistanceCalc>();
         distanceCompare = GetComponent<DistanceCompare>();
         transform.localPosition = new Vector3(0, 0, 0);
-        canPlaceWaypoint = true;
     }
 
     public void Update()
@@ -53,7 +47,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
             return;
         }
 
-        distanceCompare.DistanceTest(this, distanceCalc);
+        distanceCompare.DistanceTest(distanceCalc);
 
         if (Input.GetMouseButtonDown(0) && distanceCompare.InRange == true && canPlaceWaypoint && !hoveringOverSomething)  // Left Click
         {

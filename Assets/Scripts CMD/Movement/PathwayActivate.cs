@@ -16,7 +16,6 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
         Selection.Exit += SelectionMouseExit;
     }
 
-
     public void Start(){
 
         commandMove = transform.parent.GetComponentInChildren<CommandMove>();
@@ -25,6 +24,7 @@ public class PathwayActivate : MonoBehaviour    // this class should specificall
         c.SelectEvent += Activate;
 
         lineRenderer = GetComponent<LineRenderer>();
+
     }
 
     public void SelectionMouseExit()

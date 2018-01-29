@@ -421,12 +421,12 @@ GameObject:
   - component: {fileID: 308555582}
   - component: {fileID: 308555581}
   m_Layer: 0
-  m_Name: BlarneyStone
+  m_Name: C_BlarneyStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &308555581
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -511,8 +511,6 @@ MonoBehaviour:
   selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
-  thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
-    type: 2}
   isPaused: 0
   timerRunning: 0
   listLength: 10
@@ -743,14 +741,13 @@ GameObject:
   - component: {fileID: 532727436}
   - component: {fileID: 532727435}
   - component: {fileID: 532727434}
-  - component: {fileID: 532727439}
   m_Layer: 0
   m_Name: Soulection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &532727434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,19 +827,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532727439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 532727433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 304476a7661349b49b68719f29df04a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  test: {fileID: 0}
-  testObject: {fileID: 0}
 --- !u!1 &873786689
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,12 +837,12 @@ GameObject:
   - component: {fileID: 873786690}
   - component: {fileID: 873786691}
   m_Layer: 0
-  m_Name: Bruno
+  m_Name: C_Bruno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &873786690
 Transform:
   m_ObjectHideFlags: 0
@@ -997,8 +981,6 @@ MonoBehaviour:
   selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
-  thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
-    type: 2}
   isPaused: 0
   timerRunning: 0
   listLength: 10
@@ -1037,7 +1019,7 @@ GameObject:
   - component: {fileID: 971599460}
   - component: {fileID: 971599459}
   m_Layer: 0
-  m_Name: Marco
+  m_Name: C_Marco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1555,8 +1537,6 @@ MonoBehaviour:
   selected: 0
   CommandQueue: []
   navMeshAgent: {fileID: 0}
-  thisCommand: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
-    type: 2}
   isPaused: 0
   timerRunning: 0
   listLength: 10

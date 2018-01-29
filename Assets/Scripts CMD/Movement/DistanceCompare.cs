@@ -12,10 +12,10 @@ public class DistanceCompare : MonoBehaviour {
     public event DistanceCompareDelegate OutOfRange;
     public event DistanceCompareDelegate InsideRange;    
 
-    public bool DistanceTest(CommandMove c, DistanceCalc d)
+    public bool DistanceTest(DistanceCalc d)
     {
 
-        commandMove = c;
+      //  commandMove = c;
         distanceCalc = d;
 
         if (distanceCalc != null){

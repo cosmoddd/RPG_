@@ -25,8 +25,9 @@ public class NavRemove : MonoBehaviour {
         }
 
         else{
-            transform.gameObject.SendMessage("DeleteThis");
+            l.enabled = false;
             Destroy(this);
+            return;
         }
 
     }
@@ -50,7 +51,6 @@ public class NavRemove : MonoBehaviour {
             lineRenderObject = transform.parent.GetComponentInChildren<PathwayDraw>().gameObject;
             lineRenderObject.SendMessage("SetAgentSource", this.transform.parent.parent.gameObject);
         }
-
         SendMessage("Subtract");
 		Destroy(this);
     }
