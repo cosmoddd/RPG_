@@ -55,7 +55,7 @@ public class CombatController : MonoBehaviour, ISelectable
             if (DeSelectAllEvent != null)           // deselect everything first
                 DeSelectAllEvent();
 
-            Invoke("SpawnCommandMove", .01f);          // then spawn the command
+//            Invoke("SpawnCommandMove", .01f);          // then spawn the command
         }
 
         else{                                        // -- OR --
@@ -73,23 +73,6 @@ public class CombatController : MonoBehaviour, ISelectable
     {   if (selected)
         selected = false;
     }
-
-     void SpawnCommandMove()
-        {
-            GameObject m;
-            if (this.GetComponentInChildren<CommandMove>()==null)
-            {     
-                m = Instantiate(thisCommand, this.transform);      
-                m.GetComponent<CommandMove>().combatController = this;
-                m.GetComponent<CommandMove>().navMeshAgent = navMeshAgent;
-            }
-            else
-            { 
-                print ("already attached!");
-            }
-            return;
-         } 
-
     public void YammerBulls()
     {
         print ("YAMMER BULLS " + this.name);
@@ -106,8 +89,6 @@ public class CombatController : MonoBehaviour, ISelectable
     }
 
     void CommandSelector(){
-
-        // selects the command based on whatever is actively in the command queue
 
     }
 

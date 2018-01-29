@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114045011886174242}
   - component: {fileID: 114811385732181660}
   - component: {fileID: 114115970168161034}
+  - component: {fileID: 114963959472814958}
   m_Layer: 0
   m_Name: _CommandMove
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1735436830655158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9049937, y: 0.79502153, z: -40.080196}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -165,9 +166,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatController: {fileID: 0}
-  selected: 1
-  canPlaceWaypoint: 1
+  selected: 0
+  canPlaceWaypoint: 0
   hoveringOverSomething: 0
   navMeshAgent: {fileID: 0}
   distanceCalc: {fileID: 0}
   distanceCompare: {fileID: 0}
+--- !u!114 &114963959472814958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437f39fc04b0d4d448e1a123d4bbeb21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

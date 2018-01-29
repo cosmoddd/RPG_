@@ -28,6 +28,11 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         Selection.Exit += NotHovering;
     }
 
+    public void TestTest()
+    {
+        print("test test test");
+    }
+
     public override void Start()
     {
         base.Start();
