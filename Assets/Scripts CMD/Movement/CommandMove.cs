@@ -42,7 +42,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public void Update()
     {
 
-        while(!selected)
+        while(!combatController.selected)
         {
             return;
         }
@@ -91,7 +91,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     public void NotHovering()
     {
-        if (selected)
+        if (combatController.selected)
         hoveringOverSomething = false;
     }
 
@@ -102,7 +102,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void DelayedReady()
     {
-        base.selected = true;
+        //base.selected = true;
         canPlaceWaypoint = true;
         this.enabled = true;
     }

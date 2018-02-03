@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class   CombatCommand : MonoBehaviour {
 
 	public CombatController combatController;
-	public bool selected;
+	//public bool selected;
 
 	public virtual void Start()
 	{
@@ -13,19 +13,18 @@ public abstract class   CombatCommand : MonoBehaviour {
 		
 		combatController.SelectEvent += _SelectEvent;   
 		CombatController.DeSelectAllEvent += _DeSelectEvent;   
-
 	}
 
     public void _SelectEvent()
     {
-		print("selected" + this.name);
-        selected = true;
+/* 		print("selected" + this.name);
+        selected = true; */
     }
 
      public virtual void _DeSelectEvent()
     {   
-		if (selected)
-        selected = false;
+/* 		if (selected)
+        selected = false; */
     }
 
 	virtual public void OnDisable(){
