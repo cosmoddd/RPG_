@@ -14,20 +14,5 @@ MonoBehaviour:
   commandName: Move
   commandPrefab: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
-  initCommand:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114963959472814958, guid: af6ef4f99e5953947849d9d317457363,
-          type: 2}
-        m_MethodName: spawnCommandMove
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  commandButton: {fileID: 114104227001457768, guid: bd8132c76673e084f84f5ddd8d4859c2,
+    type: 2}

@@ -9,13 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 425e44998baad2f498e796661786bc69, type: 3}
-  m_Name: Pause
+  m_Name: Wait
   m_EditorClassIdentifier: 
-  commandName: Pause
-  CommandFunction: {fileID: 1489829448757784, guid: cff090f59743976409db6dc8e94f939c,
+  commandName: Wait
+  commandPrefab: {fileID: 0}
+  commandButton: {fileID: 114104227001457768, guid: 84111d72f1292fe4b84e99ede31acdf7,
     type: 2}
-  funkyCookie:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null

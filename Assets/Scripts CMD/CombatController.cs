@@ -8,11 +8,14 @@ public class CombatController : MonoBehaviour, ISelectable
 
 {
   	public delegate void SelectionDelegate();
-
   	public event SelectionDelegate SelectEvent;
 	public static event SelectionDelegate DeSelectAllEvent;
 
+    public delegate void SelectionWithColor(Color c);
+    public event SelectionWithColor SelectWithColor;
+
     public bool selected;
+    public Color combatColor;
 
     public List<string> CommandQueue;
     public NavMeshAgent navMeshAgent;
@@ -63,6 +66,7 @@ public class CombatController : MonoBehaviour, ISelectable
                DeSelectAllEvent();
             }
             SelectEvent();                          //then select
+            SelectWithColor(combatColor);
         }
 
         selected = true;                        // set script as selected (debugging only(?))
