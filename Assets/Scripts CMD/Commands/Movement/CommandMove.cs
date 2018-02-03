@@ -17,7 +17,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public bool canPlaceWaypoint;
     public bool hoveringOverSomething;
 
-    public NavMeshAgent navMeshAgent;
     public DistanceCalc distanceCalc;
     public DistanceCompare distanceCompare;
 
@@ -37,6 +36,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         distanceCalc = GetComponent<DistanceCalc>();
         distanceCompare = GetComponent<DistanceCompare>();
         transform.localPosition = new Vector3(0, 0, 0);
+
     }
 
     public void Update()
@@ -51,7 +51,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         if (Input.GetMouseButtonDown(0) && distanceCompare.InRange == true && canPlaceWaypoint && !hoveringOverSomething)  // Left Click
         {
-            print("does this work?");
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
         }

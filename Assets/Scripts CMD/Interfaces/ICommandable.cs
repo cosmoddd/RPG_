@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ICommandable   {
 
-		void SpawnCommand(GameObject o);
+		void spawnCommand(GameObject o);
 
 }

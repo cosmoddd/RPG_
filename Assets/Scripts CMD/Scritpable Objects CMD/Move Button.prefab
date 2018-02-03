@@ -146,7 +146,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Move
+  m_Text: Fuckin Move
 --- !u!222 &222079926500276378
 CanvasRenderer:
   m_ObjectHideFlags: 1

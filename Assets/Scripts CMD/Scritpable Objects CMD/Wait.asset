@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Wait
   m_EditorClassIdentifier: 
   commandName: Wait
-  commandPrefab: {fileID: 0}
-  commandButton: {fileID: 114104227001457768, guid: 84111d72f1292fe4b84e99ede31acdf7,
+  commandPrefab: {fileID: 1489829448757784, guid: cff090f59743976409db6dc8e94f939c,
+    type: 2}
+  commandButton: {fileID: 1227048954906482, guid: 84111d72f1292fe4b84e99ede31acdf7,
     type: 2}

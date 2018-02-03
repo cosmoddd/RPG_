@@ -7,11 +7,25 @@ public class CombatCommandGrid : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		//subscribe to combat command controller
-
+		AvailableCommands.ClearUI += ClearUI;
+		AvailableCommands.SendCommandToUI += AddCommandsToUI;
 	}
-	
-	// Update is called once per frame
+
+	void ClearUI(GameObject o)
+	{
+		print("clearing UI");
+		foreach (Transform child in transform) 
+		{
+  	    	GameObject.Destroy(child.gameObject);
+		}
+	}
+
+	void AddCommandsToUI(GameObject o)
+	{
+		o.transform.SetParent(this.transform);
+	}
+
+
 	void Update () {
 		
 	}

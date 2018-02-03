@@ -8,11 +8,11 @@ public class CombatCommandContainer : ScriptableObject {
 
     public string commandName;
     public GameObject commandPrefab;
-    public Button commandButton;
+    public GameObject commandButton;
 
     public void Init(GameObject o)
     {
-        commandPrefab.GetComponent<ICommandable>().SpawnCommand(o);
+        commandPrefab.GetComponent<ICommandable>().spawnCommand(o);
     }
 
 }

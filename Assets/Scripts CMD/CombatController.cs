@@ -15,7 +15,7 @@ public class CombatController : MonoBehaviour, ISelectable
     public event SelectionWithColor SelectWithColor;
 
     public bool selected;
-    public Color combatColor;
+    public Color combatantColor;
 
     public List<string> CommandQueue;
     public NavMeshAgent navMeshAgent;
@@ -45,16 +45,13 @@ public class CombatController : MonoBehaviour, ISelectable
     void AddToEventControl(CombatMasterControl combatMasterControl)
     {
         combatMasterControl.AddToEventControl(this);
-        print(this.name + " added to Master Combat Controller");
     }
 
     public void Select()
     {   
 
         if (SelectEvent == null)
-        {
-            print("select event = null");
-            
+        {           
             if (DeSelectAllEvent != null)           // deselect everything first
                 DeSelectAllEvent();
 
@@ -66,7 +63,7 @@ public class CombatController : MonoBehaviour, ISelectable
                DeSelectAllEvent();
             }
             SelectEvent();                          //then select
-            SelectWithColor(combatColor);
+            SelectWithColor(combatantColor);        //select with color (to send to UI)
         }
 
         selected = true;                        // set script as selected (debugging only(?))

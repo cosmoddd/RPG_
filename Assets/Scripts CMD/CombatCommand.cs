@@ -27,6 +27,11 @@ public abstract class   CombatCommand : MonoBehaviour {
         selected = false; */
     }
 
+	public virtual void _ButtonClick()
+	{
+
+	}
+
 	virtual public void OnDisable(){
 
 		combatController.SelectEvent -= _SelectEvent;   

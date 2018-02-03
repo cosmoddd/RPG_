@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114045011886174242}
   - component: {fileID: 114811385732181660}
   - component: {fileID: 114115970168161034}
-  - component: {fileID: 114963959472814958}
+  - component: {fileID: 114322784187172448}
   m_Layer: 0
   m_Name: _CommandMove
   m_TagString: Untagged
@@ -142,6 +142,17 @@ MonoBehaviour:
   navPointObjects: []
   lineRenderObject: {fileID: 0}
   navPointPrefabSpawned: {fileID: 0}
+--- !u!114 &114322784187172448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735436830655158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbe5223f048bf7429df9d84d9cd07b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114811385732181660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,20 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatController: {fileID: 0}
-  selected: 0
   canPlaceWaypoint: 0
   hoveringOverSomething: 0
-  navMeshAgent: {fileID: 0}
   distanceCalc: {fileID: 0}
   distanceCompare: {fileID: 0}
---- !u!114 &114963959472814958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1735436830655158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437f39fc04b0d4d448e1a123d4bbeb21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

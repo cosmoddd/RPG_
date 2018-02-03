@@ -14,5 +14,5 @@ MonoBehaviour:
   commandName: Move
   commandPrefab: {fileID: 1735436830655158, guid: af6ef4f99e5953947849d9d317457363,
     type: 2}
-  commandButton: {fileID: 114104227001457768, guid: bd8132c76673e084f84f5ddd8d4859c2,
+  commandButton: {fileID: 1227048954906482, guid: bd8132c76673e084f84f5ddd8d4859c2,
     type: 2}

@@ -28,8 +28,8 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         CombatController.DeSelectAllEvent += AddColliderToWaypoint;
         commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;
 
-        print("just the first time for " + this.gameObject.name);
         lineRenderObject = this.gameObject.AddComponent<SpawnLineRenderer>().spawnLineRenderer(this, this.transform.parent.parent.gameObject, false);
+        
         SetupDependencies();
     }
 

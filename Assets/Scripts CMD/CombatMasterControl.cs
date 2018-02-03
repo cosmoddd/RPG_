@@ -26,8 +26,6 @@ public GameObject zam;
 
 	IEnumerator Fetch()
 	{
-		print("starting combat...");
-
 		yield return new WaitForSeconds(2f);
 		
 		if (CombatMasterControlEvent!= null)
