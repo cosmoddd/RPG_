@@ -7,8 +7,8 @@ public class CombatCommandGrid : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		AvailableCommands.ClearUI += ClearUI;
-		AvailableCommands.SendCommandToUI += AddCommandsToUI;
+		CombatCommandsToUI.ClearUI += ClearUI;
+		CombatCommandsToUI.SendCommandToUI += AddCommandsToUI;
 	}
 
 	void ClearUI(GameObject o)

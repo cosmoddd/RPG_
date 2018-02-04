@@ -6,7 +6,8 @@ public abstract class   CombatCommand : MonoBehaviour {
 
 	public CombatController combatController;
 	//public bool selected;
-
+	public string commandName;
+	
 	public virtual void Start()
 	{
 		combatController = GetComponentInParent<CombatController>();
@@ -17,14 +18,12 @@ public abstract class   CombatCommand : MonoBehaviour {
 
     public void _SelectEvent()
     {
-/* 		print("selected" + this.name);
-        selected = true; */
+
     }
 
      public virtual void _DeSelectEvent()
     {   
-/* 		if (selected)
-        selected = false; */
+
     }
 
 	public virtual void _ButtonClick()

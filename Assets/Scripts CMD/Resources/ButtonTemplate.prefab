@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114196304159837242}
   - component: {fileID: 114104227001457768}
   m_Layer: 5
-  m_Name: Wait Button
+  m_Name: ButtonTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,19 +84,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114196304159837242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114763363508676260, guid: cff090f59743976409db6dc8e94f939c,
-          type: 2}
-        m_MethodName: AddPause
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114196304159837242
@@ -158,7 +146,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Wait
+  m_Text: Fuckin Move
 --- !u!222 &222079926500276378
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -177,7 +165,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227048954906482}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

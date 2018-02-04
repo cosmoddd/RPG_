@@ -64,4 +64,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatController: {fileID: 0}
+  commandName: Wait
   WaitTime: 2

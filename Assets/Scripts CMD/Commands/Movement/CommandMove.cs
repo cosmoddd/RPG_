@@ -121,4 +121,9 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         combatController.SelectEvent -= Ready;
     }
 
+	public override void _ButtonClick()
+    {
+        print("Move button was clicked");
+    }
+
 }
