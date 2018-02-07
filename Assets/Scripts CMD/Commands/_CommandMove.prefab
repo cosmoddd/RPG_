@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatController: {fileID: 0}
-  commandName: 
+  commandName: Move
   canPlaceWaypoint: 0
   hoveringOverSomething: 0
   distanceCalc: {fileID: 0}
