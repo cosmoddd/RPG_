@@ -24,14 +24,16 @@ public class CombatController : MonoBehaviour, ISelectable
     public bool timerRunning = false;
     public int listLength = 10;
 
+    string mostRecentCommand;
+    CombatCommand mostRecent;
+
     void Start()
     {
 
         ResetName();
 
         CombatMasterControl.CombatMasterControlEvent += AddToEventControl;
-        CombatMasterControl.ExecuteCommand += YammerBulls;
-
+   
         CombatController.DeSelectAllEvent += DeSelect;
         NavWaypoint.DeSelectAllEvent += DeSelect;
 
@@ -63,7 +65,6 @@ public class CombatController : MonoBehaviour, ISelectable
                DeSelectAllEvent();
             }
             SelectEvent();                          //then select
-//            SelectWithColor(combatantColor);                   
             this.gameObject.AddComponent<CombatCommandsToUI>().combatCommandsToUI(this, combatantColor);       //select with color (to send to UI)
         }
 
@@ -73,10 +74,6 @@ public class CombatController : MonoBehaviour, ISelectable
     public void DeSelect()
     {   if (selected)
         selected = false;
-    }
-    public void YammerBulls()
-    {
-        print ("YAMMER BULLS " + this.name);
     }
 
     private static WaitForSecondsRealtime HalfSecond()
@@ -90,6 +87,8 @@ public class CombatController : MonoBehaviour, ISelectable
     }
 
     void CommandSelector(){
+
+      mostRecentCommand = CommandQueue[CommandQueue.Count - 1];
 
     }
 

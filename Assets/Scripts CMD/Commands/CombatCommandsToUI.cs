@@ -27,7 +27,7 @@ public class CombatCommandsToUI : MonoBehaviour {
             Button button = b.GetComponent<Button>();   //inherit button properties from Scriptable Object
 
 			Text t = b.GetComponentInChildren<Text>();
-			t.text = combatCommand.gameObject.name;
+			t.text = combatCommand.commandName;
 
             ColorBlock cb = button.colors;              // 
             cb.normalColor = cController.combatantColor;            //inherity UI Color
