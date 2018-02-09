@@ -16,7 +16,7 @@ public class CommandWait : CombatCommand {
 		print("adding pause command");
 		for (int i = 0; i < WaitTime; i++)
 		{
-			combatController.CommandQueue.Add("Wait "+ i);
+			combatController.CommandQueue.Add(this);
 		}
 
 	}

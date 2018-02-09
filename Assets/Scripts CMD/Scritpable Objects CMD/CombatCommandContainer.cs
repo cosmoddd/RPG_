@@ -12,7 +12,7 @@ public class CombatCommandContainer : ScriptableObject {
     public void Init(GameObject o)
     {
         
-        commandPrefab.GetComponent<ICommandable>().spawnCommand(o);
+        commandPrefab.GetComponent<ICommandable>().spawnCommand(o, commandName);
 
     }
 

@@ -55,7 +55,7 @@ public class DistanceCalc : MonoBehaviour {
                     i < Mathf.RoundToInt((currentDistance + cumulativeDistance)); 
                     i++)
                     {
-                        commandMove.combatController.CommandQueue.Insert(i, "Move " + (i+1));
+                        commandMove.combatController.CommandQueue.Insert(i, commandMove);
                     }
 
         // extension method?  --^?

@@ -17,15 +17,14 @@ public class CombatController : MonoBehaviour, ISelectable
     public bool selected;
     public Color combatantColor;
 
-    public List<string> CommandQueue;
+    public List<CombatCommand> CommandQueue;
     public NavMeshAgent navMeshAgent;
 
     public bool isPaused = false;
     public bool timerRunning = false;
     public int listLength = 10;
 
-    string mostRecentCommand;
-    CombatCommand mostRecent;
+    CombatCommand mostRecentCommand;
 
     void Start()
     {

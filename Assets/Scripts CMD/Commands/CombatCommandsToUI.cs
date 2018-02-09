@@ -23,15 +23,15 @@ public class CombatCommandsToUI : MonoBehaviour {
 		foreach (CombatCommand combatCommand in combatCommandList)
         {
 			
-		    GameObject b = Instantiate(Resources.Load("ButtonTemplate") as GameObject);
-            Button button = b.GetComponent<Button>();   //inherit button properties from Scriptable Object
+		    GameObject b = Instantiate(Resources.Load("ButtonTemplate") as GameObject); //instantiate button
+            Button button = b.GetComponent<Button>();         //inherit button properties from Scriptable Object
 
 			Text t = b.GetComponentInChildren<Text>();
 			t.text = combatCommand.commandName;
 
-            ColorBlock cb = button.colors;              // 
-            cb.normalColor = cController.combatantColor;            //inherity UI Color
-            button.colors = cb;   	
+            ColorBlock cb = button.colors;                          //inherit UI Color
+            cb.normalColor = cController.combatantColor;            //inherit UI Color pt 2
+            button.colors = cb;   	                                //inherit UI color pt 3
 			
 			button.onClick.AddListener(combatCommand._ButtonClick); 
             SendCommandToUI(b);  
