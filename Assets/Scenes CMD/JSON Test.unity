@@ -153,11 +153,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0cc07d062f77147b46fc8dc6992483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test1: 0
+  key: big po
+  test1: 1
   test2: 0
-  Hotpants: []
+  Hotpants:
+  - 2
+  - maga
+  - o
+  - ijo
+  - pppp
   tMoney: {fileID: 0}
-  path: E:/temp/thisThang.json
+  path: D:/temp/thisThang.json
 --- !u!1 &622949184
 GameObject:
   m_ObjectHideFlags: 0

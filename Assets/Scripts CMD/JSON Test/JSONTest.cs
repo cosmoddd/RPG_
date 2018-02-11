@@ -1,70 +1,77 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Text;
 using System;
+using System.IO;
+using System.Linq;
 
 public class JSONTest : MonoBehaviour {
 
+	public string key;	
 	public	bool test1;
 	public bool test2;
 	public	List<string> Hotpants;
 
+//	public string jsonString;
 	public TextAsset tMoney;
 
 	public string path;
 	// Use this for initialization
 	void Start () {
 
-		LoadFromJSON(path);
+		JSONPrep[] test = JsonHelper.FromJson<JSONPrep>(File.ReadAllText(path));
+		print(test);
 
-	}
-
-/* 		if (!File.Exists("e:\\temp\\thisThang.json"))
+	if (!File.Exists(path))
 			{
-				print("saving to JSON");
-				File.WriteAllText("e:\\temp\\thisThang.json", SaveToJSON());
+				
+				File.WriteAllText(path, SaveToJSON());
 			}
 
 
-
-
-/*     public static JSONPrep CreateFromJSON()
-    {
-        return JsonUtility.FromJson<JSONPrep>();
-    } */
-
-/* 	public void LoadGameData()
-	
-	{ 
-		
-	} */
-
-/* 	public void JSONTEST(){
-
-		JsonUtility.FromJson<JSONPrep>("e:\\temp\\thisThang.json");
-	} */
-
-	
-
-	public void LoadFromJSON(string path){
-
-		Debug.Log("loading from JSON");
-		JsonUtility.FromJson<JSONPrep>(path);
+//		LoadFromJSON(File.ReadAllText(path));
 
 	}
 
-/* 	public string SaveToJSON()
+
+
+
+	public void LoadFromJSON(string p)
+		{
+
+			Debug.Log("loading from JSON");
+			JsonUtility.FromJsonOverwrite(p, this);
+		
+		}
+
+	public string SaveToJSON()
 	{
-		return JsonUtility.ToJson(this);
-	} */
+/* 
+		JSONPrep[] test = JsonHelper.FromJson<JSONPrep>(File.ReadAllText(path));
+		print(test);
+		List<JSONPrep> testLoad = test.ToList();
+	
+		JSONPrep t = new JSONPrep();
+		t.key = this.key;
+		t.test1 = this.test1;
+		t.test2 = this.test2;
+		t.Hotpants = this.Hotpants;
+
+		testLoad.Add(t);
+
+		string jsonToSave = JsonHelper.ToJson(testLoad.ToArray(), true);  */
+
+		string jsonToSave = JsonUtility.ToJson(this, true);
+		
+//		print (jsonToSave);
+		return jsonToSave;
+	}
 }
-
-
 
 [Serializable]
 public class JSONPrep{
+	public string key;
 	public bool test1;
 	public bool test2;
+	public List <string> Hotpants;
 }

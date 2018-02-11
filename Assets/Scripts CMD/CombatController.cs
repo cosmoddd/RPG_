@@ -64,7 +64,7 @@ public class CombatController : MonoBehaviour, ISelectable
                DeSelectAllEvent();
             }
             SelectEvent();                          //then select
-            this.gameObject.AddComponent<CombatCommandsToUI>().combatCommandsToUI(this, combatantColor);       //select with color (to send to UI)
+            this.gameObject.AddComponent<CombatCommandsToUI>().combatCommandsToUI(this, combatantColor);       //select with color (and send to UI as command)
         }
 
         selected = true;                        // set script as selected (debugging only(?))
