@@ -13,12 +13,23 @@ public class JSONTest : MonoBehaviour {
 	public	List<string> Hotpants;
 
 	public string path;
-	// Use this for initialization
+
+	public int plasma;
+
 	void Start () {
 
-		LoadKey();
+	//	LoadKey();
+	
+	SavePrefs();
+
 	}
 
+	public void SavePrefs()
+	{
+		PlayerPrefs.SetInt("funky business", plasma);
+		PlayerPrefs.Save();
+		print("saved");
+	}
 
 	public void LoadKey(){
 
@@ -45,6 +56,8 @@ public class JSONTest : MonoBehaviour {
 			JsonUtility.FromJsonOverwrite(p, this);
 		
 		}
+
+
 
 	public string SaveToJSON()
 	{
