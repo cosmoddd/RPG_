@@ -12,29 +12,31 @@ public class JSONTest : MonoBehaviour {
 	public bool test2;
 	public	List<string> Hotpants;
 
-//	public string jsonString;
-	public TextAsset tMoney;
-
 	public string path;
 	// Use this for initialization
 	void Start () {
 
-		JSONPrep[] test = JsonHelper.FromJson<JSONPrep>(File.ReadAllText(path));
-		print(test);
-
-	if (!File.Exists(path))
-			{
-				
-				File.WriteAllText(path, SaveToJSON());
-			}
-
-
-//		LoadFromJSON(File.ReadAllText(path));
-
+		LoadKey();
 	}
 
 
+	public void LoadKey(){
 
+		string s = File.ReadAllText(path);
+		JSONPrep[] container = JsonHelper.FromJson<JSONPrep>(s);
+		foreach (JSONPrep j in container)
+		{
+ 		if (j.key == this.key)
+			{
+				print (j.key + " loaded.");
+				test1 = j.test1;
+				test2 = j.test2;
+				Hotpants = j.Hotpants;
+				return;
+			}
+		}
+		print ("not equal!");
+	}
 
 	public void LoadFromJSON(string p)
 		{
