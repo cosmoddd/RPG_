@@ -9,7 +9,7 @@ public class DistanceCalc : MonoBehaviour {
 
     public float cumulativeDistance = 0;
     public float currentDistance = 0;
-    public float maxDistance =20;
+    public float maxDistance;
 
     public List <float> currentDistanceSaved;
 
@@ -23,6 +23,9 @@ public class DistanceCalc : MonoBehaviour {
 
     public void Update()
     {
+
+        maxDistance = commandMove.combatController.listLengthAvailable;   // DISTANCE PLACABLE BY AVAILABLE COMMAND POINTS
+
         if (commandMove.canPlaceWaypoint == true)
            {
             CalculateDistance();
@@ -44,12 +47,14 @@ public class DistanceCalc : MonoBehaviour {
             pathwayLength = this.transform.parent.GetComponentInChildren<PathwayLength>();
         }
     }
+        //
+        // extension method  --V?
+        //
 
-    void DistanceAdd(Vector3 v)                //updates cumulative distance of nav points
+    void DistanceAdd(Vector3 v)                //updates cumulative distance of nav points  // NEEDS TO BE CHANGED
     {
         currentDistanceSaved.Add(currentDistance);
 
-        // extension method  --V?
 
         for (int i = Mathf.RoundToInt(cumulativeDistance); 
                     i < Mathf.RoundToInt((currentDistance + cumulativeDistance)); 
@@ -58,29 +63,24 @@ public class DistanceCalc : MonoBehaviour {
                         commandMove.combatController.CommandQueue.Insert(i, commandMove);
                     }
 
-        // extension method?  --^?
-
         cumulativeDistance = currentDistance + cumulativeDistance;
         currentDistance = 0f;
     }
     
     void Subtract()
     {
-
-        // extension method  --V?
-
-        for (int i = Mathf.RoundToInt(cumulativeDistance); 
+         for (int i = Mathf.RoundToInt(cumulativeDistance); 
                     i >= Mathf.RoundToInt(cumulativeDistance-currentDistanceSaved[currentDistanceSaved.Count -1]); 
                     i--)
                     {
                         commandMove.combatController.CommandQueue.RemoveAt(i);
                     }
-
-        // extension method?  --^?
-
         cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
         currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
     }
+        //
+        // extension method?  --^?
+        //
 
     public void ResetDistance()
     {

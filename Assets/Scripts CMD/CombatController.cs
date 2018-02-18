@@ -22,7 +22,8 @@ public class CombatController : MonoBehaviour, ISelectable
 
     public bool isPaused = false;
     public bool timerRunning = false;
-    public int listLength = 10;
+    public int listLength = 20;
+    public int listLengthAvailable;
 
     public CombatCommand mostRecentCommand;
 
@@ -37,10 +38,9 @@ public class CombatController : MonoBehaviour, ISelectable
 //        NavWaypoint.DeSelectAllEvent += DeSelect;   // add deSelect event to the Waypoint controller  // <- DO WE EVEN NEED THIS?
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
-        for (int i = 0; i < listLength; i++)
-            {        
-                CommandQueue.Add(null);             // add command queue
-            }
+
+        ResetListLength();
+
     }
 
     void AddToEventControl(CombatMasterControl combatMasterControl)
@@ -84,6 +84,36 @@ public class CombatController : MonoBehaviour, ISelectable
         this.gameObject.name = string.Concat(this.transform.parent.name,this.gameObject.name);
     }
 
+    public void ResetListLength(){
+
+        for (int i = 0; i < listLength; i++)
+			
+			if (CommandQueue.Count == 0)
+               {
+                for (int j = 0; j < listLength; j++)
+                    {        
+                        CommandQueue.Add(null);             // add command queue
+                    }
+                    listLengthAvailable = listLength;
+                    return;
+                }
+            
+            else if (CommandQueue[i] == null)
+                {
+                    int nullCount = 0;
+                    for (int j = CommandQueue.IndexOf(CommandQueue[i]); j < listLength; j++)
+                        {        
+                            CommandQueue.Add(null);             // add command queue
+                            nullCount ++;
+                        }
+                    CommandQueue.RemoveRange(listLength, (CommandQueue.Count - listLength));
+                    listLengthAvailable = nullCount;
+                    return;
+                }
+            CommandQueue.RemoveRange(listLength, (CommandQueue.Count - listLength));
+            listLengthAvailable = 0;
+            return;
+    }
 
     void CommandSelector(){
 

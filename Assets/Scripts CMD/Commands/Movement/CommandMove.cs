@@ -41,6 +41,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     public void Update()
     {
+        
 
         while(!combatController.selected)
         {
