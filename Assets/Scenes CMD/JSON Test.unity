@@ -154,10 +154,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: door1
-  test1: 0
-  test2: 0
-  Hotpants: []
-  path: D:/temp/thisThong.json
+  test1: 1
+  test2: 1
+  Hotpants:
+  - asdf
+  - asdf
+  - asdf
+  - asdf
+  - asdf
+  path: D:/temp/thisThooong.json
   plasma: 59
 --- !u!1 &622949184
 GameObject:

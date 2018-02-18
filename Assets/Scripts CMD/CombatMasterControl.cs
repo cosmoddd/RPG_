@@ -28,7 +28,7 @@ public GameObject zam;
 	{
 		yield return new WaitForSeconds(2f);
 		
-		if (CombatMasterControlEvent!= null)
+		if (CombatMasterControlEvent!= null)	// if there are combat controllers present...
 		CombatMasterControlEvent(this);  // signals all combat controllers to join my event system
 	}
 

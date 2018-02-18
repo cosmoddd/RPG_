@@ -19,16 +19,9 @@ public class JSONTest : MonoBehaviour {
 	void Start () {
 
 	//	LoadKey();
-	
-	SavePrefs();
 
-	}
+	SaveToJSON();
 
-	public void SavePrefs()
-	{
-		PlayerPrefs.SetInt("funky business", plasma);
-		PlayerPrefs.Save();
-		print("saved");
 	}
 
 	public void LoadKey(){
@@ -61,24 +54,30 @@ public class JSONTest : MonoBehaviour {
 
 	public string SaveToJSON()
 	{
-/* 
-		JSONPrep[] test = JsonHelper.FromJson<JSONPrep>(File.ReadAllText(path));
-		print(test);
-		List<JSONPrep> testLoad = test.ToList();
+
+		JSONPrep[] test = new JSONPrep[2];//JsonHelper.FromJson<JSONPrep>(File.ReadAllText(path));
+	//	print(test);
+		//List<JSONPrep> testLoad = test.ToList();
 	
-		JSONPrep t = new JSONPrep();
-		t.key = this.key;
-		t.test1 = this.test1;
-		t.test2 = this.test2;
-		t.Hotpants = this.Hotpants;
+		test[0] = new JSONPrep();
+		test[0].key = this.key;
+		test[0].test1 = this.test1;
+		test[0].test2 = this.test2;
+		test[0].Hotpants = this.Hotpants;
 
-		testLoad.Add(t);
+		test[1] = new JSONPrep();
+		test[1].key = this.key;
+		test[1].test1 = this.test1;
+		test[1].test2 = this.test2;
+		test[1].Hotpants = this.Hotpants;
 
-		string jsonToSave = JsonHelper.ToJson(testLoad.ToArray(), true);  */
+		//testLoad.Add(t);
 
-		string jsonToSave = JsonUtility.ToJson(this, true);
+		string jsonToSave = JsonHelper.ToJson(test.ToArray(), true); 
+
+//		string jsonToSave = JsonUtility.ToJson(this, true);
 		
-//		print (jsonToSave);
+		print (jsonToSave);
 		return jsonToSave;
 	}
 }

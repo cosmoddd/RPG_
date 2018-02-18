@@ -24,28 +24,28 @@ public class CombatController : MonoBehaviour, ISelectable
     public bool timerRunning = false;
     public int listLength = 10;
 
-    CombatCommand mostRecentCommand;
+    public CombatCommand mostRecentCommand;
 
     void Start()
     {
 
-        ResetName();
+        ResetName();        //reset the name of the object
 
-        CombatMasterControl.CombatMasterControlEvent += AddToEventControl;
+        CombatMasterControl.CombatMasterControlEvent += AddToEventControl;      // add this object to the Combat Master Controller
    
-        CombatController.DeSelectAllEvent += DeSelect;
-        NavWaypoint.DeSelectAllEvent += DeSelect;
+        CombatController.DeSelectAllEvent += DeSelect; // add select event to the Combat controller
+//        NavWaypoint.DeSelectAllEvent += DeSelect;   // add deSelect event to the Waypoint controller  // <- DO WE EVEN NEED THIS?
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         for (int i = 0; i < listLength; i++)
             {        
-                CommandQueue.Add(null);
+                CommandQueue.Add(null);             // add command queue
             }
     }
 
     void AddToEventControl(CombatMasterControl combatMasterControl)
     {
-        combatMasterControl.AddToEventControl(this);
+        combatMasterControl.AddToEventControl(this);    // add to event control (master list)
     }
 
     public void Select()
@@ -55,7 +55,6 @@ public class CombatController : MonoBehaviour, ISelectable
         {           
             if (DeSelectAllEvent != null)           // deselect everything first
                 DeSelectAllEvent();
-
         }
 
         else{                                        // -- OR --
@@ -85,9 +84,11 @@ public class CombatController : MonoBehaviour, ISelectable
         this.gameObject.name = string.Concat(this.transform.parent.name,this.gameObject.name);
     }
 
+
     void CommandSelector(){
 
       mostRecentCommand = CommandQueue[CommandQueue.Count - 1];
+      print(mostRecentCommand);
 
     }
 

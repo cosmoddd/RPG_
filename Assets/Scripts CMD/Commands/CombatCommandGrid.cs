@@ -13,7 +13,6 @@ public class CombatCommandGrid : MonoBehaviour {
 
 	void ClearUI(GameObject o)
 	{
-		print("clearing UI");
 		foreach (Transform child in transform) 
 		{
   	    	GameObject.Destroy(child.gameObject);
