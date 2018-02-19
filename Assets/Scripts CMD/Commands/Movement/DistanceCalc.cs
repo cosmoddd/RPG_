@@ -60,8 +60,8 @@ public class DistanceCalc : MonoBehaviour {
 			if (commandMove.combatController.CommandQueue[i] == null)// && 
 			//	(commandMove.combatController.CommandQueue.Count - commandMove.combatController.CommandQueue.IndexOf(combatController.CommandQueue[i])) >= WaitTime)
             {
-                for (int j = Mathf.RoundToInt(cumulativeDistance); 
-                            j < Mathf.RoundToInt((currentDistance + cumulativeDistance));j++)
+                for (int j = i; 
+                            j < (i + Mathf.RoundToInt(currentDistance));j++)
                             {
                                 commandMove.combatController.CommandQueue.Insert(i, commandMove);
                             }
@@ -77,17 +77,20 @@ public class DistanceCalc : MonoBehaviour {
     void Subtract()
     {
 
-        for (int i = commandMove.combatController.CommandQueue.Count; i > 0; i--)
+        for (int i = (commandMove.combatController.CommandQueue.Count - 1); i > 0; i--)
 		{	
-			if (commandMove.combatController.CommandQueue[i] == null)
-
-         for (int j = Mathf.RoundToInt(cumulativeDistance); 
-                    j >= Mathf.RoundToInt(cumulativeDistance-currentDistanceSaved[currentDistanceSaved.Count -1]);  j--)                  
-                    {
-                        commandMove.combatController.CommandQueue.RemoveAt(i);
-                    }
-        cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
-        currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
+			if (commandMove.combatController.CommandQueue[i] == commandMove)
+            {
+                for (int j = i; //Mathf.RoundToInt(cumulativeDistance); 
+                        j > (i - Mathf.RoundToInt(currentDistanceSaved[currentDistanceSaved.Count -1]));  j--)                  
+                        {
+                            commandMove.combatController.CommandQueue.RemoveAt(j);
+                        }
+                        cumulativeDistance = cumulativeDistance - currentDistanceSaved[currentDistanceSaved.Count -1];
+                        currentDistanceSaved.RemoveAt(currentDistanceSaved.Count -1);
+                        commandMove.combatController.ResetListLength();
+                        return;
+            }
         }
     }
         //

@@ -84,13 +84,13 @@ public class CombatController : MonoBehaviour, ISelectable
         this.gameObject.name = string.Concat(this.transform.parent.name,this.gameObject.name);
     }
 
-    public void ResetListLength(){
+    public void ResetListLength(){      // this needs to be its own function
 
         for (int i = 0; i < listLength; i++)
 			
 			if (CommandQueue.Count == 0)
                {
-                for (int j = 0; j < listLength; j++)
+                for (int j = 0; j < listLength; j++)        // If command queue is empty.
                     {        
                         CommandQueue.Add(null);             // add command queue
                     }
@@ -101,7 +101,7 @@ public class CombatController : MonoBehaviour, ISelectable
             else if (CommandQueue[i] == null)
                 {
                     int nullCount = 0;
-                    for (int j = CommandQueue.IndexOf(CommandQueue[i]); j < listLength; j++)
+                    for (int j = CommandQueue.IndexOf(CommandQueue[i]); j < listLength; j++)    // If command queue is partially full.
                         {        
                             CommandQueue.Add(null);             // add command queue
                             nullCount ++;
@@ -109,6 +109,18 @@ public class CombatController : MonoBehaviour, ISelectable
                     CommandQueue.RemoveRange(listLength, (CommandQueue.Count - listLength));
                     listLengthAvailable = nullCount;
                     return;
+                }
+            else if (i == (CommandQueue.Count -1) && CommandQueue.Count != listLength)      // If command queue is full.
+                {
+                    int nullCount = 0;
+                    for (int j = (i+1); j < listLength; j++)
+                        {        
+                            CommandQueue.Add(null);             // add command queue
+                            nullCount ++;
+                        }
+                    listLengthAvailable = nullCount;
+                    return;
+
                 }
             CommandQueue.RemoveRange(listLength, (CommandQueue.Count - listLength));
             listLengthAvailable = 0;
