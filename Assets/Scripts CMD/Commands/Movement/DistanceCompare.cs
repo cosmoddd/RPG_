@@ -19,14 +19,14 @@ public class DistanceCompare : MonoBehaviour {
         distanceCalc = d;
 
         if (distanceCalc != null){
-            if ((distanceCalc.currentDistance + distanceCalc.cumulativeDistance) < distanceCalc.maxDistance)
+            if ((distanceCalc.currentDistance /*+ distanceCalc.cumulativeDistance */) < distanceCalc.maxDistance)
                 {
                     InRange =true;
                     if (InsideRange != null){
                     InsideRange();
                     }
                 }
-            if ((distanceCalc.currentDistance + distanceCalc.cumulativeDistance) >= distanceCalc.maxDistance) 
+            if ((distanceCalc.currentDistance/* + distanceCalc.cumulativeDistance */) >= distanceCalc.maxDistance) 
                 {
                     InRange=false;
                     if (OutOfRange != null){

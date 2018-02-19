@@ -514,7 +514,8 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   isPaused: 0
   timerRunning: 0
-  listLength: 4
+  listLength: 10
+  listLengthAvailable: 0
   mostRecentCommand: {fileID: 0}
 --- !u!23 &308999363
 MeshRenderer:
@@ -1059,6 +1060,7 @@ MonoBehaviour:
   isPaused: 0
   timerRunning: 0
   listLength: 10
+  listLengthAvailable: 0
   mostRecentCommand: {fileID: 0}
 --- !u!114 &928113597
 MonoBehaviour:
@@ -1637,6 +1639,7 @@ MonoBehaviour:
   isPaused: 0
   timerRunning: 0
   listLength: 10
+  listLengthAvailable: 0
   mostRecentCommand: {fileID: 0}
 --- !u!23 &1697418984
 MeshRenderer:
