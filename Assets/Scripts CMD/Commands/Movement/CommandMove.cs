@@ -102,7 +102,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
     void DelayedReady()
     {
-        //base.selected = true;
         canPlaceWaypoint = true;
         this.enabled = true;
     }

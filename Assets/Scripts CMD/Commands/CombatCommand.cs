@@ -21,7 +21,7 @@ public abstract class   CombatCommand : MonoBehaviour {
 
     }
 
-     public virtual void _DeSelectEvent()
+    public virtual void _DeSelectEvent()
     {   
 
     }
@@ -31,7 +31,7 @@ public abstract class   CombatCommand : MonoBehaviour {
 
 	}
 
-	virtual public void OnDisable(){
+	public virtual void OnDisable(){
 
 		combatController.SelectEvent -= _SelectEvent;   
 		CombatController.DeSelectAllEvent -= _DeSelectEvent;   

@@ -11,8 +11,8 @@ public class CombatController : MonoBehaviour, ISelectable
   	public event SelectionDelegate SelectEvent;
 	public static event SelectionDelegate DeSelectAllEvent;
 
-    public delegate void SelectionWithColor(Color c);
-    public event SelectionWithColor SelectWithColor;
+/*     public delegate void SelectionWithColor(Color c);
+    public event SelectionWithColor SelectWithColor; */  // do we need this?
 
     public bool selected;
     public Color combatantColor;
@@ -32,9 +32,9 @@ public class CombatController : MonoBehaviour, ISelectable
 
         ResetName();        //reset the name of the object
 
-        CombatMasterControl.CombatMasterControlEvent += AddToEventControl;      // add this object to the Combat Master Controller
-   
-        CombatController.DeSelectAllEvent += DeSelect; // add select event to the Combat controller
+        CombatMasterControl.CombatMasterControlEvent += AddToEventControl;      // add this object to the Combat Master Controller  
+        CombatController.DeSelectAllEvent += DeSelect; // add select event to the Combat controller      
+
 //        NavWaypoint.DeSelectAllEvent += DeSelect;   // add deSelect event to the Waypoint controller  // <- DO WE EVEN NEED THIS?
 
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
@@ -63,7 +63,8 @@ public class CombatController : MonoBehaviour, ISelectable
                DeSelectAllEvent();
             }
             SelectEvent();                          //then select
-            this.gameObject.AddComponent<CombatCommandsToUI>().combatCommandsToUI(this, combatantColor);       //select with color (and send to UI as command)
+            this.gameObject.AddComponent<CombatCommandsToUI>().combatCommandsToUI(this, combatantColor);       //select with color (and send to UI as command)         
+            
         }
 
         selected = true;                        // set script as selected (debugging only(?))
@@ -126,6 +127,8 @@ public class CombatController : MonoBehaviour, ISelectable
             listLengthAvailable = 0;
             return;
     }
+
+
 
     void CommandSelector(){
 
