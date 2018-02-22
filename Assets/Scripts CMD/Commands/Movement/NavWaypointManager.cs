@@ -23,7 +23,7 @@ public class NavWaypointManager : MonoBehaviour    // this class should specific
         commandMove = this.gameObject.GetComponent<CommandMove>();
 
         commandMove.Clicked += NavPointPlace;
-        commandMove.RightClicked += DeSpawn;
+        commandMove.RemoveWaypoint += DeSpawn;
 
         CombatController.DeSelectAllEvent += AddColliderToWaypoint;
         commandMove.combatController.SelectEvent += RemoveColliderFromWaypoint;

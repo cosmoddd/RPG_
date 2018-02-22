@@ -10,20 +10,15 @@ public class DistanceCalc : MonoBehaviour {
     public float cumulativeDistance = 0;
     public float currentDistance = 0;
     public float maxDistance;
-
     public List <float> currentDistanceSaved;
 
-
 	void OnEnable(){
-
   		commandMove = this.transform.GetComponent<CommandMove>(); 
         commandMove.Clicked += DistanceAdd;
-
 	}
 
     public void Update()
     {
-
         maxDistance = commandMove.combatController.listLengthAvailable;   // DISTANCE PLACABLE BY AVAILABLE COMMAND POINTS
 
         if (commandMove.canPlaceWaypoint == true)
@@ -34,7 +29,7 @@ public class DistanceCalc : MonoBehaviour {
                 return;
             }
 
-        if (pathwayLength != null)
+        if (pathwayLength != null)                      // if statement placement here is important
         {
           currentDistance = pathwayLength.distance;
         }
@@ -57,8 +52,7 @@ public class DistanceCalc : MonoBehaviour {
 
         for (int i = 0; i < commandMove.combatController.CommandQueue.Count; i++)
 		{	
-			if (commandMove.combatController.CommandQueue[i] == null)// && 
-			//	(commandMove.combatController.CommandQueue.Count - commandMove.combatController.CommandQueue.IndexOf(combatController.CommandQueue[i])) >= WaitTime)
+			if (commandMove.combatController.CommandQueue[i] == null)
             {
                 for (int j = i; 
                             j < (i + Mathf.RoundToInt(currentDistance));j++)
@@ -81,7 +75,7 @@ public class DistanceCalc : MonoBehaviour {
 		{	
 			if (commandMove.combatController.CommandQueue[i] == commandMove)
             {
-                for (int j = i; //Mathf.RoundToInt(cumulativeDistance); 
+                for (int j = i;
                         j > (i - Mathf.RoundToInt(currentDistanceSaved[currentDistanceSaved.Count -1]));  j--)                  
                         {
                             commandMove.combatController.CommandQueue.RemoveAt(j);

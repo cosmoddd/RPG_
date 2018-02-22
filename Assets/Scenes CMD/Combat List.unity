@@ -1286,6 +1286,7 @@ GameObject:
   - component: {fileID: 1120000203}
   - component: {fileID: 1120000202}
   - component: {fileID: 1120000205}
+  - component: {fileID: 1120000206}
   m_Layer: 5
   m_Name: Button_Delete
   m_TagString: Untagged
@@ -1409,6 +1410,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatControllerSelected: {fileID: 0}
+--- !u!114 &1120000206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1120000200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1596247742}
+          m_MethodName: HoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1596247742}
+          m_MethodName: HoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &1216291762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1675,7 @@ GameObject:
   - component: {fileID: 1596247740}
   - component: {fileID: 1596247739}
   - component: {fileID: 1596247738}
+  - component: {fileID: 1596247742}
   m_Layer: 5
   m_Name: _MasterCombatSystemUI
   m_TagString: Untagged
@@ -1712,6 +1761,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1596247742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1596247737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990a807653c2a047bb4783f68e9536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hovering: 0
 --- !u!1 &1643912796
 GameObject:
   m_ObjectHideFlags: 0

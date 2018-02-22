@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class PathwayActivate : MonoBehaviour    // this class should specifically deal with the addition and deletion of waypoints

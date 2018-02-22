@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(NavWaypointManager))]
 [RequireComponent(typeof(DistanceCalc))]
@@ -12,7 +13,7 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
     public delegate void SetPointDelegate(Vector3 point);
 
     public event SetPointDelegate Clicked;
-    public event SetPointDelegate RightClicked; 
+    public event SetPointDelegate RemoveWaypoint;
 
     public bool canPlaceWaypoint;
     public bool hoveringOverSomething;
@@ -36,12 +37,10 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
         distanceCalc = GetComponent<DistanceCalc>();
         distanceCompare = GetComponent<DistanceCompare>();
         transform.localPosition = new Vector3(0, 0, 0);
-
     }
 
     public void Update()
     {
-        
 
         while(!combatController.selected)
         {
@@ -50,23 +49,15 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         distanceCompare.DistanceTest(distanceCalc);
 
-        if (Input.GetMouseButtonDown(0) && distanceCompare.InRange == true && canPlaceWaypoint && !hoveringOverSomething)  // Left Click
+        if (Input.GetMouseButtonDown(0) && distanceCompare.InRange == true && canPlaceWaypoint && !hoveringOverSomething && !EventSystem.current.IsPointerOverGameObject())  // Left Click
         {
             Clicked(GetThePoint.PickVector3());  //send point out to all relevant scripts
             return;
         }
 
-        if (Input.GetMouseButtonDown(1) && !hoveringOverSomething)  // Right Click
+        if (Input.GetMouseButtonDown(1) && !hoveringOverSomething && !EventSystem.current.IsPointerOverGameObject())  // Right Click
         {
-            RemoveCommand();
-        }
-
-    }
-
-
-    public override void RemoveCommand(){
-
-            RightClicked(GetThePoint.PickVector3());
+            RemoveWaypoint(GetThePoint.PickVector3());
             if (canPlaceWaypoint)
             {   
                 distanceCalc.currentDistance = 0;
@@ -79,6 +70,16 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
                 canPlaceWaypoint = true;
                 return;
             }
+            return;
+        }
+
+    }
+
+    public override void RemoveCommand(){
+
+            RemoveWaypoint(GetThePoint.PickVector3());
+            distanceCalc.currentDistance = 0;
+            canPlaceWaypoint = false;
             return;
 
     }

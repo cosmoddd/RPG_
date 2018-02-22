@@ -1,22 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class NavRemove : MonoBehaviour {
     
+    GameObject mostRecentNav;
+
+
     public void DeSpawn(List<GameObject> navPointObjects, Vector3 v, GameObject navSpawned, GameObject lObj, LineRenderer l)      //checker for dynamically retracting the placed navpoints
     {
-
-        if (navSpawned != null && (l.enabled == true))  // If there's a line but no point.
+        if (EventSystem.current.IsPointerOverGameObject()) // if hovering over UI 
         {
-            
+            Clear(navPointObjects, lObj, this.gameObject.GetComponent<NavWaypointManager>());
+            if (mostRecentNav != null && mostRecentNav.GetComponent<BoxCollider>() == null)
+                {
+                    print("collider added");
+                    print(mostRecentNav.name);
+                    mostRecentNav.AddComponent<BoxCollider>();
+                }
+            Destroy(this);
+            return;          
+        }
+
+        if ((navSpawned != null && (l.enabled == true)))  // RIGHT CLICK -- If there's a line but no point 
+        {           
             l.enabled = false;
             navSpawned.AddComponent<BoxCollider>();
             Destroy(this);
             return;
         }
 
-        if (navSpawned != null && (l.enabled == false))  // If there's a point but no line.
+        if (navSpawned != null && (l.enabled == false))  // RIGHT CLICK -- If there's a point but no line.
         {
             Clear(navPointObjects, lObj, this.gameObject.GetComponent<NavWaypointManager>());
             l.enabled = true;
@@ -38,15 +53,15 @@ public class NavRemove : MonoBehaviour {
         Destroy(navPointObjects[navPointObjects.Count-1]);
         navPointObjects.Remove(navPointObjects[navPointObjects.Count-1]);
 
-        if (navPointObjects.Count - 1 > -1)
+        if (navPointObjects.Count - 1 > -1)                                     // if the list is not empty
         {
-            GameObject mostRecentNav = navPointObjects[navPointObjects.Count - 1];
+            mostRecentNav = navPointObjects[navPointObjects.Count - 1];
             
             lineRenderObject.SendMessage("SetAgentSource", mostRecentNav);
             lineRenderObject = mostRecentNav;
             navWaypointManager.navPointPrefabSpawned = mostRecentNav;
         }
-        else
+        else                                                                     // if the list is empty (for some reason)
         {
             lineRenderObject = transform.parent.GetComponentInChildren<PathwayDraw>().gameObject;
             lineRenderObject.SendMessage("SetAgentSource", this.transform.parent.parent.gameObject);

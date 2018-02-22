@@ -8,7 +8,7 @@ public class NavDestroyEverything : MonoBehaviour {
     public void navDestroyEverything(NavWaypointManager n){         //destroyes entire movement command hierarchy and starts from scratch
 
         n.commandMove.Clicked -= n.NavPointPlace;
-        n.commandMove.RightClicked -= n.DeSpawn;
+        n.commandMove.RemoveWaypoint -= n.DeSpawn;
         n.commandMove.combatController.SelectEvent -= n.RemoveColliderFromWaypoint;
         CombatController.DeSelectAllEvent -= n.AddColliderToWaypoint;
 

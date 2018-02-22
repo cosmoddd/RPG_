@@ -35,7 +35,7 @@ public class PathwayRed : MonoBehaviour
         if (commandMove == null){
 
             commandMove = this.transform.parent.GetComponentInChildren<CommandMove>();
-            commandMove.RightClicked += InsideRangeRC;
+            commandMove.RemoveWaypoint += InsideRangeRC;
 			return;
         }
 
