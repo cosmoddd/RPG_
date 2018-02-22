@@ -30,4 +30,18 @@ void RevealTheThing(){
 
 }
 
+public void RemoveCommand()
+{
+    CombatCommand combatCommand;
+	for (int i = (combatControllerSelected.CommandQueue.Count - 1); i >= 0; i--)
+    {
+        if (combatControllerSelected.CommandQueue[i] != null)
+        {
+            combatCommand = combatControllerSelected.CommandQueue[i];
+            combatCommand.RemoveCommand();
+            return;
+        }
+    }
+}
+
 }

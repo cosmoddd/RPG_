@@ -58,6 +58,14 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
 
         if (Input.GetMouseButtonDown(1) && !hoveringOverSomething)  // Right Click
         {
+            RemoveCommand();
+        }
+
+    }
+
+
+    public override void RemoveCommand(){
+
             RightClicked(GetThePoint.PickVector3());
             if (canPlaceWaypoint)
             {   
@@ -72,7 +80,6 @@ public class CommandMove : CombatCommand  // the master controller for the 'Move
                 return;
             }
             return;
-        }
 
     }
 

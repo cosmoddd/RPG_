@@ -18,17 +18,18 @@ public abstract class   CombatCommand : MonoBehaviour {
 
     public void _SelectEvent()
     {
-
     }
 
     public virtual void _DeSelectEvent()
     {   
-
     }
 
 	public virtual void _ButtonClick()
 	{
+	}
 
+	public virtual void RemoveCommand()
+	{
 	}
 
 	public virtual void OnDisable(){

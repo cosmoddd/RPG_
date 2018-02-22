@@ -11,7 +11,6 @@ public class CommandWait : CombatCommand {
 		AddPause();
 	}
 
-
 	public void AddPause(){  				//add pause command to command queue
 
 		for (int i = 0; i < combatController.CommandQueue.Count; i++)
@@ -27,5 +26,22 @@ public class CommandWait : CombatCommand {
 					combatController.ResetListLength();
 					return;
 				}			
+	}
+
+	public override void  RemoveCommand()
+	{
+		for (int i = (combatController.CommandQueue.Count - 1); i >= 0; i--)
+			
+			if (combatController.CommandQueue[i] == this)// && 
+				//(combatController.CommandQueue.Count - combatController.CommandQueue.IndexOf(combatController.CommandQueue[i])) >= WaitTime)
+				{
+					for (int j = i; j > (i - WaitTime); j--)
+					{
+						combatController.CommandQueue.RemoveAt(j);
+					//	i--;
+					}
+					combatController.ResetListLength();
+					return;
+				}	
 	}
 }
