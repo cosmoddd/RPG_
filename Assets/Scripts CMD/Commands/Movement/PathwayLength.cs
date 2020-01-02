@@ -10,7 +10,6 @@ using UnityEngine.AI;
 public class PathwayLength : MonoBehaviour {  // Live update of the distance between two points.
 
 	public NavMeshAgent navMeshAgent;
-    NavMeshPath path;
     public float distance;
 
 	void Update () {
